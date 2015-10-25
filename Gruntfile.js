@@ -9,6 +9,10 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
 
+    // Clean.
+    clean: {
+      dist: 'dist'
+    },
 
     // Compile less to .css
     // Compile less to .min.css
@@ -39,7 +43,7 @@ module.exports = function(grunt) {
           "dist/css/material-fullpalette.css": modulePath.bootstrapMaterialDesign + "less/material-fullpalette.less",
         }
       },
-      roboto: {
+      materialRoboto: {
         options: {
           paths: ["less"],
           sourceMap: true,
@@ -52,7 +56,7 @@ module.exports = function(grunt) {
           "dist/css/roboto.css": modulePath.bootstrapMaterialDesign + "less/roboto.less",
         }
       },
-      ripples: {
+      materialRipples: {
         options: {
           paths: ["less"],
           sourceMap: true,
@@ -86,13 +90,13 @@ module.exports = function(grunt) {
           "dist/css/material-fullpalette.min.css": "dist/css/material-fullpalette.min.css"
         }
       },
-      roboto: {
+      materialRoboto: {
         files: {
           "dist/css/roboto.css": "dist/css/roboto.css",
           "dist/css/roboto.min.css": "dist/css/roboto.min.css"
         }
       },
-      ripples: {
+      materialRipples: {
         files: {
           "dist/css/ripples.css": "dist/css/ripples.css",
           "dist/css/ripples.min.css": "dist/css/ripples.min.css"
@@ -110,11 +114,11 @@ module.exports = function(grunt) {
         src: "dist/css/material-fullpalette.css",
         dest: "dist/css/material-fullpalette.min.css"
       },
-      roboto: {
+      materialRoboto: {
         src: "dist/css/roboto.css",
         dest: "dist/css/roboto.min.css"
       },
-      ripples: {
+      materialRipples: {
         src: "dist/css/ripples.css",
         dest: "dist/css/ripples.min.css"
       }
@@ -126,11 +130,11 @@ module.exports = function(grunt) {
         src: modulePath.bootstrapMaterialDesign + "scripts/material.js",
         dest: "dist/js/material.js"
       },
-      ripples: {
+      materialRipples: {
         src: modulePath.bootstrapMaterialDesign + "scripts/ripples.js",
         dest: "dist/js/ripples.js"
       },
-      fonts: {
+      materialFonts: {
         expand: true,
         cwd: modulePath.bootstrapMaterialDesign + "fonts/",
         src: "**",
@@ -150,7 +154,7 @@ module.exports = function(grunt) {
           "dist/js/material.min.js": "dist/js/material.js"
         }
       },
-      ripples: {
+      materialRipples: {
         files: {
           "dist/js/ripples.min.js": "dist/js/ripples.js"
         }
@@ -179,7 +183,7 @@ module.exports = function(grunt) {
       }
     },
     jasmine: {
-      scripts: "scripts/**/*.js",
+      scripts: modulePath.bootstrapMaterialDesign + "scripts/**/*.js",
       options: {
         build: true,
         specs: "test/*Spec.js",
@@ -198,8 +202,7 @@ module.exports = function(grunt) {
       all: [
         "Gruntfile.js",
         modulePath.bootstrapMaterialDesign + "scripts/**/*.js",
-        "template/**/*.js",
-        "!template/**/*.min.js"
+        "src/**/*.js"
       ],
       test: {
         options: {
@@ -210,7 +213,11 @@ module.exports = function(grunt) {
     },
     watch: {
       js: {
-        files: ["Gruntfile.js", modulePath.bootstrapMaterialDesign + "scripts/**/*.js", "template/**/*.js"],
+        files: [
+          "Gruntfile.js", 
+          modulePath.bootstrapMaterialDesign + "scripts/**/*.js", 
+          "src/js/**/*.js"
+        ],
         tasks: ["newer:jshint:all"]
       },
       jsTest: {
@@ -218,7 +225,10 @@ module.exports = function(grunt) {
         tasks: ["newer:jshint:test", "jasmine"]
       },
       less: {
-        files:[modulePath.bootstrapMaterialDesign + "less/**/*.less"],
+        files:[
+          modulePath.bootstrapMaterialDesign + "less/**/*.less",
+          "src/less/**/*.less"
+        ],
         tasks: ["material:less"]
       },
       livereload: {
@@ -235,7 +245,7 @@ module.exports = function(grunt) {
 
   });
 
-  grunt.registerTask("default", ["material", "ripples", "fonts"]);
+  grunt.registerTask("default", ["clean:dist", "material", "materialRipples", "materialFonts"]);
 
   grunt.registerTask("material", [
     "material:less",
@@ -244,35 +254,35 @@ module.exports = function(grunt) {
   grunt.registerTask("material:less", [
     "less:material",
     "less:materialfullpalette",
-    "less:roboto",
+    "less:materialRoboto",
     "csswring:material",
     "csswring:materialfullpalette",
-    "csswring:roboto",
+    "csswring:materialRoboto",
     "autoprefixer:material",
     "autoprefixer:materialfullpalette",
-    "autoprefixer:roboto"
+    "autoprefixer:materialRoboto"
   ]);
   grunt.registerTask("material:js", [
     "copy:material",
     "uglify:material"
   ]);
 
-  grunt.registerTask("ripples", [
-    "ripples:less",
-    "ripples:js"
+  grunt.registerTask("materialRipples", [
+    "materialRipples:less",
+    "materialRipples:js"
   ]);
-  grunt.registerTask("ripples:less", [
-    "less:ripples",
-    "csswring:ripples",
-    "autoprefixer:ripples"
+  grunt.registerTask("materialRipples:less", [
+    "less:materialRipples",
+    "csswring:materialRipples",
+    "autoprefixer:materialRipples"
   ]);
-  grunt.registerTask("ripples:js", [
-    "copy:ripples",
-    "uglify:ripples"
+  grunt.registerTask("materialRipples:js", [
+    "copy:materialRipples",
+    "uglify:materialRipples"
   ]);
 
-  grunt.registerTask("fonts", [
-    "copy:fonts"
+  grunt.registerTask("materialFonts", [
+    "copy:materialFonts"
   ]);
 
   grunt.registerTask("build", function() {
