@@ -1,0 +1,28 @@
+{
+  "name": "clickberry-web",
+  "homepage": "https://github.com/clickberry/web",
+  "authors": [
+    "Alexey <alexey.ernest@gmail.com>"
+  ],
+  "description": "Web UI for clickberry web services",
+  "main": "",
+  "moduleType": [],
+  "keywords": [
+    "clickberry",
+    "web-services",
+    "ui"
+  ],
+  "license": "GNU GPL v3",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-material-design": "~0.3.0",
+    "bootstrap": "~3.3.5",
+    "jquery": "~2.1.4"
+  }
+}
