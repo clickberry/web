@@ -4,10 +4,14 @@ module.exports = function(grunt) {
   require("load-grunt-tasks")(grunt);
 
   var modulePath = {
+    bootstrap: "./bower_components/bootstrap/",
     bootstrapMaterialDesign: "./bower_components/bootstrap-material-design/"
   };
 
   grunt.initConfig({
+
+    // Metadata.
+    bootstrappkg: grunt.file.readJSON(modulePath.bootstrap + 'package.json'),
 
     // Clean.
     clean: {
@@ -18,6 +22,18 @@ module.exports = function(grunt) {
     // Compile less to .min.css
     // Create source maps of both
     less: {
+      bootstrap: {
+        options: {
+          paths: ["less"],
+          sourceMap: true,
+          sourceMapRootpath: "/",
+          sourceMapFilename: 'dist/css/<%= bootstrappkg.name %>.css.map',
+          sourceMapURL: '<%= bootstrappkg.name %>.css.map'
+        },
+        files: {
+          "dist/css/<%= bootstrappkg.name %>.css": modulePath.bootstrap + "less/<%= bootstrappkg.name %>.less",
+        }
+      },
       material: {
         options: {
           paths: ["less"],
@@ -78,6 +94,12 @@ module.exports = function(grunt) {
         map: true,
         browsers: ["last 3 versions", "ie 8", "ie 9", "ie 10", "ie 11"]
       },
+      bootstrap: {
+        files: {
+          "dist/css/<%= bootstrappkg.name %>.css": "dist/css/<%= bootstrappkg.name %>.css",
+          "dist/css/<%= bootstrappkg.name %>.min.css": "dist/css/<%= bootstrappkg.name %>.min.css"
+        }
+      },
       material: {
         files: {
           "dist/css/material.css": "dist/css/material.css",
@@ -106,6 +128,10 @@ module.exports = function(grunt) {
 
     // Minify CSS and adapt maps
     csswring: {
+      bootstrap: {
+        src: "dist/css/<%= bootstrappkg.name %>.css",
+        dest: "dist/css/<%= bootstrappkg.name %>.min.css"
+      },
       material: {
         src: "dist/css/material.css",
         dest: "dist/css/material.min.css"
@@ -124,8 +150,29 @@ module.exports = function(grunt) {
       }
     },
 
-    // Copy .js to dist/js/ folder
+    // Sort css rules.
+    csscomb: {
+      options: {
+        config: '.csscomb.json'
+      },
+      bootstrap: {
+        expand: true,
+        cwd: 'dist/css/',
+        src: ['<%= bootstrappkg.name %>.css', '!<%= bootstrappkg.name %>.min.css'],
+        dest: 'dist/css/'
+      }
+    },
+
+    // Copy .js and fonts to dist folder
     copy: {
+      bootstrapFonts: {
+        expand: true,
+        cwd: modulePath.bootstrap + "fonts/",
+        src: "**",
+        dest: "dist/fonts/",
+        flatten: true,
+        filter: "isFile"
+      },
       material: {
         src: modulePath.bootstrapMaterialDesign + "scripts/material.js",
         dest: "dist/js/material.js"
@@ -144,10 +191,36 @@ module.exports = function(grunt) {
       }
     },
 
+    // Concatenate files.
+    concat: {
+      bootstrap: {
+        src: [
+          modulePath.bootstrap + 'js/transition.js',
+          modulePath.bootstrap + 'js/alert.js',
+          modulePath.bootstrap + 'js/button.js',
+          modulePath.bootstrap + 'js/carousel.js',
+          modulePath.bootstrap + 'js/collapse.js',
+          modulePath.bootstrap + 'js/dropdown.js',
+          modulePath.bootstrap + 'js/modal.js',
+          modulePath.bootstrap + 'js/tooltip.js',
+          modulePath.bootstrap + 'js/popover.js',
+          modulePath.bootstrap + 'js/scrollspy.js',
+          modulePath.bootstrap + 'js/tab.js',
+          modulePath.bootstrap + 'js/affix.js'
+        ],
+        dest: 'dist/js/<%= bootstrappkg.name %>.js'
+      }
+    },
+
     // Compile .js to .min.js
     uglify: {
       options: {
         sourceMap: true
+      },
+      bootstrap: {
+        files: {
+          "dist/js/<%= bootstrappkg.name %>.min.js": "dist/js/<%= bootstrappkg.name %>.js"
+        }
       },
       material: {
         files: {
@@ -201,7 +274,6 @@ module.exports = function(grunt) {
       },
       all: [
         "Gruntfile.js",
-        modulePath.bootstrapMaterialDesign + "scripts/**/*.js",
         "src/**/*.js"
       ],
       test: {
@@ -211,11 +283,12 @@ module.exports = function(grunt) {
         }
       }
     },
+
+    // Watch for file changes
     watch: {
       js: {
         files: [
           "Gruntfile.js", 
-          modulePath.bootstrapMaterialDesign + "scripts/**/*.js", 
           "src/js/**/*.js"
         ],
         tasks: ["newer:jshint:all"]
@@ -226,7 +299,6 @@ module.exports = function(grunt) {
       },
       less: {
         files:[
-          modulePath.bootstrapMaterialDesign + "less/**/*.less",
           "src/less/**/*.less"
         ],
         tasks: ["material:less"]
@@ -245,8 +317,35 @@ module.exports = function(grunt) {
 
   });
 
-  grunt.registerTask("default", ["clean:dist", "material", "materialRipples", "materialFonts"]);
+  grunt.registerTask("default", ["clean:dist", "bootstrap", "bootstrap-material"]);
 
+  grunt.registerTask("bootstrap", [
+    "bootstrap-core",
+    "bootstrapFonts"
+  ]);
+  grunt.registerTask("bootstrap-core", [
+    "bootstrap:less",
+    "bootstrap:js"
+  ]);
+  grunt.registerTask("bootstrap:less", [
+    "less:bootstrap",
+    "csscomb:bootstrap", 
+    "csswring:bootstrap",
+    "autoprefixer:bootstrap",
+  ]);
+  grunt.registerTask("bootstrap:js", [
+    "concat:bootstrap",
+    "uglify:bootstrap"
+  ]);  
+  grunt.registerTask("bootstrapFonts", [
+    "copy:bootstrapFonts"
+  ]);
+
+  grunt.registerTask("bootstrap-material", [
+    "material",
+    "materialRipples",
+    "materialFonts"
+  ]);
   grunt.registerTask("material", [
     "material:less",
     "material:js"
