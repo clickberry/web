@@ -239,7 +239,7 @@ module.exports = function(grunt) {
     jade: {
       common: {
         files: {
-          'dist/html/': [modulePath.srcJade + '*.jade']
+          'dist/': [modulePath.srcJade + '*.jade']
         },
         options: {
           client: false
