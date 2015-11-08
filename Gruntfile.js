@@ -6,7 +6,11 @@ module.exports = function(grunt) {
   var modulePath = {
     bootstrap: "./bower_components/bootstrap/",
     bootstrapMaterialDesign: "./bower_components/bootstrap-material-design/",
-    srcJade: "./src/jade/"
+    srcJade: "./src/jade/",
+    srcJs: "./src/js/",
+    jquery: "./bower_components/jquery/",
+    angular: "./bower_components/angular/",
+    angularUiRouter: "./bower_components/angular-ui-router/"
   };
 
   grunt.initConfig({
@@ -164,8 +168,15 @@ module.exports = function(grunt) {
       }
     },
 
-    // Copy .js and fonts to dist folder
+    // Copy to dist folder
     copy: {
+      common: {
+        expand: true,
+        src: "src/*.*",
+        dest: "dist/",
+        flatten: true,
+        filter: "isFile"
+      },
       bootstrapFonts: {
         expand: true,
         cwd: modulePath.bootstrap + "fonts/",
@@ -189,6 +200,18 @@ module.exports = function(grunt) {
         dest: "dist/fonts/",
         flatten: true,
         filter: "isFile"
+      },
+      jquery: {
+        src: modulePath.jquery + "dist/jquery.js",
+        dest: "dist/js/jquery.js"
+      },
+      angular: {
+        src: modulePath.angular + "angular.js",
+        dest: "dist/js/angular.js"
+      },
+      angularUiRouter: {
+        src: modulePath.angularUiRouter + "release/angular-ui-router.js",
+        dest: "dist/js/angular-ui-router.js"
       }
     },
 
@@ -210,6 +233,12 @@ module.exports = function(grunt) {
           modulePath.bootstrap + 'js/affix.js'
         ],
         dest: 'dist/js/<%= bootstrappkg.name %>.js'
+      },
+      app: {
+        src: [
+          modulePath.srcJs + '*.js'
+        ],
+        dest: 'dist/js/clbr.js'
       }
     },
 
@@ -232,14 +261,34 @@ module.exports = function(grunt) {
         files: {
           "dist/js/ripples.min.js": "dist/js/ripples.js"
         }
-      }
+      },
+      jquery: {
+        files: {
+          "dist/js/jquery.min.js": "dist/js/jquery.js"
+        }
+      },
+      angular: {
+        files: {
+          "dist/js/angular.min.js": "dist/js/angular.js"
+        }
+      },
+      angularUiRouter: {
+        files: {
+          "dist/js/angular-ui-router.min.js": "dist/js/angular-ui-router.js"
+        }
+      },
+      app: {
+        files: {
+          "dist/js/clbr.min.js": "dist/js/clbr.js"
+        }
+      },
     },
 
     // Jade
     jade: {
       common: {
         files: {
-          'dist/': [modulePath.srcJade + '*.jade']
+          'dist/': [modulePath.srcJade + 'index.jade']
         },
         options: {
           client: false
@@ -331,12 +380,31 @@ module.exports = function(grunt) {
 
   });
 
-  grunt.registerTask("default", ["clean:dist", "bootstrap", "bootstrap-material", "web"]);
+  grunt.registerTask("default", ["clean:dist", "jquery", "bootstrap", "bootstrap-material", "angular", "web"]);
 
-  grunt.registerTask("web", [
-    "jade:common"
+  // angular module
+  grunt.registerTask("jquery", [
+    "copy:jquery",
+    "uglify:jquery"
   ]);
 
+  // angular module
+  grunt.registerTask("angular", [
+    "copy:angular",
+    "uglify:angular",
+    "copy:angularUiRouter",
+    "uglify:angularUiRouter"
+  ]);
+
+  // web module
+  grunt.registerTask("web", [
+    "copy:common",
+    "jade:common",
+    "concat:app",
+    "uglify:app"
+  ]);
+
+  // bootstrap module
   grunt.registerTask("bootstrap", [
     "bootstrap-core",
     "bootstrapFonts"
@@ -359,6 +427,7 @@ module.exports = function(grunt) {
     "copy:bootstrapFonts"
   ]);
 
+  // material bootstrap module
   grunt.registerTask("bootstrap-material", [
     "material",
     "materialRipples",
@@ -384,6 +453,7 @@ module.exports = function(grunt) {
     "uglify:material"
   ]);
 
+  // material ripples module
   grunt.registerTask("materialRipples", [
     "materialRipples:less",
     "materialRipples:js"
@@ -398,6 +468,7 @@ module.exports = function(grunt) {
     "uglify:materialRipples"
   ]);
 
+  // material fonts module
   grunt.registerTask("materialFonts", [
     "copy:materialFonts"
   ]);
