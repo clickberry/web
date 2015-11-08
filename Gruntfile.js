@@ -5,7 +5,8 @@ module.exports = function(grunt) {
 
   var modulePath = {
     bootstrap: "./bower_components/bootstrap/",
-    bootstrapMaterialDesign: "./bower_components/bootstrap-material-design/"
+    bootstrapMaterialDesign: "./bower_components/bootstrap-material-design/",
+    srcJade: "./src/jade/"
   };
 
   grunt.initConfig({
@@ -234,6 +235,19 @@ module.exports = function(grunt) {
       }
     },
 
+    // Jade
+    jade: {
+      common: {
+        files: {
+          'dist/html/': [modulePath.srcJade + '*.jade']
+        },
+        options: {
+          client: false
+        }
+      }
+    },
+
+
     connect: {
       options: {
         port: 8040,
@@ -317,7 +331,11 @@ module.exports = function(grunt) {
 
   });
 
-  grunt.registerTask("default", ["clean:dist", "bootstrap", "bootstrap-material"]);
+  grunt.registerTask("default", ["clean:dist", "bootstrap", "bootstrap-material", "web"]);
+
+  grunt.registerTask("web", [
+    "jade:common"
+  ]);
 
   grunt.registerTask("bootstrap", [
     "bootstrap-core",

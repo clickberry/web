@@ -1,0 +1,4 @@
+FROM nginx
+MAINTAINER Alexey Melnikov <a.melnikov@clickberry.com>
+
+COPY dist /usr/share/nginx/html
