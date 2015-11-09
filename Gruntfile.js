@@ -236,6 +236,7 @@ module.exports = function(grunt) {
       },
       app: {
         src: [
+          modulePath.srcJs + 'modules/*.js',
           modulePath.srcJs + '*.js'
         ],
         dest: 'dist/js/clbr.js'
@@ -380,7 +381,7 @@ module.exports = function(grunt) {
 
   });
 
-  grunt.registerTask("default", ["clean:dist", "jquery", "bootstrap", "bootstrap-material", "angular", "web"]);
+  grunt.registerTask("default", ["clean:dist", "web", "jquery", "bootstrap", "bootstrap-material", "angular"]);
 
   // angular module
   grunt.registerTask("jquery", [
@@ -439,13 +440,13 @@ module.exports = function(grunt) {
   ]);
   grunt.registerTask("material:less", [
     "less:material",
-    "less:materialfullpalette",
+    //"less:materialfullpalette",
     "less:materialRoboto",
     "csswring:material",
-    "csswring:materialfullpalette",
+    //"csswring:materialfullpalette",
     "csswring:materialRoboto",
     "autoprefixer:material",
-    "autoprefixer:materialfullpalette",
+    //"autoprefixer:materialfullpalette",
     "autoprefixer:materialRoboto"
   ]);
   grunt.registerTask("material:js", [

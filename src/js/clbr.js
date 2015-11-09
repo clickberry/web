@@ -4,12 +4,13 @@
     var app = angular.module('clbr', [
       // 'directives',
       'ui.router', // for ui routing
+      'material' // activate material design
       // 'infinite-scroll', // for auto-scrolling
       // 'clbr.videos'
     ]);
 
     // Third party libraries
-    app.value('jQuery', window.$);
+    app.constant('jQuery', window.$);
 
     // Config
     app.config([

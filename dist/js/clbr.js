@@ -1,15 +1,30 @@
+(function(window, jQuery) {
+    "use strict";
+
+    var module = angular.module("material", []);
+
+    // Config
+    module.config([
+        function () {
+            // init material design
+            jQuery.material.init();
+        }
+    ]);
+    
+})(window, window.jQuery);
 (function (window, angular) {
     'use strict';
 
     var app = angular.module('clbr', [
       // 'directives',
       'ui.router', // for ui routing
+      'material' // activate material design
       // 'infinite-scroll', // for auto-scrolling
       // 'clbr.videos'
     ]);
 
     // Third party libraries
-    app.value('jQuery', window.$);
+    app.constant('jQuery', window.$);
 
     // Config
     app.config([
