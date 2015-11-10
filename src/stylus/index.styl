@@ -1,11 +1,15 @@
 @import colors
+@import login
 
 // Top navigation
 .navbar.top-menu
     background-color: menu-bg
-    border-top: 6px solid brand-green
+    //border-top: 6px solid brand-green
     
     .navbar-nav
+        > li > a
+            padding: 8px 12px
+            
         > .active > a
           &,
           &:hover,
@@ -13,27 +17,38 @@
             color: inherit;
             background-color: rgba(0, 0, 0, 1);
 
+@media (min-width: 768px)
+    .navbar.top-menu
+        .navbar-nav > li > a
+            margin: 12px 0 12px 9px
+            padding: 8px 12px
+
 // Brand menu item
-.brand-menu
+.navbar-brand.brand-menu
     text-indent: -1000em
     width: 180px
     background: url(/images/brand.png) no-repeat center center
 
 // Logged in user menu
 .user-menu
+    margin-left: 9px
+
     [class^=mdi-]
     [class*=mdi-]
         font-size: 20px
         margin-left: 5px
         vertical-align: middle;
 
+// Page content
+.page-content
+    padding: 100px 0
+
 // Footer
 .page-footer
     background: footer-bg
     color: footer-text
-    font-size: 13px
+    font-size: 14px
     border-top: 10px solid footer-border
-    margin-top: 50px;
     padding: 20px 0 20px
     
     p
@@ -73,5 +88,5 @@
             
 // Bootstrap
 .btn.btn-lg
-    padding: 24px 30px
+    padding: 20px 30px
     

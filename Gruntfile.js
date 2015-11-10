@@ -9,6 +9,7 @@ module.exports = function(grunt) {
     jquery: "./bower_components/jquery/",
     angular: "./bower_components/angular/",
     angularUiRouter: "./bower_components/angular-ui-router/",
+    fontAwesome: './node_modules/font-awesome/',
     authApi: "./node_modules/auth-api-js/",
     srcJade: "./src/jade/",
     srcJs: "./src/js/",
@@ -226,6 +227,22 @@ module.exports = function(grunt) {
       angularUiRouter: {
         src: modulePath.angularUiRouter + "release/angular-ui-router.js",
         dest: "dist/js/angular-ui-router.js"
+      },
+      fontAwesomeCss: {
+        expand: true,
+        cwd: modulePath.fontAwesome + "css/",
+        src: "**",
+        dest: "dist/css/",
+        flatten: true,
+        filter: "isFile"
+      },
+      fontAwesomeFonts: {
+        expand: true,
+        cwd: modulePath.fontAwesome + "fonts/",
+        src: "**",
+        dest: "dist/fonts/",
+        flatten: true,
+        filter: "isFile"
       }
     },
 
@@ -404,7 +421,14 @@ module.exports = function(grunt) {
 
   });
 
-  grunt.registerTask("default", ["clean:dist", "web", "jquery", "bootstrap", "bootstrap-material", "angular"]);
+  grunt.registerTask("default", ["clean:dist", "web", "jquery", "bootstrap", "bootstrap-material", "font-awesome", "angular"]);
+
+  // font awesome
+  // angular module
+  grunt.registerTask("font-awesome", [
+    "copy:fontAwesomeCss",
+    "copy:fontAwesomeFonts"
+  ]);
 
   // angular module
   grunt.registerTask("jquery", [

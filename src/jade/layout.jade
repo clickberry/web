@@ -13,9 +13,10 @@ html(lang='en', ng-app='clbr', ng-controller='ClickberryCtrl')
         link(rel='stylesheet', href='/css/material-fullpalette.min.css')
         link(rel='stylesheet', href='/css/ripples.min.css')
         link(rel='stylesheet', href='/css/roboto.min.css')
+        link(rel='stylesheet', href='/css/font-awesome.min.css')
         link(rel='stylesheet', href='/css/clbr.min.css')
     body
-        .navbar.navbar-material-grey-900.top-menu
+        .navbar.navbar-material-grey-900.top-menu.navbar-fixed-top
             .container
                 .navbar-header
                     button.navbar-toggle(data-toggle='collapse', data-target='.navbar-responsive-collapse')
@@ -26,30 +27,28 @@ html(lang='en', ng-app='clbr', ng-controller='ClickberryCtrl')
                 .navbar-collapse.collapse.navbar-responsive-collapse
                     ul.nav.navbar-nav.navbar-right
                         li
-                            a(href='#') Videos
+                            a.btn.btn-flat.btn-link(href='#') Online Editor
                         li
-                            a(href='#') Likes
-                        li.dropdown.user-menu
-                            a.dropdown-toggle(href='/', data-target='#', data-toggle='dropdown') Alexey Melnikov
-                                i.mdi-action-settings
-                            ul.dropdown-menu
-                                li
-                                    a(href='#') Action
-                                    a(href='#') Another action
-                                    a(href='#') Something else here
-                                li.divider
-                                li
-                                    a(href='#') Separated link
+                            a.btn.btn-flat.btn-link(href='#') Support
+                        li
+                            a.btn.btn-flat.btn-link(href='#') Sign in
+                        li.user-menu
+                            a.btn.btn-primary.btn-flat(href='#') Sign up for free
+                        //- li.dropdown.user-menu
+                        //-     a.dropdown-toggle(href='/', data-target='#', data-toggle='dropdown') Alexey Melnikov
+                        //-         i.mdi-action-settings
+                        //-     ul.dropdown-menu
+                        //-         li
+                        //-             a(href='#') Action
+                        //-             a(href='#') Another action
+                        //-             a(href='#') Something else here
+                        //-         li.divider
+                        //-         li
+                        //-             a(href='#') Separated link
 
-        block content
-
-        script(src='/js/jquery.min.js')
-        script(src='/js/bootstrap.min.js')
-        script(src='/js/material.min.js')
-        script(src='/js/ripples.min.js')
-        script(src='/js/angular.min.js')
-        script(src='/js/angular-ui-router.min.js')
-        script(src='/js/clbr.min.js')
+        .page-content
+            .container
+                block content
 
         footer.page-footer
             .container
@@ -94,3 +93,11 @@ html(lang='en', ng-app='clbr', ng-controller='ClickberryCtrl')
                             li 
                                 a(href='#') API
                     .col-sm-1
+
+        script(src='/js/jquery.min.js')
+        script(src='/js/bootstrap.min.js')
+        script(src='/js/material.min.js')
+        script(src='/js/ripples.min.js')
+        script(src='/js/angular.min.js')
+        script(src='/js/angular-ui-router.min.js')
+        script(src='/js/clbr.min.js')
