@@ -8,6 +8,7 @@ module.exports = function(grunt) {
     bootstrapMaterialDesign: "./bower_components/bootstrap-material-design/",
     srcJade: "./src/jade/",
     srcJs: "./src/js/",
+    srcStylus: "./src/stylus/",
     jquery: "./bower_components/jquery/",
     angular: "./bower_components/angular/",
     angularUiRouter: "./bower_components/angular-ui-router/"
@@ -152,6 +153,10 @@ module.exports = function(grunt) {
       materialRipples: {
         src: "dist/css/ripples.css",
         dest: "dist/css/ripples.min.css"
+      },
+      app: {
+        src: "dist/css/clbr.css",
+        dest: "dist/css/clbr.min.css"
       }
     },
 
@@ -287,7 +292,7 @@ module.exports = function(grunt) {
 
     // Jade
     jade: {
-      common: {
+      app: {
         files: {
           'dist/': [modulePath.srcJade + 'index.jade']
         },
@@ -297,6 +302,14 @@ module.exports = function(grunt) {
       }
     },
 
+    // Stylus
+    stylus: {
+      app: {
+        files: {
+          'dist/css/clbr.min.css': modulePath.srcStylus + 'index.styl'
+        }
+      }
+    },
 
     connect: {
       options: {
@@ -400,7 +413,8 @@ module.exports = function(grunt) {
   // web module
   grunt.registerTask("web", [
     "copy:common",
-    "jade:common",
+    "jade:app",
+    "stylus:app",
     "concat:app",
     "uglify:app"
   ]);
@@ -440,13 +454,13 @@ module.exports = function(grunt) {
   ]);
   grunt.registerTask("material:less", [
     "less:material",
-    //"less:materialfullpalette",
+    "less:materialfullpalette",
     "less:materialRoboto",
     "csswring:material",
-    //"csswring:materialfullpalette",
+    "csswring:materialfullpalette",
     "csswring:materialRoboto",
     "autoprefixer:material",
-    //"autoprefixer:materialfullpalette",
+    "autoprefixer:materialfullpalette",
     "autoprefixer:materialRoboto"
   ]);
   grunt.registerTask("material:js", [
