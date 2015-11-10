@@ -1,30 +1,14 @@
 extends layout
 
 block content
-    .navbar.navbar-material-grey-900.top-menu
-        .container
-            .navbar-header
-                button.navbar-toggle(data-toggle='collapse', data-target='.navbar-responsive-collapse')
-                    span.icon-bar
-                    span.icon-bar
-                    span.icon-bar
-                a.navbar-brand.brand-menu(href='/') Clickberry
-            .navbar-collapse.collapse.navbar-responsive-collapse
-                ul.nav.navbar-nav.navbar-right
-                    li
-                        a(href='#') Videos
-                    li
-                        a(href='#') Likes
-                    li.dropdown.user-menu
-                        a.dropdown-toggle(href='#', data-target='#', data-toggle='dropdown') Alexey Melnikov
-                            i.mdi-action-settings
-                        ul.dropdown-menu
-                            li
-                                a(href='#') Action
-                                a(href='#') Another action
-                                a(href='#') Something else here
-                            li.divider
-                            li
-                                a(href='#') Separated link
+    .container
+        a.btn.btn-default.btn-lg.btn-raised(href='#') Default
+        a.btn.btn-primary.btn-lg.btn-raised(href='#') Primary
+        a.btn.btn-success.btn-lg.btn-raised(href='#') Success
+        a.btn.btn-info.btn-lg.btn-raised(href='#') Info
+        a.btn.btn-warning.btn-lg.btn-raised(href='#') Warning
+        a.btn.btn-danger.btn-lg.btn-raised(href='#') Danger
 
-    .container Hello from Bootstrap
+        p
+            span Simple test with a 
+            a(href='#') link

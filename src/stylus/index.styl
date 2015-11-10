@@ -2,7 +2,7 @@
 
 // Top navigation
 .navbar.top-menu
-    background-color: menu-gray
+    background-color: menu-bg
     border-top: 6px solid brand-green
     
     .navbar-nav
@@ -21,9 +21,57 @@
 
 // Logged in user menu
 .user-menu
-    height: 60px
-
     [class^=mdi-]
     [class*=mdi-]
+        font-size: 20px
         margin-left: 5px
         vertical-align: middle;
+
+// Footer
+.page-footer
+    background: footer-bg
+    color: footer-text
+    font-size: 13px
+    border-top: 10px solid footer-border
+    margin-top: 50px;
+    padding: 20px 0 20px
+    
+    p
+        margin-bottom: 5px
+
+    .brand-footer
+        width: 120px
+        height: 30px
+        margin-bottom: 10px
+        background: url(/images/brand-footer.png) no-repeat left top
+    
+    .brand-copyright
+        font-size: 10px
+        margin-bottom: 30px
+        
+        [class^=mdi-]
+        [class*=mdi-]
+            font-size: 14px
+
+    for n in 1..6
+        h{n}
+            color: footer-heading
+    
+    a
+        color: footer-text
+        
+        &:hover
+            color: footer-text-hover
+    
+    ul.bottom-menu
+        margin: 0 0 30px
+        padding: 0
+
+        li
+            list-style: none
+            margin-bottom: 10px
+            
+// Bootstrap
+.btn.btn-lg
+    padding: 24px 30px
+    

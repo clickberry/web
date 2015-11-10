@@ -15,6 +15,32 @@ html(lang='en', ng-app='clbr', ng-controller='ClickberryCtrl')
         link(rel='stylesheet', href='/css/roboto.min.css')
         link(rel='stylesheet', href='/css/clbr.min.css')
     body
+        .navbar.navbar-material-grey-900.top-menu
+            .container
+                .navbar-header
+                    button.navbar-toggle(data-toggle='collapse', data-target='.navbar-responsive-collapse')
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    a.navbar-brand.brand-menu(href='/') Clickberry
+                .navbar-collapse.collapse.navbar-responsive-collapse
+                    ul.nav.navbar-nav.navbar-right
+                        li
+                            a(href='#') Videos
+                        li
+                            a(href='#') Likes
+                        li.dropdown.user-menu
+                            a.dropdown-toggle(href='/', data-target='#', data-toggle='dropdown') Alexey Melnikov
+                                i.mdi-action-settings
+                            ul.dropdown-menu
+                                li
+                                    a(href='#') Action
+                                    a(href='#') Another action
+                                    a(href='#') Something else here
+                                li.divider
+                                li
+                                    a(href='#') Separated link
+
         block content
 
         script(src='/js/jquery.min.js')
@@ -24,3 +50,47 @@ html(lang='en', ng-app='clbr', ng-controller='ClickberryCtrl')
         script(src='/js/angular.min.js')
         script(src='/js/angular-ui-router.min.js')
         script(src='/js/clbr.min.js')
+
+        footer.page-footer
+            .container
+                .row
+                    .col-sm-3
+                        .brand-footer
+                        .brand-copyright
+                            p 
+                                span Made with 
+                                i.mdi-action-favorite 
+                                span  by Clickberry
+                    .col-sm-2
+                        ul.bottom-menu
+                            li 
+                                a(href='#') About Clickberry
+                            li 
+                                a(href='#') Terms of service
+                            li 
+                                a(href='#') Contacts
+                    .col-sm-2
+                        ul.bottom-menu
+                            li 
+                                a(href='#') My videos
+                            li 
+                                a(href='#') My likes
+                            li 
+                                a(href='#') Feed
+                            li 
+                                a(href='#') Trends
+                            li 
+                                a(href='#') Profile
+                    .col-sm-2
+                        ul.bottom-menu
+                            li 
+                                a(href='#') Online editor
+                            li 
+                                a(href='#') Desktop app
+                    .col-sm-2
+                        ul.bottom-menu
+                            li 
+                                a(href='https://github.com/clickberry/web-services') Github
+                            li 
+                                a(href='#') API
+                    .col-sm-1

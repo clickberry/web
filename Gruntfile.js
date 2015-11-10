@@ -9,6 +9,7 @@ module.exports = function(grunt) {
     srcJade: "./src/jade/",
     srcJs: "./src/js/",
     srcStylus: "./src/stylus/",
+    srcLess: "./src/less/",
     jquery: "./bower_components/jquery/",
     angular: "./bower_components/angular/",
     angularUiRouter: "./bower_components/angular-ui-router/"
@@ -49,7 +50,7 @@ module.exports = function(grunt) {
           sourceMapURL: "material.css.map"
         },
         files: {
-          "dist/css/material.css": modulePath.bootstrapMaterialDesign + "less/material.less",
+          "dist/css/material.css": modulePath.srcLess + "material-override.less",
         }
       },
       materialfullpalette: {
@@ -62,7 +63,7 @@ module.exports = function(grunt) {
           outputSourceFiles: true
         },
         files: {
-          "dist/css/material-fullpalette.css": modulePath.bootstrapMaterialDesign + "less/material-fullpalette.less",
+          "dist/css/material-fullpalette.css": modulePath.srcLess + "material-fullpalette-override.less",
         }
       },
       materialRoboto: {
