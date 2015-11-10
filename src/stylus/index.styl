@@ -1,6 +1,7 @@
 @import colors
 
-.top-menu
+// Top navigation
+.navbar.top-menu
     background-color: menu-gray
     border-top: 6px solid brand-green
     
@@ -11,4 +12,18 @@
           &:focus
             color: inherit;
             background-color: rgba(0, 0, 0, 1);
-        
+
+// Brand menu item
+.brand-menu
+    text-indent: -1000em
+    width: 180px
+    background: url(/images/brand.png) no-repeat center center
+
+// Logged in user menu
+.user-menu
+    height: 60px
+
+    [class^=mdi-]
+    [class*=mdi-]
+        margin-left: 5px
+        vertical-align: middle;

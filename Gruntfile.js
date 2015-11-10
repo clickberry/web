@@ -182,6 +182,13 @@ module.exports = function(grunt) {
         flatten: true,
         filter: "isFile"
       },
+      images: {
+        expand: true,
+        src: "src/images/*.*",
+        dest: "dist/images/",
+        flatten: true,
+        filter: "isFile"
+      },
       bootstrapFonts: {
         expand: true,
         cwd: modulePath.bootstrap + "fonts/",
@@ -413,6 +420,7 @@ module.exports = function(grunt) {
   // web module
   grunt.registerTask("web", [
     "copy:common",
+    "copy:images",
     "jade:app",
     "stylus:app",
     "concat:app",
