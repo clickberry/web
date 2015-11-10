@@ -1,4 +1,4 @@
-(function(window, jQuery) {
+(function(window, angular, jQuery) {
     "use strict";
 
     var module = angular.module("material", []);
@@ -11,4 +11,4 @@
         }
     ]);
     
-})(window, window.jQuery);
+})(window, window.angular, window.jQuery);

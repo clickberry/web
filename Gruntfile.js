@@ -6,13 +6,14 @@ module.exports = function(grunt) {
   var modulePath = {
     bootstrap: "./bower_components/bootstrap/",
     bootstrapMaterialDesign: "./bower_components/bootstrap-material-design/",
+    jquery: "./bower_components/jquery/",
+    angular: "./bower_components/angular/",
+    angularUiRouter: "./bower_components/angular-ui-router/",
+    authApi: "./node_modules/auth-api-js/",
     srcJade: "./src/jade/",
     srcJs: "./src/js/",
     srcStylus: "./src/stylus/",
-    srcLess: "./src/less/",
-    jquery: "./bower_components/jquery/",
-    angular: "./bower_components/angular/",
-    angularUiRouter: "./bower_components/angular-ui-router/"
+    srcLess: "./src/less/"
   };
 
   grunt.initConfig({
@@ -249,6 +250,7 @@ module.exports = function(grunt) {
       },
       app: {
         src: [
+          modulePath.authApi + 'index.js',
           modulePath.srcJs + 'modules/*.js',
           modulePath.srcJs + '*.js'
         ],
@@ -295,7 +297,7 @@ module.exports = function(grunt) {
         files: {
           "dist/js/clbr.min.js": "dist/js/clbr.js"
         }
-      },
+      }
     },
 
     // Jade
