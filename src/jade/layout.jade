@@ -12,7 +12,22 @@ html(lang='en', ng-app='clbr', ng-controller='ClickberryCtrl')
         link(rel='stylesheet', href='/css/angular-material.min.css')
         link(rel='stylesheet', href='/css/font-awesome.min.css')
         link(rel='stylesheet', href='/css/clbr.min.css')
-    body
+    body.ng-cloak
+
+        div(layout="column")
+            md-toolbar.md-hue-2
+                .md-toolbar-tools
+                    h2
+                        span Clickberry Video Portal
+                    span(flex)
+                    md-button.md-primary Online editor
+                    md-button.md-primary Support
+                    md-button.md-primary Sign in
+                    md-button.md-accent Sign up for free
+                    
+            md-content(flex)
+                block content
+
         //- .navbar.navbar-material-grey-900.top-menu.navbar-fixed-top
         //-     .container
         //-         .navbar-header
@@ -45,7 +60,7 @@ html(lang='en', ng-app='clbr', ng-controller='ClickberryCtrl')
 
         //- .page-content
         //-     .container
-        block content
+        
 
         //- footer.page-footer
         //-     .container

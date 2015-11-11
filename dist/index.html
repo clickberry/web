@@ -10,14 +10,29 @@
     <link rel="stylesheet" href="/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/clbr.min.css">
   </head>
-  <body>
-    <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-      <md-button>Default</md-button>
-      <md-button md-no-ink class="md-primary">Primary (md-noink)</md-button>
-      <md-button ng-disabled="true" class="md-primary">Disabled</md-button>
-      <md-button class="md-warn">Warn</md-button>
-      <div class="label">Flat</div>
-    </section>
+  <body class="ng-cloak">
+    <div layout="column">
+      <md-toolbar class="md-hue-2">
+        <div class="md-toolbar-tools">
+          <h2><span>Clickberry Video Portal</span></h2><span flex></span>
+          <md-button class="md-primary">Online editor</md-button>
+          <md-button class="md-primary">Support</md-button>
+          <md-button class="md-primary">Sign in</md-button>
+          <md-button class="md-accent">Sign up for free</md-button>
+        </div>
+      </md-toolbar>
+      <md-content flex>
+        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+          <md-button>Default</md-button>
+          <md-button md-no-ink class="md-primary">Primary (md-noink)</md-button>
+          <md-button ng-disabled="true" class="md-primary">Disabled</md-button>
+          <md-button class="md-accent">Accent</md-button>
+          <md-button class="md-warn">Warn</md-button>
+          <div class="label">Flat</div>
+        </section>
+      </md-content>
+    </div>
+    
     <script src="/js/jquery.min.js"></script>
     <script src="/js/angular.min.js"></script>
     <script src="/js/angular-ui-router.min.js"></script>

@@ -17,8 +17,8 @@
 
     // Config
     app.config([
-      '$urlRouterProvider', '$locationProvider', '$stateProvider',
-      function ($urlRouterProvider, $locationProvider, $stateProvider) {
+      '$urlRouterProvider', '$locationProvider', '$stateProvider', '$mdThemingProvider',
+      function ($urlRouterProvider, $locationProvider, $stateProvider, $mdThemingProvider) {
         // routes
         $stateProvider
           .state('clbr', {
@@ -29,6 +29,16 @@
         // html5 routing without #
         $urlRouterProvider.otherwise('/');
         $locationProvider.html5Mode(true);
+
+        // theme
+        $mdThemingProvider.theme('default')
+          .primaryPalette('grey')
+          .accentPalette('green', {
+            'default': '500',
+            'hue-1': '200',
+            'hue-2': '700',
+            'hue-3': 'A200'
+          });
       }
     ]);
 
