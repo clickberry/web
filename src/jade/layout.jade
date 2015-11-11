@@ -16,14 +16,13 @@ html(lang='en', ng-app='clbr', ng-controller='ClickberryCtrl')
 
         div(layout="column")
             md-toolbar.md-hue-2
-                .md-toolbar-tools
-                    h2
-                        span Clickberry Video Portal
+                .md-toolbar-tools.cb-top-menu
+                    md-button.cb-brand-menu(ng-href="/")
                     span(flex)
                     md-button.md-primary Online editor
                     md-button.md-primary Support
                     md-button.md-primary Sign in
-                    md-button.md-accent Sign up for free
+                    md-button.cb-user-menu Sign up for free
                     
             md-content(flex)
                 block content
