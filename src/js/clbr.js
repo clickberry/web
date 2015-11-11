@@ -11,7 +11,7 @@
     var app = angular.module('clbr', [
       'constants',
       'ui.router', // for ui routing
-      'material', // activate material design
+      'ngMaterial', // activate material design
       'auth-api'
     ]);
 

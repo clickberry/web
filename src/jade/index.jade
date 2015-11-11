@@ -1,31 +1,39 @@
 extends layout
 
 block content
-    .row
-        .col-sm-8.col-sm-offset-2.text-center
-            .panel.panel-default
-                .panel-body
-                    .col-lg-8.col-lg-offset-2
-                        form.form-horizontal
-                            fieldset 
-                                legend Sign up
-                                .form-group
-                                    .col-lg-12
-                                        input.form-control.floating-label(type='email', id='inputEmail', placeholder='Email')
-                                .form-group
-                                    .col-lg-12
-                                        input.form-control.floating-label(type='password', id='inputPassword', placeholder='Password')
-                                .form-group
-                                    .col-lg-12
-                                        button.btn.btn-primary.btn-lg(type='submit') Submit
-            p or register using your social identity
-            .social-icons
-                a.btn.btn-info.btn-fab.btn-raised.fb(href='#')
-                    i.fa.fa-facebook
-                a.btn.btn-info.btn-fab.btn-raised.tw(href='#')
-                    i.fa.fa-twitter
-                a.btn.btn-info.btn-fab.btn-raised.go(href='#')
-                    i.fa.fa-google
-                a.btn.btn-info.btn-fab.btn-raised.vk(href='#')
-                    i.fa.fa-vk
+
+    section(layout="row", layout-sm="column", layout-align="center center", layout-wrap)
+        md-button Default
+        md-button.md-primary(md-no-ink) Primary (md-noink)
+        md-button.md-primary(ng-disabled="true") Disabled
+        md-button.md-warn Warn
+        .label Flat
+
+    //- .row
+    //-     .col-sm-8.col-sm-offset-2.text-center
+    //-         .panel.panel-default
+    //-             .panel-body
+    //-                 .col-lg-8.col-lg-offset-2
+    //-                     form.form-horizontal
+    //-                         fieldset 
+    //-                             legend Sign up
+    //-                             .form-group
+    //-                                 .col-lg-12
+    //-                                     input.form-control.floating-label(type='email', id='inputEmail', placeholder='Email')
+    //-                             .form-group
+    //-                                 .col-lg-12
+    //-                                     input.form-control.floating-label(type='password', id='inputPassword', placeholder='Password')
+    //-                             .form-group
+    //-                                 .col-lg-12
+    //-                                     button.btn.btn-primary.btn-lg(type='submit') Submit
+    //-         p or register using your social identity
+    //-         .social-icons
+    //-             a.btn.btn-info.btn-fab.btn-raised.fb(href='#')
+    //-                 i.fa.fa-facebook
+    //-             a.btn.btn-info.btn-fab.btn-raised.tw(href='#')
+    //-                 i.fa.fa-twitter
+    //-             a.btn.btn-info.btn-fab.btn-raised.go(href='#')
+    //-                 i.fa.fa-google
+    //-             a.btn.btn-info.btn-fab.btn-raised.vk(href='#')
+    //-                 i.fa.fa-vk
 

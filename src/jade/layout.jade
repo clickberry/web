@@ -9,95 +9,90 @@ html(lang='en', ng-app='clbr', ng-controller='ClickberryCtrl')
         link(rel='shortcut icon', href='/favicon.png', type='image/x-icon')
         link(rel='icon', href='/favicon.png', type='image/x-icon')
 
-        link(rel='stylesheet', href='/css/bootstrap.min.css')
-        link(rel='stylesheet', href='/css/material-fullpalette.min.css')
-        link(rel='stylesheet', href='/css/ripples.min.css')
-        link(rel='stylesheet', href='/css/roboto.min.css')
+        link(rel='stylesheet', href='/css/angular-material.min.css')
         link(rel='stylesheet', href='/css/font-awesome.min.css')
         link(rel='stylesheet', href='/css/clbr.min.css')
     body
-        .navbar.navbar-material-grey-900.top-menu.navbar-fixed-top
-            .container
-                .navbar-header
-                    button.navbar-toggle(data-toggle='collapse', data-target='.navbar-responsive-collapse')
-                        span.icon-bar
-                        span.icon-bar
-                        span.icon-bar
-                    a.navbar-brand.brand-menu(href='/') Clickberry
-                .navbar-collapse.collapse.navbar-responsive-collapse
-                    ul.nav.navbar-nav.navbar-right
-                        li
-                            a.btn.btn-flat.btn-link(href='#') Online Editor
-                        li
-                            a.btn.btn-flat.btn-link(href='#') Support
-                        li
-                            a.btn.btn-flat.btn-link(href='#') Sign in
-                        li.user-menu
-                            a.btn.btn-primary.btn-flat(href='#') Sign up for free
-                        //- li.dropdown.user-menu
-                        //-     a.dropdown-toggle(href='/', data-target='#', data-toggle='dropdown') Alexey Melnikov
-                        //-         i.mdi-action-settings
-                        //-     ul.dropdown-menu
-                        //-         li
-                        //-             a(href='#') Action
-                        //-             a(href='#') Another action
-                        //-             a(href='#') Something else here
-                        //-         li.divider
-                        //-         li
-                        //-             a(href='#') Separated link
+        //- .navbar.navbar-material-grey-900.top-menu.navbar-fixed-top
+        //-     .container
+        //-         .navbar-header
+        //-             button.navbar-toggle(data-toggle='collapse', data-target='.navbar-responsive-collapse')
+        //-                 span.icon-bar
+        //-                 span.icon-bar
+        //-                 span.icon-bar
+        //-             a.navbar-brand.brand-menu(href='/') Clickberry
+        //-         .navbar-collapse.collapse.navbar-responsive-collapse
+        //-             ul.nav.navbar-nav.navbar-right
+        //-                 li
+        //-                     a.btn.btn-flat.btn-link(href='#') Online Editor
+        //-                 li
+        //-                     a.btn.btn-flat.btn-link(href='#') Support
+        //-                 li
+        //-                     a.btn.btn-flat.btn-link(href='#') Sign in
+        //-                 li.user-menu
+        //-                     a.btn.btn-primary.btn-flat(href='#') Sign up for free
+        //-                 //- li.dropdown.user-menu
+        //-                 //-     a.dropdown-toggle(href='/', data-target='#', data-toggle='dropdown') Alexey Melnikov
+        //-                 //-         i.mdi-action-settings
+        //-                 //-     ul.dropdown-menu
+        //-                 //-         li
+        //-                 //-             a(href='#') Action
+        //-                 //-             a(href='#') Another action
+        //-                 //-             a(href='#') Something else here
+        //-                 //-         li.divider
+        //-                 //-         li
+        //-                 //-             a(href='#') Separated link
 
-        .page-content
-            .container
-                block content
+        //- .page-content
+        //-     .container
+        block content
 
-        footer.page-footer
-            .container
-                .row
-                    .col-sm-3
-                        .brand-footer
-                        .brand-copyright
-                            p 
-                                span Made with 
-                                i.mdi-action-favorite 
-                                span  by Clickberry
-                    .col-sm-2
-                        ul.bottom-menu
-                            li 
-                                a(href='#') About Clickberry
-                            li 
-                                a(href='#') Terms of service
-                            li 
-                                a(href='#') Contacts
-                    .col-sm-2
-                        ul.bottom-menu
-                            li 
-                                a(href='#') My videos
-                            li 
-                                a(href='#') My likes
-                            li 
-                                a(href='#') Feed
-                            li 
-                                a(href='#') Trends
-                            li 
-                                a(href='#') Profile
-                    .col-sm-2
-                        ul.bottom-menu
-                            li 
-                                a(href='#') Online editor
-                            li 
-                                a(href='#') Desktop app
-                    .col-sm-2
-                        ul.bottom-menu
-                            li 
-                                a(href='https://github.com/clickberry/web-services') Github
-                            li 
-                                a(href='#') API
-                    .col-sm-1
+        //- footer.page-footer
+        //-     .container
+        //-         .row
+        //-             .col-sm-3
+        //-                 .brand-footer
+        //-                 .brand-copyright
+        //-                     p 
+        //-                         span Made with 
+        //-                         i.mdi-action-favorite 
+        //-                         span  by Clickberry
+        //-             .col-sm-2
+        //-                 ul.bottom-menu
+        //-                     li 
+        //-                         a(href='#') About Clickberry
+        //-                     li 
+        //-                         a(href='#') Terms of service
+        //-                     li 
+        //-                         a(href='#') Contacts
+        //-             .col-sm-2
+        //-                 ul.bottom-menu
+        //-                     li 
+        //-                         a(href='#') My videos
+        //-                     li 
+        //-                         a(href='#') My likes
+        //-                     li 
+        //-                         a(href='#') Feed
+        //-                     li 
+        //-                         a(href='#') Trends
+        //-                     li 
+        //-                         a(href='#') Profile
+        //-             .col-sm-2
+        //-                 ul.bottom-menu
+        //-                     li 
+        //-                         a(href='#') Online editor
+        //-                     li 
+        //-                         a(href='#') Desktop app
+        //-             .col-sm-2
+        //-                 ul.bottom-menu
+        //-                     li 
+        //-                         a(href='https://github.com/clickberry/web-services') Github
+        //-                     li 
+        //-                         a(href='#') API
+        //-             .col-sm-1
 
         script(src='/js/jquery.min.js')
-        script(src='/js/bootstrap.min.js')
-        script(src='/js/material.min.js')
-        script(src='/js/ripples.min.js')
         script(src='/js/angular.min.js')
         script(src='/js/angular-ui-router.min.js')
+        script(src='/js/angular-material.min.js')
         script(src='/js/clbr.min.js')
