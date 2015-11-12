@@ -2,14 +2,12 @@
     'use strict';
 
     var app = angular.module('clbr', [
-      'settings',
       'ui.router', // for ui routing
       'ngMaterial', // activate material design
       'home',
       'signup',
       'signin',
-      'directives',
-      'auth-api'
+      'directives'
     ]);
 
     // Config
@@ -42,9 +40,10 @@
 
     // Main application controller
     app.controller('ClickberryCtrl', [
-      '$rootScope', '$state', 'authService', 'urls',
-      function ($rootScope, $state, authService, urls) {
+      '$rootScope', '$state',
+      function ($rootScope, $state) {
 
+        $rootScope.pageTitle = 'Clickberry Video Portal';
         $rootScope.$on('$stateChangeSuccess', function (event, toState/*, toParams, from, fromParams*/) {
           if (angular.isDefined(toState.data) && angular.isDefined(toState.data.pageTitle)) {
             $rootScope.pageTitle = toState.data.pageTitle;
@@ -63,13 +62,6 @@
         $rootScope.signin = function () {
           $state.go('signin');
         };
-
-        function setRedirect() {
-          authService.setRedirect(urls.web, function () {
-          });
-        }
-
-        setRedirect();
       }
     ]);
 

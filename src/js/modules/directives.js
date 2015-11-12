@@ -1,6 +1,7 @@
 (function(window, angular) {
     "use strict";
 
+    // input confirmation (e.g. passwords match)
     angular.module('directives', []) 
       .directive('cbConfirm', function() {
         return {

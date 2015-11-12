@@ -23,13 +23,13 @@
 
     // Controllers
     module.controller('SignupCtrl', [
-      '$scope', '$state', 'authService',
-      function ($scope, $state, authService) {
+      '$scope', '$state', 'authApi',
+      function ($scope, $state, authApi) {
 
         $scope.signup = {};
 
         $scope.submit = function (params) {
-          authService.signup(params.email, params.password, function (err, data) {
+          authApi.signup(params.email, params.password, function (err, data) {
             if (err) { return alert('Error: ' + err.message); }
             alert('Ok: ' + JSON.stringify(data));
             $state.go('home');
@@ -37,19 +37,19 @@
         };
 
         $scope.goFacebook = function () {
-          authService.facebook();
+          authApi.facebook();
         };
 
         $scope.goTwitter = function () {
-          authService.twitter();
+          authApi.twitter();
         };
 
         $scope.goGoogle = function () {
-          authService.google();
+          authApi.google();
         };
 
         $scope.goVk = function () {
-          authService.vk();
+          authApi.vk();
         };
       }
     ]);

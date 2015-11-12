@@ -3,10 +3,10 @@
 
   var module = angular.module('auth-api', ['settings']);
 
-  module.factory('authService', [
+  module.factory('authApi', [
     'urls', function (urls) {
       return clbr.authApi(urls.authApi);
     }
-  ]);
+  ]);  
     
 })(window, window.angular, window.clbr);

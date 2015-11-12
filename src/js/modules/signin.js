@@ -3,7 +3,8 @@
 
     var module = angular.module('signin', [
       'ui.router',
-      'auth-api'
+      'auth-api',
+      'user'
     ]);
 
     // Routes
@@ -23,33 +24,33 @@
 
     // Controllers
     module.controller('SigninCtrl', [
-      '$scope', '$state', 'authService',
-      function ($scope, $state, authService) {
+      '$scope', '$state', 'authApi', 'user',
+      function ($scope, $state, authApi, user) {
 
         $scope.signin = {};
 
         $scope.submit = function (params) {
-          authService.signin(params.email, params.password, function (err, data) {
-            if (err) { return alert('Error: ' + err.message); }
-            alert('Ok: ' + JSON.stringify(data));
+          authApi.signin(params.email, params.password, function (err, data) {
+            if (err) { throw err; }
+            user.init(data.accessToken, data.refreshToken);
             $state.go('home');
           });
         };
 
         $scope.goFacebook = function () {
-          authService.facebook();
+          authApi.facebook();
         };
 
         $scope.goTwitter = function () {
-          authService.twitter();
+          authApi.twitter();
         };
 
         $scope.goGoogle = function () {
-          authService.google();
+          authApi.google();
         };
 
         $scope.goVk = function () {
-          authService.vk();
+          authApi.vk();
         };
       }
     ]);

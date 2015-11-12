@@ -3,8 +3,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <base href="/">
-    <title>Clickberry Video Portal</title>
+    <title ng-bind="pageTitle">Clickberry Video Portal</title>
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
     <link rel="icon" href="/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="/css/angular-material.min.css">
@@ -12,7 +11,7 @@
     <link rel="stylesheet" href="/css/clbr.min.css">
   </head>
   <body>
-    <div layout="column">
+    <div layout="column" class="ng-cloak">
       <md-toolbar ng-class="{'md-tall': menuExpanded}" class="cb-top-menu md-hue-2">
         <div class="md-toolbar-tools">
           <md-button ng-href="/" ui-sref="home" aria-label="Clickberry Home" class="cb-brand-menu"></md-button><span flex></span><span class="hide show-gt-md">
@@ -29,7 +28,7 @@
           <md-button ng-click="signup()" class="cb-user-menu">Sign up for free</md-button>
         </div>
       </md-toolbar>
-      <div class="cb-page-content ng-cloak">
+      <div class="cb-page-content">
         <div ui-view></div>
         <script type="text/ng-template" id="home.html">
           <p>Hello</p>

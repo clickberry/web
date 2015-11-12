@@ -3,9 +3,8 @@ html(lang='en', ng-app='clbr', ng-controller='ClickberryCtrl')
     head
         meta(http-equiv='content-type', content='text/html; charset=utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1')
-        base(href="/")
 
-        title Clickberry Video Portal
+        title(ng-bind="pageTitle") Clickberry Video Portal
 
         link(rel='shortcut icon', href='/favicon.png', type='image/x-icon')
         link(rel='icon', href='/favicon.png', type='image/x-icon')
@@ -14,7 +13,7 @@ html(lang='en', ng-app='clbr', ng-controller='ClickberryCtrl')
         link(rel='stylesheet', href='/css/font-awesome.min.css')
         link(rel='stylesheet', href='/css/clbr.min.css')
     body
-        div(layout="column")
+        div(layout="column").ng-cloak
             md-toolbar.cb-top-menu.md-hue-2(ng-class="{'md-tall': menuExpanded}")
                 .md-toolbar-tools
                     md-button.cb-brand-menu(ng-href="/", ui-sref="home", aria-label="Clickberry Home")
@@ -32,7 +31,7 @@ html(lang='en', ng-app='clbr', ng-controller='ClickberryCtrl')
                     md-button.md-primary(ng-click="signin()") Sign in
                     md-button.cb-user-menu(ng-click="signup()") Sign up for free
 
-            .cb-page-content.ng-cloak
+            .cb-page-content
                 block content
 
             footer.page-footer
