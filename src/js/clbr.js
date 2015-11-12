@@ -52,6 +52,8 @@
           }
         });
 
+        $rootScope.signup = {};
+
         $rootScope.menuExpanded = false;
         $rootScope.expandMenu = function() {
           $rootScope.menuExpanded = !$rootScope.menuExpanded;

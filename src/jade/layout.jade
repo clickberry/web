@@ -32,13 +32,12 @@ html(lang='en', ng-app='clbr', ng-controller='ClickberryCtrl')
                     md-button.md-primary Sign in
                     md-button.cb-user-menu Sign up for free
 
-            md-content(flex)
-                .page-content
-                    block content
+            .cb-page-content
+                block content
 
             footer.page-footer
                 section
-                    div(layout="row", layout-sm="column", layout-wrap)
+                    div(layout="row", layout-sm="column")
                         div(flex="30", flex-sm="100")
                             .brand-footer
                             .brand-copyright

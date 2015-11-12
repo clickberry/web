@@ -28,21 +28,48 @@
           <md-button class="cb-user-menu">Sign up for free</md-button>
         </div>
       </md-toolbar>
-      <md-content flex>
-        <div class="page-content">
-          <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-            <md-button>Default</md-button>
-            <md-button md-no-ink class="md-primary">Primary (md-noink)</md-button>
-            <md-button ng-disabled="true" class="md-primary">Disabled</md-button>
-            <md-button class="md-accent">Accent</md-button>
-            <md-button class="md-warn">Warn</md-button>
-            <div class="label">Flat</div>
-          </section>
+      <div class="cb-page-content">
+        <div layout="row" layout-align="center">
+          <div flex="25" flex-sm="0" flex-md="20"></div>
+          <div flex="50" flex-sm="100" flex-md="60">
+            <form name="signupform">
+              <md-card>
+                <md-card-content>
+                  <div layout="row">
+                    <div flex="10"></div>
+                    <div flex="80">
+                      <h1 class="md-display-1">Sign up</h1>
+                      <md-input-container>
+                        <label>Email</label>
+                        <input required type="email" name="signupEmail" ng-model="signup.email" minlength="10" maxlength="100" ng-pattern="/^.+@.+..+$/">
+                      </md-input-container>
+                      <md-input-container>
+                        <label>Password</label>
+                        <input type="password" required name="password" ng-model="signup.password">
+                      </md-input-container>
+                      <md-card-actions layout="row" layout-align="end center">
+                        <md-button type="submit" class="md-raised md-accent">Submit</md-button>
+                      </md-card-actions>
+                    </div>
+                    <div flex="10"></div>
+                  </div>
+                </md-card-content>
+              </md-card>
+              <p class="md-body-1 text-center">or register using your social identity</p>
+            </form>
+            <div layout="row" layout-padding layout-align="center" class="social-icons">
+              <md-button aria-label="Facebook" class="md-fab cb-facebook"><i class="fa fa-facebook"></i></md-button>
+              <md-button aria-label="Twitter" class="md-fab cb-twitter"><i class="fa fa-twitter"></i></md-button>
+              <md-button aria-label="Google" class="md-fab cb-google"><i class="fa fa-google"></i></md-button>
+              <md-button aria-label="Vk" class="md-fab cb-vk"><i class="fa fa-vk"></i></md-button>
+            </div>
+          </div>
+          <div flex="25" flex-sm="0" flex-md="20"></div>
         </div>
-      </md-content>
+      </div>
       <footer class="page-footer">
         <section>
-          <div layout="row" layout-sm="column" layout-wrap>
+          <div layout="row" layout-sm="column">
             <div flex="30" flex-sm="100">
               <div class="brand-footer"></div>
               <div class="brand-copyright">

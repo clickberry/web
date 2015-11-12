@@ -2,39 +2,34 @@ extends layout
 
 block content
 
-    section(layout="row", layout-sm="column", layout-align="center center", layout-wrap)
-        md-button Default
-        md-button.md-primary(md-no-ink) Primary (md-noink)
-        md-button.md-primary(ng-disabled="true") Disabled
-        md-button.md-accent Accent
-        md-button.md-warn Warn
-        .label Flat
+    div(layout="row", layout-align="center")
+        div(flex="25", flex-sm="0", flex-md="20")
+        div(flex="50", flex-sm="100", flex-md="60")
+            form(name="signupform")
+                md-card
+                    md-card-content
+                        div(layout="row")
+                            div(flex="10")
+                            div(flex="80")
+                                h1.md-display-1 Sign up
+                                md-input-container
+                                    label Email
+                                    input(required, type="email", name="signupEmail", ng-model="signup.email", minlength="10", maxlength="100", ng-pattern="/^.+@.+\..+$/")
+                                md-input-container
+                                    label Password
+                                    input(type="password", required, name="password", ng-model="signup.password")
+                                md-card-actions(layout="row", layout-align="end center")
+                                    md-button.md-raised.md-accent(type="submit") Submit
+                            div(flex="10")
+                p.md-body-1.text-center or register using your social identity
+            .social-icons(layout="row", layout-padding, layout-align="center")
+                md-button.md-fab.cb-facebook(aria-label="Facebook")
+                    i.fa.fa-facebook
+                md-button.md-fab.cb-twitter(aria-label="Twitter")
+                    i.fa.fa-twitter
+                md-button.md-fab.cb-google(aria-label="Google")
+                    i.fa.fa-google
+                md-button.md-fab.cb-vk(aria-label="Vk")
+                    i.fa.fa-vk
 
-    //- .row
-    //-     .col-sm-8.col-sm-offset-2.text-center
-    //-         .panel.panel-default
-    //-             .panel-body
-    //-                 .col-lg-8.col-lg-offset-2
-    //-                     form.form-horizontal
-    //-                         fieldset 
-    //-                             legend Sign up
-    //-                             .form-group
-    //-                                 .col-lg-12
-    //-                                     input.form-control.floating-label(type='email', id='inputEmail', placeholder='Email')
-    //-                             .form-group
-    //-                                 .col-lg-12
-    //-                                     input.form-control.floating-label(type='password', id='inputPassword', placeholder='Password')
-    //-                             .form-group
-    //-                                 .col-lg-12
-    //-                                     button.btn.btn-primary.btn-lg(type='submit') Submit
-    //-         p or register using your social identity
-    //-         .social-icons
-    //-             a.btn.btn-info.btn-fab.btn-raised.fb(href='#')
-    //-                 i.fa.fa-facebook
-    //-             a.btn.btn-info.btn-fab.btn-raised.tw(href='#')
-    //-                 i.fa.fa-twitter
-    //-             a.btn.btn-info.btn-fab.btn-raised.go(href='#')
-    //-                 i.fa.fa-google
-    //-             a.btn.btn-info.btn-fab.btn-raised.vk(href='#')
-    //-                 i.fa.fa-vk
-
+        div(flex="25", flex-sm="0", flex-md="20")
