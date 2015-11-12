@@ -27,8 +27,21 @@ script(type="text/ng-template", id="menu.html")
                 i.fa.fa-bars
 
         //- Mobile menu
-        div(layout="column", ng-show="menuExpanded")
-            md-button.md-primary Online editor
-            md-button.md-primary Support
-            md-button.md-primary(ng-click="signin()") Sign in
-            md-button.cb-user-menu(ng-click="signup()") Sign up for free
+        div.hide-gt-md(layout="column", ng-show="menuExpanded")
+            span(ng-show="!user")
+                md-button.md-primary Online editor
+                md-button.md-primary Support
+                md-button.md-primary(ng-click="signin()") Sign in
+                md-button.cb-user-menu(ng-click="signup()") Sign up for free
+            span(ng-show="user")
+                md-menu(md-position-mode="target-right target")
+                    md-button.cb-user-menu(aria-label="User menu", ng-click="$mdOpenMenu($event)")
+                        span(md-menu-origin, ng-bind="user.email")
+                    md-menu-content(width="2")
+                        md-menu-item
+                            md-button(ng-click="")
+                                span(md-menu-align-target) Profile
+                        md-menu-item
+                            md-button(ng-click="")
+                                span(md-menu-align-target, ng-click="signoff()") Sign off
+                                

@@ -29,7 +29,7 @@
                       <div flex="10"></div>
                       <div flex="80">
                         <h1 class="md-display-1">Sign up</h1>
-                        <p>Create a free account to start making interactive video.</p>
+                        <p>Sign up with your e-mail address</p>
                         <md-input-container class="md-title">
                           <label>Email</label>
                           <input required type="email" name="signupEmail" ng-model="signup.email" minlength="10" maxlength="100" ng-pattern="/^.+@.+..+$/">
@@ -124,12 +124,22 @@
                   </md-menu></span></span>
               <md-button aria-label="Menu" ng-click="expandMenu()" class="md-icon-button hide-gt-md"><i class="fa fa-bars"></i></md-button>
             </div>
-            <div layout="column" ng-show="menuExpanded">
-              <md-button class="md-primary">Online editor</md-button>
-              <md-button class="md-primary">Support</md-button>
-              <md-button ng-click="signin()" class="md-primary">Sign in</md-button>
-              <md-button ng-click="signup()" class="cb-user-menu">Sign up for free</md-button>
-            </div>
+            <div layout="column" ng-show="menuExpanded" class="hide-gt-md"><span ng-show="!user">
+                <md-button class="md-primary">Online editor</md-button>
+                <md-button class="md-primary">Support</md-button>
+                <md-button ng-click="signin()" class="md-primary">Sign in</md-button>
+                <md-button ng-click="signup()" class="cb-user-menu">Sign up for free</md-button></span><span ng-show="user">
+                <md-menu md-position-mode="target-right target">
+                  <md-button aria-label="User menu" ng-click="$mdOpenMenu($event)" class="cb-user-menu"><span md-menu-origin ng-bind="user.email"></span></md-button>
+                  <md-menu-content width="2">
+                    <md-menu-item>
+                      <md-button ng-click=""><span md-menu-align-target>Profile</span></md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                      <md-button ng-click=""><span md-menu-align-target ng-click="signoff()">Sign off</span></md-button>
+                    </md-menu-item>
+                  </md-menu-content>
+                </md-menu></span></div>
           </md-toolbar>
         </script>
       </div>
