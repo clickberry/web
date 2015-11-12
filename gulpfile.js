@@ -83,20 +83,6 @@ gulp.task('angular-ui-router', function () {
 gulp.task('libs', ['angular', 'angular-material', 'font-awesome', 'jquery', 'angular-ui-router']);
 
 
-// auth api
-gulp.task('auth-api', function () {
-  return gulp.src([
-      'node_modules/auth-api-js/index.js',
-      'node_modules/angular-animate/angular-animate.js',
-      'node_modules/angular-material/angular-material.js',
-    ])
-    .pipe(concat('angular-material.js'))
-    .pipe(uglify())
-    .pipe(rename({ extname: '.min.js' }))
-    .pipe(gulp.dest('dist/js'));
-});
-
-
 // common
 gulp.task('common', function () {
   return gulp.src('src/*.*')
@@ -138,6 +124,7 @@ gulp.task('stylus', function () {
 gulp.task('js', function () {
   return gulp.src([
       'node_modules/auth-api-js/index.js',
+      'node_modules/profiles-api-js/index.js',
       'src/js/modules/*.js',
       'src/js/*.js',
     ])

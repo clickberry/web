@@ -19,11 +19,11 @@ script(type="text/ng-template", id="menu.html")
                             span(md-menu-origin, ng-bind="user.email")
                         md-menu-content(width="2")
                             md-menu-item
-                                md-button(ng-click="")
+                                md-button(ng-click="profile()")
                                     span(md-menu-align-target) Profile
                             md-menu-item
-                                md-button(ng-click="")
-                                    span(md-menu-align-target, ng-click="signoff()") Sign off
+                                md-button(ng-click="signoff()")
+                                    span(md-menu-align-target) Sign off
 
             //- Expand button
             md-button.md-icon-button.hide-gt-md(aria-label="Menu", ng-click="expandMenu()")
@@ -44,8 +44,8 @@ script(type="text/ng-template", id="menu.html")
                         span(md-menu-origin, ng-bind="user.email")
                     md-menu-content(width="2")
                         md-menu-item
-                            md-button(ng-click="")
+                            md-button(ng-click="profile()")
                                 span(md-menu-align-target) Profile
                         md-menu-item
-                            md-button(ng-click="")
-                                span(md-menu-align-target, ng-click="signoff()") Sign off
+                            md-button(ng-click="signoff()")
+                                span(md-menu-align-target) Sign off

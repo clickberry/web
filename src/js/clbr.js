@@ -7,6 +7,7 @@
       'home',
       'signup',
       'signin',
+      'profile',
       'directives'
     ]);
 
@@ -40,8 +41,8 @@
 
     // Main application controller
     app.controller('ClickberryCtrl', [
-      '$rootScope', '$state',
-      function ($rootScope, $state) {
+      '$rootScope',
+      function ($rootScope) {
 
         $rootScope.pageTitle = 'Clickberry Video Portal';
         $rootScope.$on('$stateChangeSuccess', function (event, toState/*, toParams, from, fromParams*/) {
@@ -49,14 +50,6 @@
             $rootScope.pageTitle = toState.data.pageTitle;
           }
         });
-
-        $rootScope.signup = function () {
-          $state.go('signup');
-        };
-
-        $rootScope.signin = function () {
-          $state.go('signin');
-        };
       }
     ]);
 

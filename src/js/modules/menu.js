@@ -4,7 +4,7 @@
     var module = angular.module('menu', ['user', 'constants']);
 
     module.directive('cbMenu', [
-        'events', 'user', function (events, user) {
+        '$state', 'events', 'user', function ($state, events, user) {
           return {
             restrict: 'EA',
             replace: true,
@@ -15,10 +15,6 @@
                 $scope.menuExpanded = !$scope.menuExpanded;
               };
 
-              $scope.signoff = function () {
-                user.destroy();
-              };
-
               $scope.user = null;
               $scope.$on(events.login, function (event, data) {
                 $scope.user = data;
@@ -27,6 +23,22 @@
               $scope.$on(events.logout, function () {
                 $scope.user = null;
               });
+
+              $scope.signoff = function () {
+                user.destroy();
+              };
+
+              $scope.signup = function () {
+                $state.go('signup');
+              };
+
+              $scope.signin = function () {
+                $state.go('signin');
+              };
+
+              $scope.profile = function () {
+                $state.go('profile');
+              };
             }
           };
         }
