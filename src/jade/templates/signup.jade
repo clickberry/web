@@ -21,7 +21,9 @@ script(type="text/ng-template", id="signup.html")
                                     input(type="password", required, name="signupConfirmPassword", ng-model="signup.confirmPassword" cb-confirm="signup.password")
                                 md-card-actions(layout="row", layout-align="end center")
                                     md-button(ng-href='#', ui-sref='home') Cancel
-                                    md-button.md-raised.md-accent(type="submit", ng-disabled="signupform.$invalid") Submit
+                                    md-button.md-raised.md-accent(type="submit", ng-disabled="signupform.$invalid || loading")
+                                        i.fa.fa-circle-o-notch.fa-spin.faster(ng-show="loading") 
+                                        span  Submit
                             div(flex="10")
                 p.md-body-1.text-center or register using your social identity
             .social-icons(layout="row", layout-padding, layout-align="center")

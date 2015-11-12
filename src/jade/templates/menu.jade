@@ -30,13 +30,13 @@ script(type="text/ng-template", id="menu.html")
                 i.fa.fa-bars
 
         //- Mobile menu
-        div.hide-gt-md(layout="column", ng-show="menuExpanded")
-            span(ng-show="!user")
+        div.hide-gt-md(ng-show="menuExpanded")
+            div(ng-show="!user", layout="column")
                 md-button.md-primary Online editor
                 md-button.md-primary Support
                 md-button.md-primary(ng-click="signin()") Sign in
                 md-button.cb-user-menu(ng-click="signup()") Sign up for free
-            span(ng-show="user")
+            div(ng-show="user", layout="column")
                 md-button.md-primary Videos
                 md-button.md-primary Likes
                 md-menu(md-position-mode="target-right target")
