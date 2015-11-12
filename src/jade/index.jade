@@ -2,34 +2,6 @@ extends layout
 
 block content
 
-    div(layout="row", layout-align="center")
-        div(flex="25", flex-sm="0", flex-md="20")
-        div(flex="50", flex-sm="100", flex-md="60")
-            form(name="signupform")
-                md-card
-                    md-card-content
-                        div(layout="row")
-                            div(flex="10")
-                            div(flex="80")
-                                h1.md-display-1 Sign up
-                                md-input-container
-                                    label Email
-                                    input(required, type="email", name="signupEmail", ng-model="signup.email", minlength="10", maxlength="100", ng-pattern="/^.+@.+\..+$/")
-                                md-input-container
-                                    label Password
-                                    input(type="password", required, name="password", ng-model="signup.password")
-                                md-card-actions(layout="row", layout-align="end center")
-                                    md-button.md-raised.md-accent(type="submit") Submit
-                            div(flex="10")
-                p.md-body-1.text-center or register using your social identity
-            .social-icons(layout="row", layout-padding, layout-align="center")
-                md-button.md-fab.cb-facebook(aria-label="Facebook")
-                    i.fa.fa-facebook
-                md-button.md-fab.cb-twitter(aria-label="Twitter")
-                    i.fa.fa-twitter
-                md-button.md-fab.cb-google(aria-label="Google")
-                    i.fa.fa-google
-                md-button.md-fab.cb-vk(aria-label="Vk")
-                    i.fa.fa-vk
+    div(ui-view)
 
-        div(flex="25", flex-sm="0", flex-md="20")
+    include templates/index.jade

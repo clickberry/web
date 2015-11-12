@@ -3,6 +3,7 @@ html(lang='en', ng-app='clbr', ng-controller='ClickberryCtrl')
     head
         meta(http-equiv='content-type', content='text/html; charset=utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1')
+        base(href="/")
 
         title Clickberry Video Portal
 
@@ -12,27 +13,26 @@ html(lang='en', ng-app='clbr', ng-controller='ClickberryCtrl')
         link(rel='stylesheet', href='/css/angular-material.min.css')
         link(rel='stylesheet', href='/css/font-awesome.min.css')
         link(rel='stylesheet', href='/css/clbr.min.css')
-    body.ng-cloak
-
+    body
         div(layout="column")
             md-toolbar.cb-top-menu.md-hue-2(ng-class="{'md-tall': menuExpanded}")
                 .md-toolbar-tools
-                    md-button.cb-brand-menu(ng-href="/")
+                    md-button.cb-brand-menu(ng-href="/", ui-sref="home", aria-label="Clickberry Home")
                     span(flex)
                     span.hide.show-gt-md
                         md-button.md-primary Online editor
                         md-button.md-primary Support
-                        md-button.md-primary Sign in
-                        md-button.cb-user-menu Sign up for free
+                        md-button.md-primary(ng-click="signin()") Sign in
+                        md-button.cb-user-menu(ng-click="signup()") Sign up for free
                     md-button.md-icon-button.hide-gt-md(aria-label="Menu", ng-click="expandMenu()")
                         i.fa.fa-bars
                 div(layout="column", ng-show="menuExpanded")
                     md-button.md-primary Online editor
                     md-button.md-primary Support
-                    md-button.md-primary Sign in
-                    md-button.cb-user-menu Sign up for free
+                    md-button.md-primary(ng-click="signin()") Sign in
+                    md-button.cb-user-menu(ng-click="signup()") Sign up for free
 
-            .cb-page-content
+            .cb-page-content.ng-cloak
                 block content
 
             footer.page-footer

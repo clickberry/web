@@ -1,12 +1,12 @@
 (function(window, angular, clbr) {
-    "use strict";
+  "use strict";
 
-    var module = angular.module('auth-api', ['constants']);
+  var module = angular.module('auth-api', ['settings']);
 
-    module.factory('authService', [
-        'urls', function (urls) {
-            return clbr.authApi(urls.authApi);
-        }
-    ]);
+  module.factory('authService', [
+    'urls', function (urls) {
+      return clbr.authApi(urls.authApi);
+    }
+  ]);
     
 })(window, window.angular, window.clbr);
