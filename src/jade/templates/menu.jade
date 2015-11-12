@@ -11,6 +11,9 @@ script(type="text/ng-template", id="menu.html")
                     md-button.md-primary(ng-click="signin()") Sign in
                     md-button.cb-user-menu(ng-click="signup()") Sign up for free
                 span(ng-show="user")
+                    md-button.md-primary Videos
+                    md-button.md-icon-button(aria-label="Likes")
+                        i.fa.fa-heart
                     md-menu(md-position-mode="target-right target")
                         md-button.cb-user-menu(aria-label="User menu", ng-click="$mdOpenMenu($event)")
                             span(md-menu-origin, ng-bind="user.email")
@@ -34,6 +37,8 @@ script(type="text/ng-template", id="menu.html")
                 md-button.md-primary(ng-click="signin()") Sign in
                 md-button.cb-user-menu(ng-click="signup()") Sign up for free
             span(ng-show="user")
+                md-button.md-primary Videos
+                md-button.md-primary Likes
                 md-menu(md-position-mode="target-right target")
                     md-button.cb-user-menu(aria-label="User menu", ng-click="$mdOpenMenu($event)")
                         span(md-menu-origin, ng-bind="user.email")
@@ -44,4 +49,3 @@ script(type="text/ng-template", id="menu.html")
                         md-menu-item
                             md-button(ng-click="")
                                 span(md-menu-align-target, ng-click="signoff()") Sign off
-                                
