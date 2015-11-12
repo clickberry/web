@@ -52,6 +52,11 @@
           }
         });
 
+        $rootScope.menuExpanded = false;
+        $rootScope.expandMenu = function() {
+          $rootScope.menuExpanded = !$rootScope.menuExpanded;
+        }
+
         $rootScope.test = function () {
           authService.facebook();
         };

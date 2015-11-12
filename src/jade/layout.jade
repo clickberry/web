@@ -15,95 +15,71 @@ html(lang='en', ng-app='clbr', ng-controller='ClickberryCtrl')
     body.ng-cloak
 
         div(layout="column")
-            md-toolbar.md-hue-2
-                .md-toolbar-tools.cb-top-menu
+            md-toolbar.cb-top-menu.md-hue-2(ng-class="{'md-tall': menuExpanded}")
+                .md-toolbar-tools
                     md-button.cb-brand-menu(ng-href="/")
                     span(flex)
+                    span.hide.show-gt-md
+                        md-button.md-primary Online editor
+                        md-button.md-primary Support
+                        md-button.md-primary Sign in
+                        md-button.cb-user-menu Sign up for free
+                    md-button.md-icon-button.hide-gt-md(aria-label="Menu", ng-click="expandMenu()")
+                        i.fa.fa-bars
+                div(layout="column", ng-show="menuExpanded")
                     md-button.md-primary Online editor
                     md-button.md-primary Support
                     md-button.md-primary Sign in
                     md-button.cb-user-menu Sign up for free
-                    
+
             md-content(flex)
-                block content
+                .page-content
+                    block content
 
-        //- .navbar.navbar-material-grey-900.top-menu.navbar-fixed-top
-        //-     .container
-        //-         .navbar-header
-        //-             button.navbar-toggle(data-toggle='collapse', data-target='.navbar-responsive-collapse')
-        //-                 span.icon-bar
-        //-                 span.icon-bar
-        //-                 span.icon-bar
-        //-             a.navbar-brand.brand-menu(href='/') Clickberry
-        //-         .navbar-collapse.collapse.navbar-responsive-collapse
-        //-             ul.nav.navbar-nav.navbar-right
-        //-                 li
-        //-                     a.btn.btn-flat.btn-link(href='#') Online Editor
-        //-                 li
-        //-                     a.btn.btn-flat.btn-link(href='#') Support
-        //-                 li
-        //-                     a.btn.btn-flat.btn-link(href='#') Sign in
-        //-                 li.user-menu
-        //-                     a.btn.btn-primary.btn-flat(href='#') Sign up for free
-        //-                 //- li.dropdown.user-menu
-        //-                 //-     a.dropdown-toggle(href='/', data-target='#', data-toggle='dropdown') Alexey Melnikov
-        //-                 //-         i.mdi-action-settings
-        //-                 //-     ul.dropdown-menu
-        //-                 //-         li
-        //-                 //-             a(href='#') Action
-        //-                 //-             a(href='#') Another action
-        //-                 //-             a(href='#') Something else here
-        //-                 //-         li.divider
-        //-                 //-         li
-        //-                 //-             a(href='#') Separated link
+            footer.page-footer
+                section
+                    div(layout="row", layout-sm="column", layout-wrap)
+                        div(flex="30", flex-sm="100")
+                            .brand-footer
+                            .brand-copyright
+                                p 
+                                    span Made with 
+                                    i.fa.fa-heart
+                                    span  by Clickberry
+                        div(flex="15", flex-sm="100", layout-padding)
+                            ul.bottom-menu
+                                li 
+                                    a(href='#') About Clickberry
+                                li 
+                                    a(href='#') Terms of service
+                                li 
+                                    a(href='#') Contacts
+                        div(flex="15", flex-sm="100", layout-padding)
+                            ul.bottom-menu
+                                li 
+                                    a(href='#') My videos
+                                li 
+                                    a(href='#') My likes
+                                li 
+                                    a(href='#') Feed
+                                li 
+                                    a(href='#') Trends
+                                li 
+                                    a(href='#') Profile
+                        div(flex="15", flex-sm="100", layout-padding)
+                            ul.bottom-menu
+                                li 
+                                    a(href='#') Online editor
+                                li 
+                                    a(href='#') Desktop app
+                        div(flex="15", flex-sm="100", layout-padding)
+                            ul.bottom-menu
+                                li 
+                                    a(href='https://github.com/clickberry/web-services') Github
+                                li 
+                                    a(href='#') API
+                        div(flex="10", hide-sm)
 
-        //- .page-content
-        //-     .container
-        
-
-        //- footer.page-footer
-        //-     .container
-        //-         .row
-        //-             .col-sm-3
-        //-                 .brand-footer
-        //-                 .brand-copyright
-        //-                     p 
-        //-                         span Made with 
-        //-                         i.mdi-action-favorite 
-        //-                         span  by Clickberry
-        //-             .col-sm-2
-        //-                 ul.bottom-menu
-        //-                     li 
-        //-                         a(href='#') About Clickberry
-        //-                     li 
-        //-                         a(href='#') Terms of service
-        //-                     li 
-        //-                         a(href='#') Contacts
-        //-             .col-sm-2
-        //-                 ul.bottom-menu
-        //-                     li 
-        //-                         a(href='#') My videos
-        //-                     li 
-        //-                         a(href='#') My likes
-        //-                     li 
-        //-                         a(href='#') Feed
-        //-                     li 
-        //-                         a(href='#') Trends
-        //-                     li 
-        //-                         a(href='#') Profile
-        //-             .col-sm-2
-        //-                 ul.bottom-menu
-        //-                     li 
-        //-                         a(href='#') Online editor
-        //-                     li 
-        //-                         a(href='#') Desktop app
-        //-             .col-sm-2
-        //-                 ul.bottom-menu
-        //-                     li 
-        //-                         a(href='https://github.com/clickberry/web-services') Github
-        //-                     li 
-        //-                         a(href='#') API
-        //-             .col-sm-1
 
         script(src='/js/jquery.min.js')
         script(src='/js/angular.min.js')
