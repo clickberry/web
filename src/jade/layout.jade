@@ -14,22 +14,7 @@ html(lang='en', ng-app='clbr', ng-controller='ClickberryCtrl')
         link(rel='stylesheet', href='/css/clbr.min.css')
     body
         div(layout="column").ng-cloak
-            md-toolbar.cb-top-menu.md-hue-2(ng-class="{'md-tall': menuExpanded}")
-                .md-toolbar-tools
-                    md-button.cb-brand-menu(ng-href="/", ui-sref="home", aria-label="Clickberry Home")
-                    span(flex)
-                    span.hide.show-gt-md
-                        md-button.md-primary Online editor
-                        md-button.md-primary Support
-                        md-button.md-primary(ng-click="signin()") Sign in
-                        md-button.cb-user-menu(ng-click="signup()") Sign up for free
-                    md-button.md-icon-button.hide-gt-md(aria-label="Menu", ng-click="expandMenu()")
-                        i.fa.fa-bars
-                div(layout="column", ng-show="menuExpanded")
-                    md-button.md-primary Online editor
-                    md-button.md-primary Support
-                    md-button.md-primary(ng-click="signin()") Sign in
-                    md-button.cb-user-menu(ng-click="signup()") Sign up for free
+            cb-menu
 
             .cb-page-content
                 block content

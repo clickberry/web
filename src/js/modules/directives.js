@@ -1,9 +1,10 @@
 (function(window, angular) {
     "use strict";
+    
+    var module = angular.module('directives', ['menu']);
 
     // input confirmation (e.g. passwords match)
-    angular.module('directives', []) 
-      .directive('cbConfirm', function() {
+    module.directive('cbConfirm', function() {
         return {
           restrict: 'A',
           require: 'ngModel',

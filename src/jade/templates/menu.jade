@@ -1,0 +1,34 @@
+script(type="text/ng-template", id="menu.html")
+    md-toolbar.cb-top-menu.md-hue-2(ng-class="{'md-tall': menuExpanded}")
+        .md-toolbar-tools
+            md-button.cb-brand-menu(ng-href="/", ui-sref="home", aria-label="Clickberry Home")
+            span(flex)
+            span.hide.show-gt-md
+                //- Main menu
+                span(ng-show="!user")
+                    md-button.md-primary Online editor
+                    md-button.md-primary Support
+                    md-button.md-primary(ng-click="signin()") Sign in
+                    md-button.cb-user-menu(ng-click="signup()") Sign up for free
+                span(ng-show="user")
+                    md-menu(md-position-mode="target-right target")
+                        md-button.cb-user-menu(aria-label="User menu", ng-click="$mdOpenMenu($event)")
+                            span(md-menu-origin, ng-bind="user.email")
+                        md-menu-content(width="2")
+                            md-menu-item
+                                md-button(ng-click="")
+                                    span(md-menu-align-target) Profile
+                            md-menu-item
+                                md-button(ng-click="")
+                                    span(md-menu-align-target, ng-click="signoff()") Sign off
+
+            //- Expand button
+            md-button.md-icon-button.hide-gt-md(aria-label="Menu", ng-click="expandMenu()")
+                i.fa.fa-bars
+
+        //- Mobile menu
+        div(layout="column", ng-show="menuExpanded")
+            md-button.md-primary Online editor
+            md-button.md-primary Support
+            md-button.md-primary(ng-click="signin()") Sign in
+            md-button.cb-user-menu(ng-click="signup()") Sign up for free

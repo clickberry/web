@@ -12,22 +12,7 @@
   </head>
   <body>
     <div layout="column" class="ng-cloak">
-      <md-toolbar ng-class="{'md-tall': menuExpanded}" class="cb-top-menu md-hue-2">
-        <div class="md-toolbar-tools">
-          <md-button ng-href="/" ui-sref="home" aria-label="Clickberry Home" class="cb-brand-menu"></md-button><span flex></span><span class="hide show-gt-md">
-            <md-button class="md-primary">Online editor</md-button>
-            <md-button class="md-primary">Support</md-button>
-            <md-button ng-click="signin()" class="md-primary">Sign in</md-button>
-            <md-button ng-click="signup()" class="cb-user-menu">Sign up for free</md-button></span>
-          <md-button aria-label="Menu" ng-click="expandMenu()" class="md-icon-button hide-gt-md"><i class="fa fa-bars"></i></md-button>
-        </div>
-        <div layout="column" ng-show="menuExpanded">
-          <md-button class="md-primary">Online editor</md-button>
-          <md-button class="md-primary">Support</md-button>
-          <md-button ng-click="signin()" class="md-primary">Sign in</md-button>
-          <md-button ng-click="signup()" class="cb-user-menu">Sign up for free</md-button>
-        </div>
-      </md-toolbar>
+      <cb-menu></cb-menu>
       <div class="cb-page-content">
         <div ui-view></div>
         <script type="text/ng-template" id="home.html">
@@ -117,6 +102,35 @@
             </div>
             <div flex="25" flex-sm="0" flex-md="20"></div>
           </div>
+        </script>
+        <script type="text/ng-template" id="menu.html">
+          <md-toolbar ng-class="{'md-tall': menuExpanded}" class="cb-top-menu md-hue-2">
+            <div class="md-toolbar-tools">
+              <md-button ng-href="/" ui-sref="home" aria-label="Clickberry Home" class="cb-brand-menu"></md-button><span flex></span><span class="hide show-gt-md"><span ng-show="!user">
+                  <md-button class="md-primary">Online editor</md-button>
+                  <md-button class="md-primary">Support</md-button>
+                  <md-button ng-click="signin()" class="md-primary">Sign in</md-button>
+                  <md-button ng-click="signup()" class="cb-user-menu">Sign up for free</md-button></span><span ng-show="user">
+                  <md-menu md-position-mode="target-right target">
+                    <md-button aria-label="User menu" ng-click="$mdOpenMenu($event)" class="cb-user-menu"><span md-menu-origin ng-bind="user.email"></span></md-button>
+                    <md-menu-content width="2">
+                      <md-menu-item>
+                        <md-button ng-click=""><span md-menu-align-target>Profile</span></md-button>
+                      </md-menu-item>
+                      <md-menu-item>
+                        <md-button ng-click=""><span md-menu-align-target ng-click="signoff()">Sign off</span></md-button>
+                      </md-menu-item>
+                    </md-menu-content>
+                  </md-menu></span></span>
+              <md-button aria-label="Menu" ng-click="expandMenu()" class="md-icon-button hide-gt-md"><i class="fa fa-bars"></i></md-button>
+            </div>
+            <div layout="column" ng-show="menuExpanded">
+              <md-button class="md-primary">Online editor</md-button>
+              <md-button class="md-primary">Support</md-button>
+              <md-button ng-click="signin()" class="md-primary">Sign in</md-button>
+              <md-button ng-click="signup()" class="cb-user-menu">Sign up for free</md-button>
+            </div>
+          </md-toolbar>
         </script>
       </div>
       <footer class="page-footer">

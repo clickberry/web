@@ -1,25 +1,33 @@
 (function (window, angular) {
     "use strict";
 
-    var module = angular.module('user', ['auth-api', 'settings']);
+    var module = angular.module('user', ['auth-api', 'settings', 'constants']);
 
     module.factory('user', [
-      '$interval', 'authApi', 'urls', function ($interval, authApi, urls) {
-        var intervalId;
+      '$rootScope', '$interval', 'authApi', 'urls', 'events', 
+        function ($rootScope, $interval, authApi, urls, events) {
+          var intervalId;
 
-        var fields = {
-          id: undefined,
-          email: undefined,
-          accessToken: undefined,
-          refreshToken: undefined
-        };
+          var fields = {
+            id: undefined,
+            email: undefined,
+            accessToken: undefined,
+            refreshToken: undefined
+          };
 
-        // set social callback
-        authApi.setRedirect(urls.web, function () {});
+          // set social callback
+          authApi.setRedirect(urls.web, function () {});
 
-        return {
+          function emitLoginEvent(data) {
+            $rootScope.$broadcast(events.login, data);
+          }
+
+          function emitLogoutEvent() {
+            $rootScope.$broadcast(events.logout);
+          }
+
           // inits a user account
-          init: function (accessToken, refreshToken) {
+          function init (accessToken, refreshToken) {
             var self = this;
 
             self.accessToken = accessToken;
@@ -30,6 +38,7 @@
               if (err) { throw err; }
               self.id = data.id;
               self.email = data.email;
+              emitLoginEvent({id: data.id, email: data.email});
             });
 
             // sets the interval to refresh token
@@ -40,18 +49,19 @@
                 self.refreshToken = data.refreshToken;
               });
             }, 60000);
-
-          },
+          }
 
           // destroys the account
-          destroy: function () {
-            // cancel interval
+          function destroy () {
             $interval.cancel(intervalId);
-
-            // clear fields
             angular.extend(this, fields);
+            emitLogoutEvent();
           }
-        };
+
+          return {
+            init: init,
+            destroy: destroy
+          };
     }
   ]);
 

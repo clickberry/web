@@ -50,11 +50,6 @@
           }
         });
 
-        $rootScope.menuExpanded = false;
-        $rootScope.expandMenu = function() {
-          $rootScope.menuExpanded = !$rootScope.menuExpanded;
-        }
-
         $rootScope.signup = function () {
           $state.go('signup');
         };
