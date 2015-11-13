@@ -29,6 +29,7 @@
     "angular-ui-router": "^0.2.15",
     "auth-api-js": "git+https://github.com/clickberry/auth-api-js.git",
     "profiles-api-js": "git+https://github.com/clickberry/profiles-api-js.git",
+    "projects-api-js": "git+https://github.com/clickberry/projects-api-js.git",
     "font-awesome": "^4.4.0",
     "gulp": "^3.9.0",
     "gulp-clean": "^0.3.1",

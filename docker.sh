@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # remove web container & image
-docker stop web-ui
-docker rm web-ui
-docker rmi web-ui
+docker stop web
+docker rm web
+docker rmi web
 
 # build new image and run container
 gulp
-docker build -t web-ui .
-docker run -d --name web-ui -p 8081:80 web-ui
+docker build -t web .
+docker run -d --name web -p 8080:80 web

@@ -5,7 +5,8 @@
       .constant('urls', {
       	'web': 'http://192.168.99.100:8081',
         'authApi': 'http://auth.qa.clbr.ws',
-        'profilesApi': 'http://profiles.qa.clbr.ws'
+        'profilesApi': 'http://profiles.qa.clbr.ws',
+        'projectsApi': 'http://projects.qa.clbr.ws'
       });
     
 })(window, window.angular);

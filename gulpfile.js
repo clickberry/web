@@ -125,6 +125,7 @@ gulp.task('js', function () {
   return gulp.src([
       'node_modules/auth-api-js/index.js',
       'node_modules/profiles-api-js/index.js',
+      'node_modules/projects-api-js/index.js',
       'src/js/modules/*.js',
       'src/js/*.js',
     ])
