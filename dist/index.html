@@ -35,7 +35,7 @@
                   <md-button class="md-primary">Videos</md-button>
                   <md-button aria-label="Likes" class="md-icon-button"><i class="fa fa-heart"></i></md-button>
                   <md-menu md-position-mode="target-right target">
-                    <md-button aria-label="User menu" ng-click="$mdOpenMenu($event)" class="cb-user-menu"><span md-menu-origin ng-bind="user.email"></span></md-button>
+                    <md-button aria-label="Account Settings" ng-click="$mdOpenMenu($event)" ng-class="{'md-icon-button': !user.email}" class="cb-user-menu"><span md-menu-origin><span ng-if="user.email" ng-bind="user.email"></span><i ng-if="!user.email" class="fa fa-cog"></i></span></md-button>
                     <md-menu-content width="2">
                       <md-menu-item>
                         <md-button ng-click="profile()"><span md-menu-align-target>Profile</span></md-button>
@@ -58,7 +58,7 @@
                 <md-button class="md-primary">Videos</md-button>
                 <md-button class="md-primary">Likes</md-button>
                 <md-menu md-position-mode="target-right target">
-                  <md-button aria-label="User menu" ng-click="$mdOpenMenu($event)" class="cb-user-menu"><span md-menu-origin ng-bind="user.email"></span></md-button>
+                  <md-button aria-label="Account Settings" ng-click="$mdOpenMenu($event)" class="cb-user-menu"><span md-menu-origin><span ng-if="user.email" ng-bind="user.email"></span><span ng-if="!user.email">Account Settings</span></span></md-button>
                   <md-menu-content width="2">
                     <md-menu-item>
                       <md-button ng-click="profile()"><span md-menu-align-target>Profile</span></md-button>

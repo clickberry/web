@@ -15,8 +15,10 @@ script(type="text/ng-template", id="menu.html")
                     md-button.md-icon-button(aria-label="Likes")
                         i.fa.fa-heart
                     md-menu(md-position-mode="target-right target")
-                        md-button.cb-user-menu(aria-label="User menu", ng-click="$mdOpenMenu($event)")
-                            span(md-menu-origin, ng-bind="user.email")
+                        md-button.cb-user-menu(aria-label="Account Settings", ng-click="$mdOpenMenu($event)", ng-class="{'md-icon-button': !user.email}")
+                            span(md-menu-origin)
+                                span(ng-if="user.email", ng-bind="user.email")
+                                i.fa.fa-cog(ng-if="!user.email")
                         md-menu-content(width="2")
                             md-menu-item
                                 md-button(ng-click="profile()")
@@ -40,8 +42,10 @@ script(type="text/ng-template", id="menu.html")
                 md-button.md-primary Videos
                 md-button.md-primary Likes
                 md-menu(md-position-mode="target-right target")
-                    md-button.cb-user-menu(aria-label="User menu", ng-click="$mdOpenMenu($event)")
-                        span(md-menu-origin, ng-bind="user.email")
+                    md-button.cb-user-menu(aria-label="Account Settings", ng-click="$mdOpenMenu($event)")
+                        span(md-menu-origin)
+                            span(ng-if="user.email", ng-bind="user.email")
+                            span(ng-if="!user.email") Account Settings
                     md-menu-content(width="2")
                         md-menu-item
                             md-button(ng-click="profile()")

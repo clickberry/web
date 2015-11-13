@@ -1,12 +1,13 @@
 (function (window, angular) {
     "use strict";
 
-    var module = angular.module('user', ['auth-api', 'settings', 'constants']);
+    var module = angular.module('user', ['auth-api', 'constants']);
 
     module.factory('user', [
-      '$rootScope', '$interval', 'authApi', 'urls', 'events', 
-        function ($rootScope, $interval, authApi, urls, events) {
+      '$rootScope', '$interval', '$location', 'authApi', 'events', 
+        function ($rootScope, $interval, $location, authApi, events) {
           var intervalId;
+          var user = {};
 
           var fields = {
             id: undefined,
@@ -16,37 +17,50 @@
           };
 
           // set social callback
-          authApi.setRedirect(urls.web, function () {});
+          (function setRedirectUrl() {
+            var baseUri = $location.protocol() + '://' + $location.host() + ':' + $location.port() + '/#/'; // to use angular routing
+            authApi.setRedirect(baseUri, function () {});
+          })();
 
+          // emits login event
           function emitLoginEvent(data) {
             $rootScope.$broadcast(events.login, data);
           }
 
+          // emits logout event
           function emitLogoutEvent() {
             $rootScope.$broadcast(events.logout);
           }
 
           // inits a user account
           function init (accessToken, refreshToken) {
-            var self = this;
-
-            self.accessToken = accessToken;
-            self.refreshToken = refreshToken;
+            user.accessToken = accessToken;
+            user.refreshToken = refreshToken;
 
             // gets user account info
             authApi.get(accessToken, function (err, data) {
               if (err) { throw err; }
-              self.id = data.id;
-              self.email = data.email;
-              emitLoginEvent({id: data.id, email: data.email});
+              user.id = data.id;
+              user.email = data.email;
+              if (!user.email && data.memberships) {
+                // checking memberships
+                for (var i = 0; i < data.memberships.length; ++i) {
+                  if (data.memberships[i].email) {
+                    user.email = data.memberships[i].email;
+                    break;
+                  }
+                }
+              }
+
+              emitLoginEvent({id: user.id, email: user.email});
             });
 
             // sets the interval to refresh token
             intervalId = $interval(function() {
-              authApi.refresh(refreshToken, function (err, data) {
+              authApi.refresh(user.refreshToken, function (err, data) {
                 if (err) { throw err; }
-                self.accessToken = data.accessToken;
-                self.refreshToken = data.refreshToken;
+                user.accessToken = data.accessToken;
+                user.refreshToken = data.refreshToken;
               });
             }, 60000);
           }
@@ -54,14 +68,23 @@
           // destroys the account
           function destroy () {
             $interval.cancel(intervalId);
-            angular.extend(this, fields);
+            angular.extend(user, fields);
             emitLogoutEvent();
           }
 
-          return {
-            init: init,
-            destroy: destroy
-          };
+          // handles social login redirects
+          (function handleSocialRedirect() {
+            var params = $location.search();
+            if (params.access_token && params.refresh_token){
+              // initializing user
+              init(params.access_token, params.refresh_token);
+            }
+          })();
+
+          user.init = init;
+          user.destroy = destroy;
+
+          return user;
     }
   ]);
 

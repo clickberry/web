@@ -22,6 +22,7 @@
               });
               $scope.$on(events.logout, function () {
                 $scope.user = null;
+                $state.go('home');
               });
 
               $scope.signoff = function () {

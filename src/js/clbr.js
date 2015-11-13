@@ -8,7 +8,9 @@
       'signup',
       'signin',
       'profile',
-      'directives'
+      'directives',
+      'user',
+      'exceptions'
     ]);
 
     // Config
