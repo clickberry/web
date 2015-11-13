@@ -16,7 +16,13 @@
       <div class="cb-page-content">
         <div ui-view></div>
         <script type="text/ng-template" id="home.html">
-          <p>Hello</p>
+          <div class="video-grid">
+            <md-card>
+              <md-card-content>
+                <div layout="column" layout-align="center"><img src="images/video-grid.png"></div>
+              </md-card-content>
+            </md-card>
+          </div>
         </script>
         <script type="text/ng-template" id="menu.html">
           <md-toolbar ng-class="{'md-tall': menuExpanded}" class="cb-top-menu md-hue-2">
