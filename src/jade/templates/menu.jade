@@ -1,10 +1,11 @@
 script(type="text/ng-template", id="menu.html")
     md-toolbar.cb-top-menu.md-hue-2(ng-class="{'md-tall': menuExpanded}")
         .md-toolbar-tools
-            md-button.cb-brand-menu(ng-href="/", ui-sref="home", aria-label="Clickberry Home")
+            a.cb-brand-menu(ng-href="/", ui-sref="home", aria-label="Clickberry Home")
             span(flex)
+                
+            //- Main menu
             span.hide.show-gt-md
-                //- Main menu
                 span(ng-show="!user")
                     md-button.md-primary Online editor
                     md-button.md-primary Support

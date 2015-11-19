@@ -26,8 +26,7 @@
         </script>
         <script type="text/ng-template" id="menu.html">
           <md-toolbar ng-class="{'md-tall': menuExpanded}" class="cb-top-menu md-hue-2">
-            <div class="md-toolbar-tools">
-              <md-button ng-href="/" ui-sref="home" aria-label="Clickberry Home" class="cb-brand-menu"></md-button><span flex></span><span class="hide show-gt-md"><span ng-show="!user">
+            <div class="md-toolbar-tools"><a ng-href="/" ui-sref="home" aria-label="Clickberry Home" class="cb-brand-menu"></a><span flex></span><span class="hide show-gt-md"><span ng-show="!user">
                   <md-button class="md-primary">Online editor</md-button>
                   <md-button class="md-primary">Support</md-button>
                   <md-button ng-click="signin()" class="md-primary">Sign in</md-button>
@@ -193,21 +192,21 @@
       </div>
       <footer class="page-footer">
         <section>
-          <div layout="row" layout-sm="column">
-            <div flex="30" flex-sm="100">
-              <div class="brand-footer"></div>
+          <div layout-gt-md="row" layout="column">
+            <div flex="30" flex-md="100">
+              <div class="brand-footer"><img src="/images/brand-footer.png" alt="Clickberry"></div>
               <div class="brand-copyright">
                 <p> <span>Made with </span><i class="fa fa-heart"></i><span> by Clickberry</span></p>
               </div>
             </div>
-            <div flex="15" flex-sm="100" layout-padding>
+            <div flex-gt-md="15" flex="100" layout-padding>
               <ul class="bottom-menu">
                 <li> <a href="#">About Clickberry</a></li>
                 <li> <a href="#">Terms of service</a></li>
                 <li> <a href="#">Contacts</a></li>
               </ul>
             </div>
-            <div flex="15" flex-sm="100" layout-padding>
+            <div flex-gt-md="15" flex="100" layout-padding>
               <ul class="bottom-menu">
                 <li> <a href="#">My videos</a></li>
                 <li> <a href="#">My likes</a></li>
@@ -216,19 +215,19 @@
                 <li> <a href="#">Profile</a></li>
               </ul>
             </div>
-            <div flex="15" flex-sm="100" layout-padding>
+            <div flex-gt-md="15" flex="100" layout-padding>
               <ul class="bottom-menu">
                 <li> <a href="#">Online editor</a></li>
                 <li> <a href="#">Desktop app</a></li>
               </ul>
             </div>
-            <div flex="15" flex-sm="100" layout-padding>
+            <div flex-gt-md="15" flex="100" layout-padding>
               <ul class="bottom-menu">
                 <li> <a href="https://github.com/clickberry/web-services">Github</a></li>
                 <li> <a href="#">API</a></li>
               </ul>
             </div>
-            <div flex="10" hide-sm></div>
+            <div flex-gt-md="10" hide></div>
           </div>
         </section>
       </footer>

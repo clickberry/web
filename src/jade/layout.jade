@@ -21,15 +21,16 @@ html(lang='en', ng-app='clbr', ng-controller='ClickberryCtrl')
 
             footer.page-footer
                 section
-                    div(layout="row", layout-sm="column")
-                        div(flex="30", flex-sm="100")
+                    div(layout-gt-md="row", layout="column")
+                        div(flex="30", flex-md="100")
                             .brand-footer
+                                img(src="/images/brand-footer.png", alt="Clickberry")
                             .brand-copyright
                                 p 
                                     span Made with 
                                     i.fa.fa-heart
                                     span  by Clickberry
-                        div(flex="15", flex-sm="100", layout-padding)
+                        div(flex-gt-md="15", flex="100", layout-padding)
                             ul.bottom-menu
                                 li 
                                     a(href='#') About Clickberry
@@ -37,7 +38,7 @@ html(lang='en', ng-app='clbr', ng-controller='ClickberryCtrl')
                                     a(href='#') Terms of service
                                 li 
                                     a(href='#') Contacts
-                        div(flex="15", flex-sm="100", layout-padding)
+                        div(flex-gt-md="15", flex="100", layout-padding)
                             ul.bottom-menu
                                 li 
                                     a(href='#') My videos
@@ -49,19 +50,19 @@ html(lang='en', ng-app='clbr', ng-controller='ClickberryCtrl')
                                     a(href='#') Trends
                                 li 
                                     a(href='#') Profile
-                        div(flex="15", flex-sm="100", layout-padding)
+                        div(flex-gt-md="15", flex="100", layout-padding)
                             ul.bottom-menu
                                 li 
                                     a(href='#') Online editor
                                 li 
                                     a(href='#') Desktop app
-                        div(flex="15", flex-sm="100", layout-padding)
+                        div(flex-gt-md="15", flex="100", layout-padding)
                             ul.bottom-menu
                                 li 
                                     a(href='https://github.com/clickberry/web-services') Github
                                 li 
                                     a(href='#') API
-                        div(flex="10", hide-sm)
+                        div(flex-gt-md="10", hide)
 
 
         script(src='/js/jquery.min.js')
