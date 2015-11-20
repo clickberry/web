@@ -797,6 +797,11 @@
             return $cookies.getObject(cookieKey);
           }
 
+          // destroys tokens
+          function destroyTokens() {
+            return $cookies.remove(cookieKey);
+          }
+
           // refreshes tokens
           function refreshTokens(refreshToken, fn) {
             authApi.refresh(refreshToken, function (err, data) {
@@ -874,6 +879,7 @@
           function destroy () {
             $interval.cancel(intervalId);
             angular.extend(user, fields);
+            destroyTokens();
             emitLogoutEvent();
           }
 
