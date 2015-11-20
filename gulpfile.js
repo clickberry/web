@@ -79,8 +79,16 @@ gulp.task('angular-ui-router', function () {
     .pipe(gulp.dest('dist/js'));
 });
 
+// angular cookies
+gulp.task('angular-cookies', function () {
+  return gulp.src('node_modules/angular-cookies/angular-cookies.js')
+    .pipe(uglify())
+    .pipe(rename({ extname: '.min.js' }))
+    .pipe(gulp.dest('dist/js'));
+});
+
 // all third party libs
-gulp.task('libs', ['angular', 'angular-material', 'font-awesome', 'jquery', 'angular-ui-router']);
+gulp.task('libs', ['angular', 'angular-material', 'font-awesome', 'jquery', 'angular-ui-router', 'angular-cookies']);
 
 
 // common
@@ -131,8 +139,8 @@ gulp.task('js', function () {
     ])
     .pipe(concat('clbr.js'))
     .pipe(sourcemaps.init())
-    .pipe(uglify())
-    .pipe(rename({ extname: '.min.js' }))
+    //.pipe(uglify())
+    //.pipe(rename({ extname: '.min.js' }))
     .pipe(sourcemaps.write('../maps'))
     .pipe(gulp.dest('dist/js'));
 });

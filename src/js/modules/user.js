@@ -1,11 +1,12 @@
 (function (window, angular) {
     "use strict";
 
-    var module = angular.module('user', ['auth-api', 'constants']);
+    var module = angular.module('user', ['auth-api', 'constants', 'ngCookies']);
 
     module.factory('user', [
-      '$rootScope', '$interval', '$location', 'authApi', 'events', 
-        function ($rootScope, $interval, $location, authApi, events) {
+      '$rootScope', '$interval', '$location', '$window', '$cookies', 'authApi', 'events',
+        function ($rootScope, $interval, $location, $window, $cookies, authApi, events) {          
+          var cookieKey = 'tokens';
           var intervalId;
           var user = {};
 
@@ -16,12 +17,6 @@
             refreshToken: undefined
           };
 
-          // set social callback
-          (function setRedirectUrl() {
-            var baseUri = $location.protocol() + '://' + $location.host() + ':' + $location.port() + '/#/'; // to use angular routing
-            authApi.setRedirect(baseUri, function () {});
-          })();
-
           // emits login event
           function emitLoginEvent(data) {
             $rootScope.$broadcast(events.login, data);
@@ -30,6 +25,50 @@
           // emits logout event
           function emitLogoutEvent() {
             $rootScope.$broadcast(events.logout);
+          }
+
+          // persists tokens for 1 month
+          function persistTokens() {
+            if (!user.accessToken || !user.refreshToken) {
+              return;
+            }
+
+            var now = new $window.Date();
+            // this will set the expiration to 1 month
+            var exp = new $window.Date(now.getFullYear(), now.getMonth() + 1, now.getDate());
+
+            var value = {accessToken: user.accessToken, refreshToken: user.refreshToken};
+            $cookies.putObject(cookieKey, value, { expires: exp });
+          }
+
+          // restores tokens
+          function restoreTokens() {
+            return $cookies.getObject(cookieKey);
+          }
+
+          // refreshes tokens
+          function refreshTokens(refreshToken, fn) {
+            authApi.refresh(refreshToken, function (err, data) {
+                if (err) { throw err; }
+                fn(data);
+              });
+          }
+
+          // handles social login redirects
+          function getTokensFromSocialRedirect() {
+            var params = $location.search();
+            if (params.access_token && params.refresh_token){
+              return {
+                accessToken: params.access_token, 
+                refreshToken: params.refresh_token
+              };
+            }
+          }
+
+          // set social callback
+          function setRedirectUrl() {
+            var baseUri = $location.protocol() + '://' + $location.host() + ':' + $location.port() + '/#/'; // /#/ to use angular routing
+            authApi.setRedirect(baseUri, function () {});
           }
 
           // inits a user account
@@ -44,7 +83,8 @@
               user.email = data.email;
               if (!user.email && data.memberships) {
                 // checking memberships
-                for (var i = 0; i < data.memberships.length; ++i) {
+                var i;
+                for (i = 0; i < data.memberships.length; ++i) {
                   if (data.memberships[i].email) {
                     user.email = data.memberships[i].email;
                     break;
@@ -53,14 +93,14 @@
               }
 
               emitLoginEvent({id: user.id, email: user.email});
+              persistTokens();
             });
 
             // sets the interval to refresh token
             intervalId = $interval(function() {
-              authApi.refresh(user.refreshToken, function (err, data) {
-                if (err) { throw err; }
-                user.accessToken = data.accessToken;
-                user.refreshToken = data.refreshToken;
+              refreshTokens(user.refreshToken, function (tokens) {
+                user.refreshToken = tokens.refreshToken;
+                user.accessToken = tokens.accessToken;
               });
             }, 60000);
           }
@@ -72,12 +112,22 @@
             emitLogoutEvent();
           }
 
-          // handles social login redirects
-          (function handleSocialRedirect() {
-            var params = $location.search();
-            if (params.access_token && params.refresh_token){
-              // initializing user
-              init(params.access_token, params.refresh_token);
+          // module init
+          (function moduleInit() {
+            setRedirectUrl();
+
+            // get tokens from redirect url
+            var tokens = getTokensFromSocialRedirect();
+            if (tokens) {
+              return init(tokens.accessToken, tokens.refreshToken);
+            }
+            
+            // get tokens from cookies
+            tokens = restoreTokens();
+            if (tokens) {
+              refreshTokens(tokens.refreshToken, function (newTokens) {
+                init(newTokens.accessToken, newTokens.refreshToken);
+              });
             }
           })();
 
@@ -85,7 +135,7 @@
           user.destroy = destroy;
 
           return user;
-    }
+        }
   ]);
 
 })(window, window.angular);

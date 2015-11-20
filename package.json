@@ -25,11 +25,10 @@
     "angular": "^1.4.7",
     "angular-animate": "^1.4.7",
     "angular-aria": "^1.4.7",
+    "angular-cookies": "^1.4.7",
     "angular-material": "^0.11.4",
     "angular-ui-router": "^0.2.15",
     "auth-api-js": "git+https://github.com/clickberry/auth-api-js.git",
-    "profiles-api-js": "git+https://github.com/clickberry/profiles-api-js.git",
-    "projects-api-js": "git+https://github.com/clickberry/projects-api-js.git",
     "font-awesome": "^4.4.0",
     "gulp": "^3.9.0",
     "gulp-clean": "^0.3.1",
@@ -40,7 +39,9 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-stylus": "^2.1.0",
     "gulp-uglify": "^1.4.2",
-    "jquery": "^2.1.4"
+    "jquery": "^2.1.4",
+    "profiles-api-js": "git+https://github.com/clickberry/profiles-api-js.git",
+    "projects-api-js": "git+https://github.com/clickberry/projects-api-js.git"
   },
   "dependencies": {}
 }
