@@ -29,7 +29,7 @@ script(type="text/ng-template", id="menu.html")
                                     span(md-menu-align-target) Sign off
 
             //- Expand button
-            md-button.md-icon-button.hide-gt-md(aria-label="Menu", ng-click="expandMenu()")
+            md-button.md-icon-button.hide-gt-md(aria-label="Menu", ng-click="toggleMenu($event)")
                 i.fa.fa-bars
 
         //- Mobile menu

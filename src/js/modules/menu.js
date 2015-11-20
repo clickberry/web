@@ -4,16 +4,21 @@
     var module = angular.module('menu', ['user', 'constants']);
 
     module.directive('cbMenu', [
-        '$state', 'events', 'user', function ($state, events, user) {
+        '$window','$state', 'events', 'user', function ($window, $state, events, user) {
           return {
             restrict: 'EA',
             replace: true,
             templateUrl: 'menu.html',
             link: function($scope) {
               $scope.menuExpanded = false;
-              $scope.expandMenu = function() {
+              $scope.toggleMenu = function($event) {
                 $scope.menuExpanded = !$scope.menuExpanded;
+                $event.stopPropagation();
               };
+              angular.element($window).on('click', function () {
+                $scope.menuExpanded = false;
+                $scope.$digest(); // because we're out of angular digest cycle
+              });
 
               $scope.user = null;
               $scope.$on(events.login, function (event, data) {
