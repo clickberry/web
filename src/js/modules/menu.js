@@ -24,6 +24,13 @@
                 $scope.user = null;
                 $state.go('home');
               });
+              $scope.$on(events.profileUpdate, function (event, data) {
+                if ($scope.user) {
+                  $scope.user.name = data.name;
+                }
+                
+                $scope.$digest();
+              });
 
               $scope.signoff = function () {
                 user.destroy();

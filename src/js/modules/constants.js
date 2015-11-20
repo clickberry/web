@@ -4,7 +4,8 @@
     angular.module('constants', []) 
       .constant('events', {
       	'login': 'login',
-        'logout': 'logout'
+        'logout': 'logout',
+        'profileUpdate': 'profileUpdate'
       });
     
 })(window, window.angular);

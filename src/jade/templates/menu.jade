@@ -3,7 +3,7 @@ script(type="text/ng-template", id="menu.html")
         .md-toolbar-tools
             a.cb-brand-menu(ng-href="/", ui-sref="home", aria-label="Clickberry Home")
             span(flex)
-                
+
             //- Main menu
             span.hide.show-gt-md
                 span(ng-show="!user")
@@ -18,8 +18,8 @@ script(type="text/ng-template", id="menu.html")
                     md-menu(md-position-mode="target-right target")
                         md-button.cb-user-menu(aria-label="Account Settings", ng-click="$mdOpenMenu($event)", ng-class="{'md-icon-button': !user.email}")
                             span(md-menu-origin)
-                                span(ng-if="user.email", ng-bind="user.email")
-                                i.fa.fa-cog(ng-if="!user.email")
+                                span(ng-if="user.name || user.email", ng-bind="user.name || user.email")
+                                i.fa.fa-cog(ng-if="!user.email && !user.name")
                         md-menu-content(width="2")
                             md-menu-item
                                 md-button(ng-click="profile()")
@@ -45,8 +45,8 @@ script(type="text/ng-template", id="menu.html")
                 md-menu(md-position-mode="target-right target")
                     md-button.cb-user-menu(aria-label="Account Settings", ng-click="$mdOpenMenu($event)")
                         span(md-menu-origin)
-                            span(ng-if="user.email", ng-bind="user.email")
-                            span(ng-if="!user.email") Account Settings
+                            span(ng-if="user.name || user.email", ng-bind="user.name || user.email")
+                            span(ng-if="!user.email && !user.name") Account Settings
                     md-menu-content(width="2")
                         md-menu-item
                             md-button(ng-click="profile()")

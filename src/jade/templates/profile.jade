@@ -14,7 +14,7 @@ script(type="text/ng-template", id="profile.html")
                                     input(required, type="email", name="profileEmail", ng-model="profile.email", minlength="10", maxlength="100", ng-pattern="/^.+@.+\..+$/")
                                 md-input-container.md-title
                                     label Name
-                                    input(type="text", name="profileName", ng-model="profile.name")
+                                    input(required, type="text", name="profileName", ng-model="profile.name")
                                 md-card-actions(layout="row", layout-align="end center")
                                     md-button(ng-href='#', ui-sref='home') Cancel
                                     md-button.md-raised.md-accent(type="submit", ng-disabled="profileform.$invalid || loading")

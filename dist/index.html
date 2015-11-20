@@ -34,7 +34,7 @@
                   <md-button class="md-primary">Videos</md-button>
                   <md-button aria-label="Likes" class="md-icon-button"><i class="fa fa-heart"></i></md-button>
                   <md-menu md-position-mode="target-right target">
-                    <md-button aria-label="Account Settings" ng-click="$mdOpenMenu($event)" ng-class="{'md-icon-button': !user.email}" class="cb-user-menu"><span md-menu-origin><span ng-if="user.email" ng-bind="user.email"></span><i ng-if="!user.email" class="fa fa-cog"></i></span></md-button>
+                    <md-button aria-label="Account Settings" ng-click="$mdOpenMenu($event)" ng-class="{'md-icon-button': !user.email}" class="cb-user-menu"><span md-menu-origin><span ng-if="user.name || user.email" ng-bind="user.name || user.email"></span><i ng-if="!user.email &amp;&amp; !user.name" class="fa fa-cog"></i></span></md-button>
                     <md-menu-content width="2">
                       <md-menu-item>
                         <md-button ng-click="profile()"><span md-menu-align-target>Profile</span></md-button>
@@ -57,7 +57,7 @@
                 <md-button class="md-primary">Videos</md-button>
                 <md-button class="md-primary">Likes</md-button>
                 <md-menu md-position-mode="target-right target">
-                  <md-button aria-label="Account Settings" ng-click="$mdOpenMenu($event)" class="cb-user-menu"><span md-menu-origin><span ng-if="user.email" ng-bind="user.email"></span><span ng-if="!user.email">Account Settings</span></span></md-button>
+                  <md-button aria-label="Account Settings" ng-click="$mdOpenMenu($event)" class="cb-user-menu"><span md-menu-origin><span ng-if="user.name || user.email" ng-bind="user.name || user.email"></span><span ng-if="!user.email &amp;&amp; !user.name">Account Settings</span></span></md-button>
                   <md-menu-content width="2">
                     <md-menu-item>
                       <md-button ng-click="profile()"><span md-menu-align-target>Profile</span></md-button>
@@ -173,7 +173,7 @@
                         </md-input-container>
                         <md-input-container class="md-title">
                           <label>Name</label>
-                          <input type="text" name="profileName" ng-model="profile.name">
+                          <input required type="text" name="profileName" ng-model="profile.name">
                         </md-input-container>
                         <md-card-actions layout="row" layout-align="end center">
                           <md-button ng-href="#" ui-sref="home">Cancel</md-button>

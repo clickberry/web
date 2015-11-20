@@ -4,7 +4,8 @@
     var module = angular.module('profile', [
       'ui.router',
       'profiles-api',
-      'user'
+      'user',
+      'constants'
     ]);
 
     // Routes
@@ -24,18 +25,24 @@
 
     // Controllers
     module.controller('ProfileCtrl', [
-      '$scope', '$state', 'profilesApi', 'user',
-      function ($scope, $state, profilesApi, user) {
+      '$rootScope', '$scope', '$state', 'profilesApi', 'user', 'events',
+      function ($rootScope, $scope, $state, profilesApi, user, events) {
+
+        if (!user.id) {
+          return $state.go('home');
+        }
 
         $scope.profile = {};
         $scope.loading = false;
 
         $scope.submit = function (params) {
           $scope.loading = true;
-          profilesApi.update(user.id, params.email, params.name, user.accessToken, function (err) {
+          profilesApi.update(user.id, params.email, params.name, user.accessToken, function (err, data) {
             if (err) { throw err; }
             $scope.loading = false;
             $scope.$digest();
+
+            $rootScope.$broadcast(events.profileUpdate, data);
           });
         };
 

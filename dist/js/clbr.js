@@ -387,7 +387,8 @@
     angular.module('constants', []) 
       .constant('events', {
       	'login': 'login',
-        'logout': 'logout'
+        'logout': 'logout',
+        'profileUpdate': 'profileUpdate'
       });
     
 })(window, window.angular);
@@ -495,6 +496,13 @@
                 $scope.user = null;
                 $state.go('home');
               });
+              $scope.$on(events.profileUpdate, function (event, data) {
+                if ($scope.user) {
+                  $scope.user.name = data.name;
+                }
+                
+                $scope.$digest();
+              });
 
               $scope.signoff = function () {
                 user.destroy();
@@ -523,7 +531,8 @@
     var module = angular.module('profile', [
       'ui.router',
       'profiles-api',
-      'user'
+      'user',
+      'constants'
     ]);
 
     // Routes
@@ -543,18 +552,24 @@
 
     // Controllers
     module.controller('ProfileCtrl', [
-      '$scope', '$state', 'profilesApi', 'user',
-      function ($scope, $state, profilesApi, user) {
+      '$rootScope', '$scope', '$state', 'profilesApi', 'user', 'events',
+      function ($rootScope, $scope, $state, profilesApi, user, events) {
+
+        if (!user.id) {
+          return $state.go('home');
+        }
 
         $scope.profile = {};
         $scope.loading = false;
 
         $scope.submit = function (params) {
           $scope.loading = true;
-          profilesApi.update(user.id, params.email, params.name, user.accessToken, function (err) {
+          profilesApi.update(user.id, params.email, params.name, user.accessToken, function (err, data) {
             if (err) { throw err; }
             $scope.loading = false;
             $scope.$digest();
+
+            $rootScope.$broadcast(events.profileUpdate, data);
           });
         };
 
@@ -736,11 +751,11 @@
 (function (window, angular) {
     "use strict";
 
-    var module = angular.module('user', ['auth-api', 'constants', 'ngCookies']);
+    var module = angular.module('user', ['auth-api', 'profiles-api', 'constants', 'ngCookies']);
 
     module.factory('user', [
-      '$rootScope', '$interval', '$location', '$window', '$cookies', 'authApi', 'events',
-        function ($rootScope, $interval, $location, $window, $cookies, authApi, events) {          
+      '$rootScope', '$interval', '$location', '$window', '$cookies', 'authApi', 'profilesApi', 'events',
+        function ($rootScope, $interval, $location, $window, $cookies, authApi, profilesApi, events) {          
           var cookieKey = 'tokens';
           var intervalId;
           var user = {};
@@ -749,7 +764,8 @@
             id: undefined,
             email: undefined,
             accessToken: undefined,
-            refreshToken: undefined
+            refreshToken: undefined,
+            profile: undefined
           };
 
           // emits login event
@@ -827,9 +843,23 @@
                 }
               }
 
-              emitLoginEvent({id: user.id, email: user.email});
-              persistTokens();
+              // get profile info
+              profilesApi.public(user.id, accessToken, function (err, data) {
+                if (err) {
+                  return emitLoginEvent({id: user.id, email: user.email});
+                }
+
+                user.profile = data;
+                if (data.email) {
+                  user.email = data.email;
+                }
+                emitLoginEvent({id: user.id, email: user.email, name: user.profile.name});
+              });
+              
             });
+
+            // save tokens
+            persistTokens();
 
             // sets the interval to refresh token
             intervalId = $interval(function() {
