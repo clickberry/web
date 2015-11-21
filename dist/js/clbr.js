@@ -323,7 +323,7 @@
         last_id = last_id || '';
 
         $.ajax({
-            url: url + '/all?' + 'top=' + top + '&last=' + last_id,
+            url: url + '/all?' + 'top=' + top || '' + '&last=' + last_id || '',
             type: 'GET'
           })
           .done(function(result) {
@@ -441,7 +441,8 @@
     "use strict";
 
     var module = angular.module('home', [
-      'ui.router'
+      'ui.router',
+      'projects-api'
     ]);
 
     // Routes
@@ -461,10 +462,25 @@
 
     // Controllers
     module.controller('HomeCtrl', [
-      '$scope', '$state',
-      function ($scope, $state) {
+      '$scope', '$state', 'projectsApi',
+      function ($scope, $state, projectsApi) {
 
-        
+        $scope.projects = [];
+
+        (function loadProjects() {
+          projectsApi.listPublic(50, function (err, data) {
+            if (err) { throw err; }
+            angular.forEach(data, function (i, idx) {
+              if ((idx + 1) % 3 === 0) {
+                i.size = 2;
+              } else {
+                i.size = 1;
+              }
+            });
+
+            $scope.projects = data;
+          });
+        })();
         
       }
     ]);

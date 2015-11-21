@@ -16,7 +16,7 @@
     "ui"
   ],
   "author": "Alexey Melnikov",
-  "license": "GNU GPL v3",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/clickberry/web/issues"
   },

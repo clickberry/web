@@ -16,12 +16,22 @@
       <div class="cb-page-content">
         <div ui-view></div>
         <script type="text/ng-template" id="home.html">
-          <div class="video-grid">
-            <md-card>
-              <md-card-content>
-                <div layout="column" layout-align="center"><img src="images/video-grid.png"></div>
-              </md-card-content>
-            </md-card>
+          <div flex ng-cloak ng-if="projects.length" class="video-grid">
+            <md-grid-list md-cols-gt-md="2" md-cols-sm="1" md-cols-md="1" md-row-height="1:1" md-gutter="16px">
+              <md-grid-tile ng-repeat="project in projects" md-rowspan-gt-md="{{project.size}}" md-rowspan="1" md-colspan-gt-md="{{project.size}}" md-colspan="1">
+                <md-grid-tile-header>
+                  <h2>{{project.name}} </h2>
+                </md-grid-tile-header>
+                <div class="image"><img ng-src="{{project.imageUri}}"></div>
+                <md-grid-tile-footer>
+                  <h3>{{project.description}}</h3>
+                  <div layout="row" layout-align="space-between end" class="buttons"><span>
+                      <md-button class="md-icon-button"><i class="fa fa-heart"></i><span> 115</span></md-button>
+                      <md-button class="md-icon-button"><i class="fa fa-comment"></i><span> 8</span></md-button></span><span>
+                      <md-button class="md-icon-button etc"><i class="fa fa-ellipsis-h"></i></md-button></span></div>
+                </md-grid-tile-footer>
+              </md-grid-tile>
+            </md-grid-list>
           </div>
         </script>
         <script type="text/ng-template" id="menu.html">

@@ -1,3 +1,93 @@
+tile-radius = 3px
+tile-header-color = #333
+tile-text-color = #494F59
+button-text-color = #696F7D
+button-icon-color = #999ea8
+footer-height = 60px
+header-height = 39px
+
 .video-grid
-	width: 780px
-	margin: 0 auto
+    width: 640px
+    margin: 0 auto
+    color: tile-text-color
+
+    md-grid-list
+        md-grid-tile
+            > figure
+                border-radius: tile-radius
+                box-shadow: 0 2px 0px rgba(0, 0, 0, 0.01),0 0 0 1px #DBDBDC
+                overflow: hidden
+                padding-bottom: footer-height
+                padding-top: header-height
+                
+                .image
+                    height: 100%
+                    width: 100%
+                    overflow: hidden
+                    display: flex
+                    
+                    img
+                        min-width: 100%
+                        max-height: 150%
+            
+            md-grid-tile-header
+                border-top-right-radius: tile-radius
+                border-top-left-radius: tile-radius
+                background: #fff
+                color: tile-header-color
+                height: header-height
+                
+                figcaption
+                    width: 100%
+
+                h2
+                    font-size: 13px
+                    line-height: 17px
+                    margin: 11px
+                    font-weight: bold
+
+            md-grid-tile-footer
+                border-bottom-right-radius: tile-radius
+                border-bottom-left-radius: tile-radius
+                background: #fff
+                color: tile-text-color
+                height: footer-height
+                
+                figcaption
+                    width: 100%
+
+                h3
+                    font-size: 13px
+                    line-height: 17px
+                    margin: 11px 11px 0
+                
+                .buttons
+                    padding: 4px 4px 0
+                    
+                    .md-button.md-icon-button
+                        min-width: auto
+                        width: auto
+                        height: 28px
+                        line-height: 28px
+                        min-height: 28px
+                        color: button-text-color
+                        opacity: 0.5
+                        padding: 0 2px
+                        font-size: 12px
+                        &.etc
+                            opacity: 0.3
+
+                        &:hover
+                            opacity: 0.9
+                            
+                        .fa
+                            font-size: 16px
+                            color: button-icon-color
+                            position: relative
+                            top: 1px
+                            
+                        &.md-accent
+                            .fa
+                                color: brand-green
+                            
+                        
