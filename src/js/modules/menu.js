@@ -21,8 +21,14 @@
               });
 
               $scope.user = null;
+              $scope.loading = false;
+              $scope.$on(events.profileInit, function (event) {
+                $scope.loading = true;
+                $scope.$digest();
+              });
               $scope.$on(events.login, function (event, data) {
                 $scope.user = data;
+                $scope.loading = false;
                 $scope.$digest();
               });
               $scope.$on(events.logout, function () {

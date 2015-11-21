@@ -388,6 +388,7 @@
       .constant('events', {
       	'login': 'login',
         'logout': 'logout',
+        'profileInit': 'profileInit',
         'profileUpdate': 'profileUpdate'
       });
     
@@ -533,8 +534,14 @@
               });
 
               $scope.user = null;
+              $scope.loading = false;
+              $scope.$on(events.profileInit, function (event) {
+                $scope.loading = true;
+                $scope.$digest();
+              });
               $scope.$on(events.login, function (event, data) {
                 $scope.user = data;
+                $scope.loading = false;
                 $scope.$digest();
               });
               $scope.$on(events.logout, function () {
@@ -823,6 +830,12 @@
             $rootScope.$broadcast(events.logout);
           }
 
+          // emits profile init event
+          function emitProfileInitEvent() {
+            $rootScope.$broadcast(events.profileInit);
+          }
+
+
           // persists tokens for 1 month
           function persistTokens() {
             if (!user.accessToken || !user.refreshToken) {
@@ -876,6 +889,8 @@
           function init (accessToken, refreshToken) {
             user.accessToken = accessToken;
             user.refreshToken = refreshToken;
+
+            emitProfileInitEvent();
 
             // gets user account info
             authApi.get(accessToken, function (err, data) {

@@ -5,6 +5,7 @@
       .constant('events', {
       	'login': 'login',
         'logout': 'logout',
+        'profileInit': 'profileInit',
         'profileUpdate': 'profileUpdate'
       });
     
