@@ -25,6 +25,7 @@
                 <div class="image"><img ng-src="{{project.imageUri}}"></div>
                 <md-grid-tile-footer>
                   <h3>{{project.description}}</h3>
+                  <div class="sub-info"><span>{{project.created | apiDateFromNow}}</span></div>
                   <div layout="row" layout-align="space-between end" class="buttons"><span>
                       <md-button class="md-icon-button"><i class="fa fa-heart"></i><span> 115</span></md-button>
                       <md-button class="md-icon-button"><i class="fa fa-comment"></i><span> 8</span></md-button></span><span>
@@ -247,6 +248,7 @@
     <script src="/js/angular-ui-router.min.js"></script>
     <script src="/js/angular-cookies.min.js"></script>
     <script src="/js/angular-material.min.js"></script>
+    <script src="/js/moment.min.js"></script>
     <script src="/js/clbr.js"></script>
   </body>
 </html>

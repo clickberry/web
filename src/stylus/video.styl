@@ -1,9 +1,12 @@
 tile-radius = 3px
+
 tile-header-color = #333
 tile-text-color = #494F59
+tile-sub-info-color = #8a8f9c
 button-text-color = #696F7D
 button-icon-color = #999ea8
-footer-height = 60px
+
+footer-height = 82px
 header-height = 39px
 
 .video-grid
@@ -13,6 +16,9 @@ header-height = 39px
 
     md-grid-list
         md-grid-tile
+            font-size: 13px
+            line-height: 17px
+            
             > figure
                 border-radius: tile-radius
                 box-shadow: 0 2px 0px rgba(0, 0, 0, 0.01),0 0 0 1px #DBDBDC
@@ -41,10 +47,10 @@ header-height = 39px
                     width: 100%
 
                 h2
-                    font-size: 13px
-                    line-height: 17px
                     margin: 11px
                     font-weight: bold
+                    font-size: 13px
+                    line-height: 17px
 
             md-grid-tile-footer
                 border-bottom-right-radius: tile-radius
@@ -52,17 +58,23 @@ header-height = 39px
                 background: #fff
                 color: tile-text-color
                 height: footer-height
+                align-items: flex-end
                 
                 figcaption
                     width: 100%
 
                 h3
-                    font-size: 13px
-                    line-height: 17px
                     margin: 11px 11px 0
+                    font-size: 13px
+                    line-height: 19px
                 
+                .sub-info
+                    margin: 0 11px
+                    color: tile-sub-info-color
+                    font-size: 12px
+
                 .buttons
-                    padding: 4px 4px 0
+                    padding: 4px 8px
                     
                     .md-button.md-icon-button
                         min-width: auto
@@ -74,6 +86,8 @@ header-height = 39px
                         opacity: 0.5
                         padding: 0 2px
                         font-size: 12px
+                        margin: 0 2px
+
                         &.etc
                             opacity: 0.3
 

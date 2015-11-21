@@ -9,6 +9,7 @@
       'signin',
       'profile',
       'directives',
+      'filters',
       'user',
       'exceptions'
     ]);

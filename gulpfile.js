@@ -87,8 +87,16 @@ gulp.task('angular-cookies', function () {
     .pipe(gulp.dest('dist/js'));
 });
 
+// moment.js
+gulp.task('moment', function () {
+  return gulp.src('node_modules/moment/moment.js')
+    .pipe(uglify())
+    .pipe(rename({ extname: '.min.js' }))
+    .pipe(gulp.dest('dist/js'));
+});
+
 // all third party libs
-gulp.task('libs', ['angular', 'angular-material', 'font-awesome', 'jquery', 'angular-ui-router', 'angular-cookies']);
+gulp.task('libs', ['angular', 'angular-material', 'font-awesome', 'jquery', 'angular-ui-router', 'angular-cookies', 'moment']);
 
 
 // common

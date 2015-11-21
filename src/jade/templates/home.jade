@@ -8,6 +8,8 @@ script(type="text/ng-template", id="home.html")
                     img(ng-src="{{project.imageUri}}")
                 md-grid-tile-footer
                     h3 {{project.description}}
+                    .sub-info
+                        span {{project.created | apiDateFromNow}}
                     div.buttons(layout="row", layout-align="space-between end")
                         span
                             md-button.md-icon-button
