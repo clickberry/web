@@ -2,13 +2,13 @@ script(type="text/ng-template", id="home.html")
     .video-grid(flex, ng-cloak, ng-if="projects.length")
         md-grid-list(md-cols-gt-md="2", md-cols-sm="1", md-cols-md="1", md-row-height="1:1", md-gutter="16px")
             md-grid-tile(ng-repeat="project in projects", md-rowspan-gt-md="{{project.size}}", md-rowspan="1", md-colspan-gt-md="{{project.size}}", md-colspan="1")
-                md-grid-tile-header
-                   h2 {{project.name}} 
-                .image
+                .image(style="background-image:url('{{project.imageUri}}');")
                     img(ng-src="{{project.imageUri}}")
                 md-grid-tile-footer
-                    h3 {{project.description}}
+                    h3 {{project.name}}
                     .sub-info
+                        span {{project.description}}
+                        i(ng-if="project.description")  · 
                         span {{project.created | apiDateFromNow}}
                     div.buttons(layout="row", layout-align="space-between end")
                         span
@@ -21,9 +21,3 @@ script(type="text/ng-template", id="home.html")
                         span
                             md-button.md-icon-button.etc
                                 i.fa.fa-ellipsis-h
-                        
-                //- md-card
-                //-     img.md-card-image(ng-src="{{project.imageUri}}", alt="{{project.name}}")
-                //-     md-card-content
-                //-         h2 {{project.name}}
-                //-         p {{project.description}}
