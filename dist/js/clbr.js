@@ -496,8 +496,8 @@
           projectsApi.listPublic(50, function (err, data) {
             if (err) { throw err; }
             angular.forEach(data, function (i, idx) {
-              if ((idx + 1) % 3 === 0) {
-                i.size = 2;
+              if ((idx + 1) % 4 === 0) {
+                i.size = 3;
               } else {
                 i.size = 1;
               }
