@@ -133,12 +133,20 @@
             }, 60000);
           }
 
-          // destroys the account
+          // destroys the account data
           function destroy () {
             $interval.cancel(intervalId);
             angular.extend(user, fields);
             destroyTokens();
             emitLogoutEvent();
+          }
+
+          // deletes the account permanently
+          function deletePermanently () {
+            authApi.del(user.accessToken, function (err) {
+              if (err) { throw err; }
+              destroy();
+            });
           }
 
           // module init
@@ -162,6 +170,7 @@
 
           user.init = init;
           user.destroy = destroy;
+          user.deletePermanently = deletePermanently;
 
           return user;
         }

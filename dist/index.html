@@ -39,10 +39,13 @@
               <md-button ng-show="!user &amp;&amp; !loading" ng-click="signup()" class="cb-user-menu hide show-gt-md">Sign up for free</md-button>
               <md-button ng-show="user &amp;&amp; !loading" class="md-primary hide show-gt-md">Videos</md-button>
               <md-menu ng-show="user &amp;&amp; !loading" md-position-mode="target-right target" class="hide show-gt-md">
-                <md-button aria-label="Account Settings" ng-click="$mdOpenMenu($event)" ng-class="{'md-icon-button': !user.email &amp;&amp; !user.name}" class="cb-user-menu"><span md-menu-origin><span ng-if="user.name || user.email" ng-bind="user.name || user.email"></span><i ng-if="!user.email &amp;&amp; !user.name" class="fa fa-cog"></i></span></md-button>
+                <md-button aria-label="Account" ng-click="$mdOpenMenu($event)" ng-class="{'md-icon-button': !user.email &amp;&amp; !user.name}" class="cb-user-menu"><span md-menu-origin><span ng-if="user.name || user.email" ng-bind="user.name || user.email"></span><i ng-if="!user.email &amp;&amp; !user.name" class="fa fa-cog"></i></span></md-button>
                 <md-menu-content width="2">
                   <md-menu-item>
                     <md-button ng-click="profile()"><span md-menu-align-target>Profile</span></md-button>
+                  </md-menu-item>
+                  <md-menu-item>
+                    <md-button ng-click="settings()"><span md-menu-align-target>Settings                            </span></md-button>
                   </md-menu-item>
                   <md-menu-item>
                     <md-button ng-click="signoff()"><span md-menu-align-target>Sign off</span></md-button>
@@ -57,10 +60,13 @@
             <md-button ng-show="menuExpanded &amp;&amp; !user" ng-click="signup()" class="cb-user-menu hide-gt-md">Sign up for free</md-button>
             <md-button ng-show="menuExpanded &amp;&amp; user" class="md-primary hide-gt-md">Videos</md-button>
             <md-menu ng-show="menuExpanded &amp;&amp; user" md-position-mode="target-right target" class="hide-gt-md">
-              <md-button aria-label="Account Settings" ng-click="$mdOpenMenu($event)" class="cb-user-menu"><span md-menu-origin><span ng-if="user.name || user.email" ng-bind="user.name || user.email"></span><span ng-if="!user.email &amp;&amp; !user.name">Account Settings</span></span></md-button>
+              <md-button aria-label="Account Settings" ng-click="$mdOpenMenu($event)" class="cb-user-menu"><span md-menu-origin><span ng-if="user.name || user.email" ng-bind="user.name || user.email"></span><span ng-if="!user.email &amp;&amp; !user.name">Account</span></span></md-button>
               <md-menu-content width="2">
                 <md-menu-item>
                   <md-button ng-click="profile()"><span md-menu-align-target>Profile</span></md-button>
+                </md-menu-item>
+                <md-menu-item>
+                  <md-button ng-click="settings()"><span md-menu-align-target>Settings</span></md-button>
                 </md-menu-item>
                 <md-menu-item>
                   <md-button ng-click="signoff()"><span md-menu-align-target>Sign off</span></md-button>
@@ -180,6 +186,26 @@
                       </div>
                       <div flex="10"></div>
                     </div>
+                  </md-card-content>
+                </md-card>
+              </form>
+            </div>
+            <div flex="25" flex-sm="0" flex-md="20"></div>
+          </div>
+        </script>
+        <script type="text/ng-template" id="account-settings.html">
+          <div layout="row" layout-align="center">
+            <div flex="25" flex-sm="0" flex-md="20"></div>
+            <div flex="50" flex-sm="100" flex-md="60" layout-padding>
+              <form name="deleteform" ng-submit="deleteAccount($event)">
+                <md-card>
+                  <md-card-content>                       
+                    <h1 class="md-display-1">Delete Account</h1>
+                    <p>All of your data will be deleted permanently.</p>
+                    <md-card-actions layout="row" layout-align="end center">
+                      <md-button ng-href="#" ui-sref="home">Cancel</md-button>
+                      <md-button type="submit" class="md-raised md-warn">Delete Account</md-button>
+                    </md-card-actions>
                   </md-card-content>
                 </md-card>
               </form>

@@ -14,7 +14,7 @@ script(type="text/ng-template", id="menu.html")
             //- Authorized
             md-button.md-primary.hide.show-gt-md(ng-show="user && !loading") Videos
             md-menu.hide.show-gt-md(ng-show="user && !loading", md-position-mode="target-right target")
-                md-button.cb-user-menu(aria-label="Account Settings", ng-click="$mdOpenMenu($event)", ng-class="{'md-icon-button': !user.email && !user.name}")
+                md-button.cb-user-menu(aria-label="Account", ng-click="$mdOpenMenu($event)", ng-class="{'md-icon-button': !user.email && !user.name}")
                     span(md-menu-origin)
                         span(ng-if="user.name || user.email", ng-bind="user.name || user.email")
                         i.fa.fa-cog(ng-if="!user.email && !user.name")
@@ -22,6 +22,9 @@ script(type="text/ng-template", id="menu.html")
                     md-menu-item
                         md-button(ng-click="profile()")
                             span(md-menu-align-target) Profile
+                    md-menu-item
+                        md-button(ng-click="settings()")
+                            span(md-menu-align-target) Settings                            
                     md-menu-item
                         md-button(ng-click="signoff()")
                             span(md-menu-align-target) Sign off
@@ -50,11 +53,14 @@ script(type="text/ng-template", id="menu.html")
             md-button.cb-user-menu(aria-label="Account Settings", ng-click="$mdOpenMenu($event)")
                 span(md-menu-origin)
                     span(ng-if="user.name || user.email", ng-bind="user.name || user.email")
-                    span(ng-if="!user.email && !user.name") Account Settings
+                    span(ng-if="!user.email && !user.name") Account
             md-menu-content(width="2")
                 md-menu-item
                     md-button(ng-click="profile()")
                         span(md-menu-align-target) Profile
+                md-menu-item
+                    md-button(ng-click="settings()")
+                        span(md-menu-align-target) Settings
                 md-menu-item
                     md-button(ng-click="signoff()")
                         span(md-menu-align-target) Sign off

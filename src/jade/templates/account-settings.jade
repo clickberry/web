@@ -1,0 +1,13 @@
+script(type="text/ng-template", id="account-settings.html")
+    div(layout="row", layout-align="center")
+        div(flex="25", flex-sm="0", flex-md="20")
+        div(flex="50", flex-sm="100", flex-md="60", layout-padding)
+            form(name="deleteform", ng-submit="deleteAccount($event)")
+                md-card
+                    md-card-content                        
+                        h1.md-display-1 Delete Account
+                        p All of your data will be deleted permanently.
+                        md-card-actions(layout="row", layout-align="end center")
+                            md-button(ng-href='#', ui-sref='home') Cancel
+                            md-button.md-raised.md-warn(type="submit") Delete Account
+        div(flex="25", flex-sm="0", flex-md="20")

@@ -58,6 +58,10 @@
               $scope.profile = function () {
                 $state.go('profile');
               };
+
+              $scope.settings = function () {
+                $state.go('account-settings');
+              };
             }
           };
         }

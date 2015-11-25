@@ -8,6 +8,7 @@
       'signup',
       'signin',
       'profile',
+      'account-settings',
       'directives',
       'filters',
       'user',
