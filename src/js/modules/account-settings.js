@@ -35,7 +35,7 @@
             .ok('Please do it!')
             .cancel('Cancel');          
           confirm = confirm.title('Would you like to delete your account?');
-          confirm = confirm.textContent('All of your data will be deleted permanently.');
+          confirm = confirm.content('All of your data will be deleted permanently.');
 
           $mdDialog.show(confirm).then(function() {
             user.deletePermanently();
