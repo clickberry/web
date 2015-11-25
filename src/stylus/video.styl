@@ -118,6 +118,10 @@ header-height = 39px
                         &.md-accent
                             .fa
                                 color: brand-green
+
+@media (max-width: 900px)
+    .video-grid
+        width: auto
                             
 md-dialog.video-popup
     background: transparent
@@ -157,7 +161,7 @@ md-dialog.video-popup
             left: 0
             right: 0
             top: 0
-            padding: 120px
+            padding: 255px
             text-align: center
             color: #fff
             
@@ -169,15 +173,37 @@ md-dialog.video-popup
         .video-container
             width: 900px
             height: 506px
+            .video-loading
+                padding: 245px
 
 @media (max-width: 900px)
     md-dialog.video-popup
         .video-container
             width: 800px
             height: 450px
+            .video-loading
+                padding: 220px
 
 @media (max-width: 800px)
     md-dialog.video-popup
         .video-container
             width: 640px
             height: 360px
+            .video-loading
+                padding: 170px
+            
+@media (max-width: 640px)
+    md-dialog.video-popup
+        .video-container
+            width: 480px
+            height: 270px
+            .video-loading
+                padding: 125px   
+            
+@media (max-width: 480px)
+    md-dialog.video-popup
+        .video-container
+            width: 320px
+            height: 180px    
+            .video-loading
+                padding: 80px             
