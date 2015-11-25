@@ -1,23 +1,31 @@
 script(type="text/ng-template", id="home.html")
+    div(layout="row", flex="100", ng-show="loading", align-children="center")
+        md-button(aria-label="Video List Loading", flex, ng-disabled="true")
+            span Loading 
+            i.fa.fa-circle-o-notch.fa-spin.faster
     .video-grid(layout-padding, ng-cloak, ng-if="projects.length")
         md-grid-list(md-cols-gt-md="3", md-cols-sm="1", md-cols-md="1", md-row-height="1:1", md-gutter="16px")
             md-grid-tile(ng-repeat="project in projects", md-rowspan-gt-md="{{project.size - 1}}", md-rowspan="1", md-colspan-gt-md="{{project.size}}", md-colspan="1")
-                .image(ng-style="{'background-image': 'url({{project.imageUri}})'}")
-                    img(ng-src="{{project.imageUri}}")
+                a(href='#', ui-sref='home.video({id: project.id})')
+                    span.image(ng-style="{'background-image': 'url({{project.imageUri}})'}")
+                        img(ng-src="{{project.imageUri}}")
                 md-grid-tile-footer
-                    h3 {{project.name}}
+                    h3 
+                        a(href='#', ui-sref='home.video({id: project.id})')
+                            {{project.name}}
                     .sub-info
                         span {{project.description}}
                         i(ng-if="project.description")  · 
                         span {{project.created | apiDateFromNow}}
-                    div.buttons(layout="row", layout-align="space-between end")
-                        span
-                            md-button.md-icon-button.md-accent(aria-label="Like")
-                                i.fa.fa-heart-o
-                                span  115
-                            md-button.md-icon-button(aria-label="Comment")
-                                i.fa.fa-comment-o
-                                span  8
-                        span
-                            md-button.md-icon-button.etc(aria-label="More")
-                                i.fa.fa-ellipsis-h
+                    //- div.buttons(layout="row", layout-align="space-between end")
+                    //-     span
+                    //-         md-button.md-icon-button.md-accent(aria-label="Like")
+                    //-             i.fa.fa-heart-o
+                    //-             span  115
+                    //-         md-button.md-icon-button(aria-label="Comment")
+                    //-             i.fa.fa-comment-o
+                    //-             span  8
+                    //-     span
+                    //-         md-button.md-icon-button.etc(aria-label="More")
+                    //-             i.fa.fa-ellipsis-h
+    div(ui-view="video")

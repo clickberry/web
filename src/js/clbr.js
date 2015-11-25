@@ -1,4 +1,4 @@
-(function (window, angular) {
+(function (angular) {
     'use strict';
 
     var app = angular.module('clbr', [
@@ -11,7 +11,8 @@
       'directives',
       'filters',
       'user',
-      'exceptions'
+      'exceptions',
+      'video'
     ]);
 
     // Config
@@ -56,4 +57,4 @@
       }
     ]);
 
-})(window, window.angular);
+})((window.angular));

@@ -16,68 +16,57 @@
       <div class="cb-page-content">
         <div ui-view></div>
         <script type="text/ng-template" id="home.html">
+          <div layout="row" flex="100" ng-show="loading" align-children="center">
+            <md-button aria-label="Video List Loading" flex ng-disabled="true"><span>Loading </span><i class="fa fa-circle-o-notch fa-spin faster"></i></md-button>
+          </div>
           <div layout-padding ng-cloak ng-if="projects.length" class="video-grid">
             <md-grid-list md-cols-gt-md="3" md-cols-sm="1" md-cols-md="1" md-row-height="1:1" md-gutter="16px">
-              <md-grid-tile ng-repeat="project in projects" md-rowspan-gt-md="{{project.size - 1}}" md-rowspan="1" md-colspan-gt-md="{{project.size}}" md-colspan="1">
-                <div ng-style="{'background-image': 'url({{project.imageUri}})'}" class="image"><img ng-src="{{project.imageUri}}"></div>
+              <md-grid-tile ng-repeat="project in projects" md-rowspan-gt-md="{{project.size - 1}}" md-rowspan="1" md-colspan-gt-md="{{project.size}}" md-colspan="1"><a href="#" ui-sref="home.video({id: project.id})"><span ng-style="{'background-image': 'url({{project.imageUri}})'}" class="image"><img ng-src="{{project.imageUri}}"></span></a>
                 <md-grid-tile-footer>
-                  <h3>{{project.name}}</h3>
+                  <h3> <a href="#" ui-sref="home.video({id: project.id})">{{project.name}}</a></h3>
                   <div class="sub-info"><span>{{project.description}}</span><i ng-if="project.description"> · </i><span>{{project.created | apiDateFromNow}}</span></div>
-                  <div layout="row" layout-align="space-between end" class="buttons"><span>
-                      <md-button aria-label="Like" class="md-icon-button md-accent"><i class="fa fa-heart-o"></i><span> 115</span></md-button>
-                      <md-button aria-label="Comment" class="md-icon-button"><i class="fa fa-comment-o"></i><span> 8</span></md-button></span><span>
-                      <md-button aria-label="More" class="md-icon-button etc"><i class="fa fa-ellipsis-h"></i></md-button></span></div>
                 </md-grid-tile-footer>
               </md-grid-tile>
             </md-grid-list>
           </div>
+          <div ui-view="video"></div>
         </script>
         <script type="text/ng-template" id="menu.html">
           <md-toolbar ng-class="{'md-tall': menuExpanded}" class="cb-top-menu md-hue-2">
-            <div class="md-toolbar-tools"><a ng-href="/" ui-sref="home" aria-label="Clickberry Home" class="cb-brand-menu"></a><span flex></span><span class="hide show-gt-md"><span ng-show="loading">
-                  <md-button aria-label="Profile Loading" class="md-icon-button"><i class="fa fa-circle-o-notch fa-spin faster"></i></md-button></span><span ng-show="!user &amp;&amp; !loading">
-                  <md-button class="md-primary">Online editor</md-button>
-                  <md-button class="md-primary">Support</md-button>
-                  <md-button ng-click="signin()" class="md-primary">Sign in</md-button>
-                  <md-button ng-click="signup()" class="cb-user-menu">Sign up for free</md-button></span><span ng-show="user &amp;&amp; !loading">
-                  <md-button class="md-primary">Videos</md-button>
-                  <md-button aria-label="Likes" class="md-icon-button"><i class="fa fa-heart"></i></md-button>
-                  <md-menu md-position-mode="target-right target">
-                    <md-button aria-label="Account Settings" ng-click="$mdOpenMenu($event)" ng-class="{'md-icon-button': !user.email}" class="cb-user-menu"><span md-menu-origin><span ng-if="user.name || user.email" ng-bind="user.name || user.email"></span><i ng-if="!user.email &amp;&amp; !user.name" class="fa fa-cog"></i></span></md-button>
-                    <md-menu-content width="2">
-                      <md-menu-item>
-                        <md-button ng-click="profile()"><span md-menu-align-target>Profile</span></md-button>
-                      </md-menu-item>
-                      <md-menu-item>
-                        <md-button ng-click="signoff()"><span md-menu-align-target>Sign off</span></md-button>
-                      </md-menu-item>
-                    </md-menu-content>
-                  </md-menu></span></span>
+            <div class="md-toolbar-tools"><a ng-href="/" ui-sref="home" aria-label="Clickberry Home" class="cb-brand-menu"></a><span flex></span>
+              <md-button ng-href="http://editor.qa.clbr.ws/" class="md-primary hide show-gt-md">Online editor</md-button>
+              <md-button ng-show="!user &amp;&amp; !loading" ng-click="signin()" class="md-primary hide show-gt-md">Sign in</md-button>
+              <md-button ng-show="!user &amp;&amp; !loading" ng-click="signup()" class="cb-user-menu hide show-gt-md">Sign up for free</md-button>
+              <md-button ng-show="user &amp;&amp; !loading" class="md-primary hide show-gt-md">Videos</md-button>
+              <md-menu ng-show="user &amp;&amp; !loading" md-position-mode="target-right target" class="hide show-gt-md">
+                <md-button aria-label="Account Settings" ng-click="$mdOpenMenu($event)" ng-class="{'md-icon-button': !user.email &amp;&amp; !user.name}" class="cb-user-menu"><span md-menu-origin><span ng-if="user.name || user.email" ng-bind="user.name || user.email"></span><i ng-if="!user.email &amp;&amp; !user.name" class="fa fa-cog"></i></span></md-button>
+                <md-menu-content width="2">
+                  <md-menu-item>
+                    <md-button ng-click="profile()"><span md-menu-align-target>Profile</span></md-button>
+                  </md-menu-item>
+                  <md-menu-item>
+                    <md-button ng-click="signoff()"><span md-menu-align-target>Sign off</span></md-button>
+                  </md-menu-item>
+                </md-menu-content>
+              </md-menu>
+              <md-button ng-show="loading" aria-label="Profile Loading" class="md-icon-button"><i class="fa fa-circle-o-notch fa-spin faster">                                   </i></md-button>
               <md-button aria-label="Menu" ng-click="toggleMenu($event)" class="md-icon-button hide-gt-md"><i class="fa fa-bars"></i></md-button>
             </div>
-            <div ng-show="menuExpanded" class="hide-gt-md">
-              <div ng-show="!user" layout="column">
-                <md-button class="md-primary">Online editor</md-button>
-                <md-button class="md-primary">Support</md-button>
-                <md-button ng-click="signin()" class="md-primary">Sign in</md-button>
-                <md-button ng-click="signup()" class="cb-user-menu">Sign up for free</md-button>
-              </div>
-              <div ng-show="user" layout="column">
-                <md-button class="md-primary">Videos</md-button>
-                <md-button class="md-primary">Likes</md-button>
-                <md-menu md-position-mode="target-right target">
-                  <md-button aria-label="Account Settings" ng-click="$mdOpenMenu($event)" class="cb-user-menu"><span md-menu-origin><span ng-if="user.name || user.email" ng-bind="user.name || user.email"></span><span ng-if="!user.email &amp;&amp; !user.name">Account Settings</span></span></md-button>
-                  <md-menu-content width="2">
-                    <md-menu-item>
-                      <md-button ng-click="profile()"><span md-menu-align-target>Profile</span></md-button>
-                    </md-menu-item>
-                    <md-menu-item>
-                      <md-button ng-click="signoff()"><span md-menu-align-target>Sign off</span></md-button>
-                    </md-menu-item>
-                  </md-menu-content>
-                </md-menu>
-              </div>
-            </div>
+            <md-button ng-show="menuExpanded" ng-href="http://editor.qa.clbr.ws/" class="md-primary hide-gt-md">Online editor</md-button>
+            <md-button ng-show="menuExpanded &amp;&amp; !user" ng-click="signin()" class="md-primary hide-gt-md">Sign in</md-button>
+            <md-button ng-show="menuExpanded &amp;&amp; !user" ng-click="signup()" class="cb-user-menu hide-gt-md">Sign up for free</md-button>
+            <md-button ng-show="menuExpanded &amp;&amp; user" class="md-primary hide-gt-md">Videos</md-button>
+            <md-menu ng-show="menuExpanded &amp;&amp; user" md-position-mode="target-right target" class="hide-gt-md">
+              <md-button aria-label="Account Settings" ng-click="$mdOpenMenu($event)" class="cb-user-menu"><span md-menu-origin><span ng-if="user.name || user.email" ng-bind="user.name || user.email"></span><span ng-if="!user.email &amp;&amp; !user.name">Account Settings</span></span></md-button>
+              <md-menu-content width="2">
+                <md-menu-item>
+                  <md-button ng-click="profile()"><span md-menu-align-target>Profile</span></md-button>
+                </md-menu-item>
+                <md-menu-item>
+                  <md-button ng-click="signoff()"><span md-menu-align-target>Sign off</span></md-button>
+                </md-menu-item>
+              </md-menu-content>
+            </md-menu>
           </md-toolbar>
         </script>
         <script type="text/ng-template" id="signup.html">
@@ -197,6 +186,8 @@
             </div>
             <div flex="25" flex-sm="0" flex-md="20"></div>
           </div>
+        </script>
+        <script type="text/ng-template" id="video.html">
         </script>
       </div>
       <footer class="page-footer">

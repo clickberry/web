@@ -27,8 +27,10 @@
       function ($scope, $state, projectsApi) {
 
         $scope.projects = [];
+        $scope.loading = false;
 
         (function loadProjects() {
+          $scope.loading = true;
           projectsApi.listPublic(50, function (err, data) {
             if (err) { throw err; }
             angular.forEach(data, function (i, idx) {
@@ -40,6 +42,8 @@
             });
 
             $scope.projects = data;
+            $scope.loading = false;
+            $scope.$digest();
           });
         })();
         

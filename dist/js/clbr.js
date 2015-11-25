@@ -491,8 +491,10 @@
       function ($scope, $state, projectsApi) {
 
         $scope.projects = [];
+        $scope.loading = false;
 
         (function loadProjects() {
+          $scope.loading = true;
           projectsApi.listPublic(50, function (err, data) {
             if (err) { throw err; }
             angular.forEach(data, function (i, idx) {
@@ -504,6 +506,8 @@
             });
 
             $scope.projects = data;
+            $scope.loading = false;
+            $scope.$digest();
           });
         })();
         
@@ -661,17 +665,17 @@
   ]);
     
 })(window, window.angular, window.clbr);
-(function(window, angular) {
+(function (angular) {
     "use strict";
 
-    angular.module('settings', []) 
+    angular.module('settings', [])
       .constant('urls', {
-        'authApi': 'http://auth.qa.clbr.ws',
-        'profilesApi': 'http://profiles.qa.clbr.ws',
-        'projectsApi': 'http://projects.qa.clbr.ws'
+        authApi: 'http://auth.qa.clbr.ws',
+        profilesApi: 'http://profiles.qa.clbr.ws',
+        projectsApi: 'http://projects.qa.clbr.ws',
+        player: 'http://editor.qa.clbr.ws/#/iplayer/'
       });
-    
-})(window, window.angular);
+}) ((window.angular));
 (function (window, angular) {
     "use strict";
 
@@ -971,6 +975,71 @@
 
 })(window, window.angular);
 (function (window, angular) {
+    "use strict";
+
+    var module = angular.module('video', [
+      'ui.router',
+      'settings',
+      'projects-api'
+    ]);
+
+    // Routes
+    module.config([
+      '$stateProvider', function ($stateProvider) {
+        $stateProvider
+          .state('home.video', {
+            url: 'show/:id',
+            views: {
+              'video': {
+                controller: 'VideoCtrl',
+                templateUrl: 'video.html'
+              }
+            },
+            data: {
+              pageTitle: 'Video on Clickberry'
+            }
+          });
+        }
+    ]);
+
+    // Controllers
+    module.controller('VideoCtrl', [
+      '$rootScope', '$scope', '$state', '$stateParams', '$mdDialog', 'urls', 'projectsApi',
+      function ($rootScope, $scope, $state, $stateParams, $mdDialog, urls, projectsApi) {
+        var id = $stateParams.id;
+        if (!id) {
+          return $state.go('home');
+        }
+
+        $scope.url = urls.player + id;
+
+        $mdDialog.show({
+          clickOutsideToClose: true,
+          scope: $scope,
+          preserveScope: true,
+          template: '<md-dialog class="video-popup" aria-label="Video on Clickberry">' +
+                    '  <md-dialog-content>' +
+                    '     <div class="video-container">' + 
+                    '       <iframe frameborder="0" width="100%" height="100%"' + 'src="' + $scope.url + '" />' + 
+                    '       <div class="close-video">' + 
+                    '         <md-button class="md-icon-button" aria-label="Close Video" ng-click="close()"><i class="fa fa-times-circle"></i>' + 
+                    '       </div>' + 
+                    '     </div>' +
+                    '  </md-dialog-content>' +
+                    '</md-dialog>'
+        })
+        .finally(function() {
+          $state.go('^');
+        });
+
+        $scope.close = function () {
+          $mdDialog.hide();
+        };
+
+      }
+    ]);
+})(window, window.angular);
+(function (angular) {
     'use strict';
 
     var app = angular.module('clbr', [
@@ -983,7 +1052,8 @@
       'directives',
       'filters',
       'user',
-      'exceptions'
+      'exceptions',
+      'video'
     ]);
 
     // Config
@@ -1028,5 +1098,5 @@
       }
     ]);
 
-})(window, window.angular);
+})((window.angular));
 //# sourceMappingURL=../maps/clbr.js.map
