@@ -11,7 +11,7 @@ script(type="text/ng-template", id="home.html")
                         img(ng-src="{{project.imageUri}}")
                 md-grid-tile-footer
                     h3 
-                        a(href='#', ui-sref='home.video({id: project.id})')
+                        a(href='#', ui-sref='home.video({id: project.id})', title="{{project.name}}")
                             {{project.name}}
                     .sub-info
                         span {{project.description}}
