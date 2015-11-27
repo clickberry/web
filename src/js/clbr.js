@@ -13,7 +13,8 @@
       'filters',
       'user',
       'exceptions',
-      'video'
+      'video',
+      'my-videos'
     ]);
 
     // Config

@@ -1,0 +1,41 @@
+script(type="text/ng-template", id="my-videos.html")
+    .video-grid(layout-padding, ng-cloak, ng-if="projects.length")
+        md-grid-list(md-cols-gt-md="1", md-cols-sm="1", md-cols-md="1", md-row-height="4:3", md-row-height-gt-md="1:1", md-gutter="30px", md-gutter-gt-md="16px")
+            md-grid-tile(ng-repeat="project in projects", md-rowspan-gt-md="1", md-rowspan="1", md-colspan-gt-md="1", md-colspan="1")
+                a(href='#', ui-sref='video({id: project.id})')
+                    span.image(ng-style="{'background-image': 'url({{project.imageUri}})'}")
+                        img(ng-src="{{project.imageUri}}")
+                md-grid-tile-footer
+                    h3 
+                        a(href='#', ui-sref='video({id: project.id})', title="{{project.name}}") {{project.name}}
+                    .sub-info
+                        span {{project.description}}
+                        i(ng-if="project.description")  · 
+                        span {{project.created | apiDateFromNow}}
+                    //- div.buttons(layout="row", layout-align="space-between end")
+                    //-     span
+                    //-         md-button.md-icon-button.md-accent(aria-label="Like")
+                    //-             i.fa.fa-heart-o
+                    //-             span  115
+                    //-         md-button.md-icon-button(aria-label="Comment")
+                    //-             i.fa.fa-comment-o
+                    //-             span  8
+                    //-     span
+                    //-         md-button.md-icon-button.etc(aria-label="More")
+                    //-             i.fa.fa-ellipsis-h
+    div(layout="row", flex="100", ng-show="loading", align-children="center")
+        md-button(aria-label="Video List Loading", flex, ng-disabled="true")
+            span Loading 
+            i.fa.fa-circle-o-notch.fa-spin.faster
+    div(layout="row", layout-align="center", ng-show="!projects.length && !loading")
+        div(flex="25", flex-sm="0", flex-md="20")
+        div(flex="50", flex-sm="100", flex-md="60")
+            md-card
+                md-card-content
+                    div(layout="row")
+                        div(flex="10")
+                        div(flex="80")
+                            p You don't have any videos yet. Start by creating one.
+                        div(flex="10")
+        div(flex="25", flex-sm="0", flex-md="20")                
+    div(ui-view="video")

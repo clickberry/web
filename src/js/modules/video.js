@@ -45,7 +45,7 @@
                     '  <md-dialog-content>' +
                     '     <div class="video-container">' + 
                     '       <div class="video-loading"><md-button aria-label="Video Loading" ng-disabled="true">Loading <i class="fa fa-circle-o-notch fa-spin faster"></i></md-button></div> ' +
-                    '       <iframe frameborder="0" width="100%" height="100%"' + 'src="' + $scope.url + '" />' + 
+                    '       <iframe frameborder="0" width="100%" height="100%"' + 'src="' + $scope.url + '" allowfullscreen />' + 
                     '       <div class="video-close">' + 
                     '         <md-button class="md-icon-button" aria-label="Close Video" ng-click="close()"><i class="fa fa-times-circle"></i>' + 
                     '       </div>' + 

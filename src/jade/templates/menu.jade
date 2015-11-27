@@ -8,11 +8,11 @@ script(type="text/ng-template", id="menu.html")
             md-button.md-primary.hide.show-gt-md(ng-href="http://editor.qa.clbr.ws/") Online editor
             
             //- Unauthorized
-            md-button.md-primary.hide.show-gt-md(ng-show="!user && !loading", ng-click="signin()") Sign in
-            md-button.cb-user-menu.hide.show-gt-md(ng-show="!user && !loading", ng-click="signup()") Sign up for free
+            md-button.md-primary.hide.show-gt-md(ng-show="!user && !loading", ng-href='#', ui-sref="signin") Sign in
+            md-button.cb-user-menu.hide.show-gt-md(ng-show="!user && !loading", ng-href='#', ui-sref="signup") Sign up for free
             
             //- Authorized
-            md-button.md-primary.hide.show-gt-md(ng-show="user && !loading") Videos
+            md-button.md-primary.hide.show-gt-md(ng-show="user && !loading", ng-href='#', ui-sref="my-videos") Videos
             md-menu.hide.show-gt-md(ng-show="user && !loading", md-position-mode="target-right target")
                 md-button.cb-user-menu(aria-label="Account", ng-click="$mdOpenMenu($event)", ng-class="{'md-icon-button': !user.email && !user.name}")
                     span(md-menu-origin)
@@ -20,10 +20,10 @@ script(type="text/ng-template", id="menu.html")
                         i.fa.fa-cog(ng-if="!user.email && !user.name")
                 md-menu-content(width="2")
                     md-menu-item
-                        md-button(ng-click="profile()")
+                        md-button(ng-href='#', ui-sref="profile")
                             span(md-menu-align-target) Profile
                     md-menu-item
-                        md-button(ng-click="settings()")
+                        md-button(ng-href='#', ui-sref="account-settings")
                             span(md-menu-align-target) Settings                            
                     md-menu-item
                         md-button(ng-click="signoff()")

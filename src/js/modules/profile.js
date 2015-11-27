@@ -27,7 +27,6 @@
     module.controller('ProfileCtrl', [
       '$rootScope', '$scope', '$state', 'profilesApi', 'user', 'events',
       function ($rootScope, $scope, $state, profilesApi, user, events) {
-
         if (!user.id) {
           return $state.go('home');
         }

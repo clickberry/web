@@ -1,31 +1,35 @@
 (function(window, angular) {
     "use strict";
 
-    var module = angular.module('home', [
+    var module = angular.module('my-videos', [
       'ui.router',
       'projects-api',
-      'infinite-scroll'
+      'infinite-scroll',
+      'user'
     ]);
 
     // Routes
     module.config([
       '$stateProvider', function ($stateProvider) {
         $stateProvider
-          .state('home', {
-            url: '/',
-            templateUrl: 'home.html',
-            controller: 'HomeCtrl',
+          .state('my-videos', {
+            url: '/videos',
+            templateUrl: 'my-videos.html',
+            controller: 'MyVideosCtrl',
             data: {
-              pageTitle: 'Clickberry Video Portal'
+              pageTitle: 'My Videos on Clickberry'
             }
           });
         }
     ]);
 
     // Controllers
-    module.controller('HomeCtrl', [
-      '$scope', '$state', 'projectsApi',
-      function ($scope, $state, projectsApi) {
+    module.controller('MyVideosCtrl', [
+      '$scope', '$state', 'projectsApi', 'user',
+      function ($scope, $state, projectsApi, user) {
+        if (!user.id) {
+          return $state.go('home');
+        }
 
         $scope.projects = [];
         $scope.allLoaded = false;
@@ -37,7 +41,7 @@
           }
           $scope.loading = true;
           var lastId = $scope.projects.length > 0 ? $scope.projects[$scope.projects.length - 1].id : null;
-          projectsApi.listPublic(50, lastId, function (err, data) {
+          projectsApi.listMy(user.accessToken, function (err, data) {
             if (err) { throw err; }
             if (!data.length) {
               $scope.allLoaded = true;
@@ -48,16 +52,7 @@
 
             var result = [];
             var idx = $scope.projects.length;
-            var lastBigOne = 0;
-            var minSpace = 5;
             angular.forEach(data, function (i) {
-              if (idx % 3 != 2 && (idx - lastBigOne) > minSpace && Math.floor(Math.random()*5) == 0) {
-                lastBigOne = idx;
-                i.size = 2;
-              } else {
-                i.size = 1;
-              }
-
               // filter inconsisten projects
               if (!i.imageUri || !i.videos || !i.videos.length) {
                 return;
