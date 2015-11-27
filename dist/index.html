@@ -16,10 +16,7 @@
       <div class="cb-page-content">
         <div ui-view></div>
         <script type="text/ng-template" id="home.html">
-          <div layout="row" flex="100" ng-show="loading" align-children="center">
-            <md-button aria-label="Video List Loading" flex ng-disabled="true"><span>Loading </span><i class="fa fa-circle-o-notch fa-spin faster"></i></md-button>
-          </div>
-          <div layout-padding ng-cloak ng-if="projects.length" class="video-grid">
+          <div layout-padding ng-cloak ng-if="projects.length" infinite-scroll="loadProjects()" class="video-grid">
             <md-grid-list md-cols-gt-md="3" md-cols-sm="1" md-cols-md="1" md-row-height="4:3" md-row-height-gt-md="1:1" md-gutter="30px" md-gutter-gt-md="16px">
               <md-grid-tile ng-repeat="project in projects" md-rowspan-gt-md="{{project.size}}" md-rowspan="1" md-colspan-gt-md="{{project.size}}" md-colspan="1"><a href="#" ui-sref="home.video({id: project.id})"><span ng-style="{'background-image': 'url({{project.imageUri}})'}" class="image"><img ng-src="{{project.imageUri}}"></span></a>
                 <md-grid-tile-footer>
@@ -28,6 +25,9 @@
                 </md-grid-tile-footer>
               </md-grid-tile>
             </md-grid-list>
+          </div>
+          <div layout="row" flex="100" ng-show="loading" align-children="center">
+            <md-button aria-label="Video List Loading" flex ng-disabled="true"><span>Loading </span><i class="fa fa-circle-o-notch fa-spin faster"></i></md-button>
           </div>
           <div ui-view="video"></div>
         </script>
@@ -264,6 +264,7 @@
     <script src="/js/angular-cookies.min.js"></script>
     <script src="/js/angular-material.min.js"></script>
     <script src="/js/moment.min.js"></script>
+    <script src="/js/ng-infinite-scroll.min.js"></script>
     <script src="/js/clbr.js"></script>
   </body>
 </html>

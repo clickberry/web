@@ -1,9 +1,5 @@
 script(type="text/ng-template", id="home.html")
-    div(layout="row", flex="100", ng-show="loading", align-children="center")
-        md-button(aria-label="Video List Loading", flex, ng-disabled="true")
-            span Loading 
-            i.fa.fa-circle-o-notch.fa-spin.faster
-    .video-grid(layout-padding, ng-cloak, ng-if="projects.length")
+    .video-grid(layout-padding, ng-cloak, ng-if="projects.length", infinite-scroll="loadProjects()")
         md-grid-list(md-cols-gt-md="3", md-cols-sm="1", md-cols-md="1", md-row-height="4:3", md-row-height-gt-md="1:1", md-gutter="30px", md-gutter-gt-md="16px")
             md-grid-tile(ng-repeat="project in projects", md-rowspan-gt-md="{{project.size}}", md-rowspan="1", md-colspan-gt-md="{{project.size}}", md-colspan="1")
                 a(href='#', ui-sref='home.video({id: project.id})')
@@ -27,4 +23,8 @@ script(type="text/ng-template", id="home.html")
                     //-     span
                     //-         md-button.md-icon-button.etc(aria-label="More")
                     //-             i.fa.fa-ellipsis-h
+    div(layout="row", flex="100", ng-show="loading", align-children="center")
+        md-button(aria-label="Video List Loading", flex, ng-disabled="true")
+            span Loading 
+            i.fa.fa-circle-o-notch.fa-spin.faster
     div(ui-view="video")

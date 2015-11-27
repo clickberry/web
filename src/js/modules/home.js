@@ -3,7 +3,8 @@
 
     var module = angular.module('home', [
       'ui.router',
-      'projects-api'
+      'projects-api',
+      'infinite-scroll'
     ]);
 
     // Routes
@@ -27,14 +28,25 @@
       function ($scope, $state, projectsApi) {
 
         $scope.projects = [];
+        $scope.allLoaded = false;
         $scope.loading = false;
 
-        (function loadProjects() {
+        $scope.loadProjects = function () {
+          if ($scope.loading || $scope.allLoaded) {
+            return;
+          }
           $scope.loading = true;
-          projectsApi.listPublic(50, function (err, data) {
+          var lastId = $scope.projects.length > 0 ? $scope.projects[$scope.projects.length - 1].id : null;
+          projectsApi.listPublic(50, lastId, function (err, data) {
             if (err) { throw err; }
+            if (!data.length) {
+              $scope.allLoaded = true;
+              $scope.loading = false;
+              return;
+            }
+
             var result = [];
-            var idx = 0;
+            var idx = $scope.projects.length;
             var lastBigOne = 0;
             var minSpace = 5;
             angular.forEach(data, function (i) {
@@ -54,12 +66,13 @@
               result.push(i);
             });
 
-            $scope.projects = result;
+            $scope.projects = $scope.projects.concat(result);
             $scope.loading = false;
             $scope.$digest();
           });
-        })();
+        };
         
+        $scope.loadProjects();
       }
     ]);
     

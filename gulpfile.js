@@ -95,8 +95,16 @@ gulp.task('moment', function () {
     .pipe(gulp.dest('dist/js'));
 });
 
+// ng-infinite-scroll.js
+gulp.task('infinite-scroll', function () {
+  return gulp.src('node_modules/ng-infinite-scroll/build/ng-infinite-scroll.js')
+    .pipe(uglify())
+    .pipe(rename({ extname: '.min.js' }))
+    .pipe(gulp.dest('dist/js'));
+});
+
 // all third party libs
-gulp.task('libs', ['angular', 'angular-material', 'font-awesome', 'jquery', 'angular-ui-router', 'angular-cookies', 'moment']);
+gulp.task('libs', ['angular', 'angular-material', 'font-awesome', 'jquery', 'angular-ui-router', 'angular-cookies', 'moment', 'infinite-scroll']);
 
 
 // common
