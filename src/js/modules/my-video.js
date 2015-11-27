@@ -1,7 +1,7 @@
 (function (window, angular) {
     "use strict";
 
-    var module = angular.module('video', [
+    var module = angular.module('my-videos.video', [
       'ui.router',
       'settings',
       'projects-api'
@@ -11,11 +11,11 @@
     module.config([
       '$stateProvider', function ($stateProvider) {
         $stateProvider
-          .state('home.video', {
-            url: 'show/:id',
+          .state('my-videos.video', {
+            url: '/:id',
             views: {
               'video': {
-                controller: 'VideoCtrl'
+                controller: 'MyVideoCtrl'
               }
             },
             data: {
@@ -26,7 +26,7 @@
     ]);
 
     // Controllers
-    module.controller('VideoCtrl', [
+    module.controller('MyVideoCtrl', [
       '$rootScope', '$scope', '$state', '$stateParams', '$mdDialog', 'urls', 'projectsApi',
       function ($rootScope, $scope, $state, $stateParams, $mdDialog, urls, projectsApi) {
         var id = $stateParams.id;

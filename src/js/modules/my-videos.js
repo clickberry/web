@@ -5,7 +5,8 @@
       'ui.router',
       'projects-api',
       'infinite-scroll',
-      'user'
+      'user',
+      'my-videos.video'
     ]);
 
     // Routes
