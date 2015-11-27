@@ -8,4 +8,4 @@ docker rmi web
 # build new image and run container
 gulp
 docker build -t web .
-docker run -d --name web -p 8080:80 web
+docker run -d --name web -p 8888:80 web

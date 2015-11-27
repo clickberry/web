@@ -546,15 +546,25 @@
           $scope.loading = true;
           projectsApi.listPublic(50, function (err, data) {
             if (err) { throw err; }
-            angular.forEach(data, function (i, idx) {
+            var result = [];
+            var idx = 0;
+            angular.forEach(data, function (i) {
               if ((idx + 1) % 4 === 0) {
                 i.size = 3;
               } else {
                 i.size = 1;
               }
+
+              // filter inconsisten projects
+              if (!i.imageUri || !i.videos || !i.videos.length) {
+                return;
+              }
+
+              idx++;
+              result.push(i);
             });
 
-            $scope.projects = data;
+            $scope.projects = result;
             $scope.loading = false;
             $scope.$digest();
           });
