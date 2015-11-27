@@ -21,7 +21,7 @@
           </div>
           <div layout-padding ng-cloak ng-if="projects.length" class="video-grid">
             <md-grid-list md-cols-gt-md="3" md-cols-sm="1" md-cols-md="1" md-row-height="4:3" md-row-height-gt-md="1:1" md-gutter="30px" md-gutter-gt-md="16px">
-              <md-grid-tile ng-repeat="project in projects" md-rowspan-gt-md="{{project.size - 1}}" md-rowspan="1" md-colspan-gt-md="{{project.size}}" md-colspan="1"><a href="#" ui-sref="home.video({id: project.id})"><span ng-style="{'background-image': 'url({{project.imageUri}})'}" class="image"><img ng-src="{{project.imageUri}}"></span></a>
+              <md-grid-tile ng-repeat="project in projects" md-rowspan-gt-md="{{project.size}}" md-rowspan="1" md-colspan-gt-md="{{project.size}}" md-colspan="1"><a href="#" ui-sref="home.video({id: project.id})"><span ng-style="{'background-image': 'url({{project.imageUri}})'}" class="image"><img ng-src="{{project.imageUri}}"></span></a>
                 <md-grid-tile-footer>
                   <h3> <a href="#" ui-sref="home.video({id: project.id})" title="{{project.name}}">{{project.name}}</a></h3>
                   <div class="sub-info"><span>{{project.description}}</span><i ng-if="project.description"> · </i><span>{{project.created | apiDateFromNow}}</span></div>

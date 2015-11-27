@@ -35,9 +35,12 @@
             if (err) { throw err; }
             var result = [];
             var idx = 0;
+            var lastBigOne = 0;
+            var minSpace = 5;
             angular.forEach(data, function (i) {
-              if ((idx + 1) % 4 === 0) {
-                i.size = 3;
+              if (idx % 3 != 2 && (idx - lastBigOne) > minSpace && Math.floor(Math.random()*5) == 0) {
+                lastBigOne = idx;
+                i.size = 2;
               } else {
                 i.size = 1;
               }

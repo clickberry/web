@@ -5,14 +5,13 @@ script(type="text/ng-template", id="home.html")
             i.fa.fa-circle-o-notch.fa-spin.faster
     .video-grid(layout-padding, ng-cloak, ng-if="projects.length")
         md-grid-list(md-cols-gt-md="3", md-cols-sm="1", md-cols-md="1", md-row-height="4:3", md-row-height-gt-md="1:1", md-gutter="30px", md-gutter-gt-md="16px")
-            md-grid-tile(ng-repeat="project in projects", md-rowspan-gt-md="{{project.size - 1}}", md-rowspan="1", md-colspan-gt-md="{{project.size}}", md-colspan="1")
+            md-grid-tile(ng-repeat="project in projects", md-rowspan-gt-md="{{project.size}}", md-rowspan="1", md-colspan-gt-md="{{project.size}}", md-colspan="1")
                 a(href='#', ui-sref='home.video({id: project.id})')
                     span.image(ng-style="{'background-image': 'url({{project.imageUri}})'}")
                         img(ng-src="{{project.imageUri}}")
                 md-grid-tile-footer
                     h3 
-                        a(href='#', ui-sref='home.video({id: project.id})', title="{{project.name}}")
-                            {{project.name}}
+                        a(href='#', ui-sref='home.video({id: project.id})', title="{{project.name}}") {{project.name}}
                     .sub-info
                         span {{project.description}}
                         i(ng-if="project.description")  · 
