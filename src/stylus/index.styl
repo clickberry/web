@@ -2,8 +2,11 @@
 @import login
 @import video
 
-body
+body, html
     background-color: bg
+    color: body-text
+    
+body
     height: auto
 
 // Top navigation
@@ -39,7 +42,7 @@ body
         transition: opacity .2s ease-in-out
         &:hover
             background-color: transparent !important
-            opacity: 0.7
+            opacity: 0.8
 
     // Icon button
     .md-icon-button:hover
@@ -56,8 +59,7 @@ body
     background: footer-bg
     color: footer-text
     font-size: 13px
-    border-top: 10px solid footer-border
-    padding: 20px 0 20px
+    padding: 40px 0 20px
     
     section
         max-width: 1014px
@@ -104,6 +106,14 @@ body
     .page-footer
         text-align: center
 
+.md-button[disabled]
+    color: body-text-disabled
+
+md-card
+    color: body-text-inverse
+    
+    .md-button[disabled]
+        color: body-text-disabled-inverse
 
 // Text alignment
 .text-center

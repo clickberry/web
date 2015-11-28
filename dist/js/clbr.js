@@ -561,15 +561,28 @@
 
             var result = [];
             var idx = $scope.projects.length;
-            var lastBigOne = 0;
-            var minSpace = 5;
+            var plan = [
+              {w: 12, h: 8},
+              {w: 6, h: 5},
+              {w: 6, h: 5},
+              {w: 12, h: 8},
+              {w: 4, h: 4},
+              {w: 4, h: 4},
+              {w: 4, h: 4},
+              {w: 12, h: 8},
+              {w: 12, h: 8},
+              {w: 6, h: 5},
+              {w: 6, h: 5},
+              {w: 12, h: 8},
+              {w: 12, h: 8},
+              {w: 4, h: 4},
+              {w: 4, h: 4},
+              {w: 4, h: 4}
+            ];
             angular.forEach(data, function (i) {
-              if (idx % 3 != 2 && (idx - lastBigOne) > minSpace && Math.floor(Math.random()*5) == 0) {
-                lastBigOne = idx;
-                i.size = 2;
-              } else {
-                i.size = 1;
-              }
+              var p = plan[idx % plan.length];
+              i.cols = p.w;
+              i.rows = p.h;
 
               // filter inconsisten projects
               if (!i.imageUri || !i.videos || !i.videos.length) {
