@@ -70,10 +70,13 @@
           function getTokensFromSocialRedirect() {
             var params = $location.search();
             if (params.access_token && params.refresh_token){
-              return {
+              var tokens = {
                 accessToken: params.access_token, 
                 refreshToken: params.refresh_token
               };
+              $location.search('access_token', null);
+              $location.search('refresh_token', null);
+              return tokens;
             }
           }
 

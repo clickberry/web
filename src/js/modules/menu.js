@@ -46,22 +46,6 @@
               $scope.signoff = function () {
                 user.destroy();
               };
-
-              $scope.signup = function () {
-                $state.go('signup');
-              };
-
-              $scope.signin = function () {
-                $state.go('signin');
-              };
-
-              $scope.profile = function () {
-                $state.go('profile');
-              };
-
-              $scope.settings = function () {
-                $state.go('account-settings');
-              };
             }
           };
         }

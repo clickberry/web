@@ -652,22 +652,6 @@
               $scope.signoff = function () {
                 user.destroy();
               };
-
-              $scope.signup = function () {
-                $state.go('signup');
-              };
-
-              $scope.signin = function () {
-                $state.go('signin');
-              };
-
-              $scope.profile = function () {
-                $state.go('profile');
-              };
-
-              $scope.settings = function () {
-                $state.go('account-settings');
-              };
             }
           };
         }
@@ -1109,10 +1093,13 @@
           function getTokensFromSocialRedirect() {
             var params = $location.search();
             if (params.access_token && params.refresh_token){
-              return {
+              var tokens = {
                 accessToken: params.access_token, 
                 refreshToken: params.refresh_token
               };
+              $location.search('access_token', null);
+              $location.search('refresh_token', null);
+              return tokens;
             }
           }
 
