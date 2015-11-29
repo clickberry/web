@@ -49,7 +49,13 @@
 
         $scope.submit = function (params) {
           $scope.loading = true;
-          profilesApi.update(user.id, params.email, params.name, user.accessToken, function (err, data) {
+          var options = {
+            id: user.id,
+            email: params.email,
+            name: params.name,
+            avatarUrl: params.avatarUrl
+          };
+          profilesApi.update(options, user.accessToken, function (err, data) {
             if (err) { throw err; }
             $scope.loading = false;
             $scope.$digest();

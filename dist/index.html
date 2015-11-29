@@ -170,14 +170,15 @@
                     <div flex="10"></div>
                     <div flex="80">
                       <h1 class="md-display-1">Profile details</h1>
+                      <div flex="100" layout="row" layout-align="start center">
+                        <div ng-if="profile.avatarUrl" style="background-image: url({{profile.avatarUrl}});" class="profile-avatar">   </div><span>
+                          <md-button class="md-raised">
+                            <label for="avatar-file"> <span ng-if="!profile.avatarUrl">Upload Avatar</span><span ng-if="profile.avatarUrl">Change Avatar</span></label>
+                          </md-button></span>
+                      </div>
+                      <md-input-container></md-input-container>
                       <form name="profileform" ng-submit="submit(profile)">
-                        <div flex="100" layout="row" layout-align="center center">
-                          <div ng-if="profile.avatarUrl" ng-style="{'background-image': 'url({{profile.avatarUrl}})'}" class="profile-avatar">   </div><span>
-                            <md-button class="md-raised">
-                              <label for="avatar-file">Change Avatar</label>
-                            </md-button>
-                            <input type="file" id="avatar-file" accept="image/jpeg,image/png" nv-file-select uploader="uploader" ng-hide="true" ng-if="uploader"></span>
-                        </div>
+                        <input type="file" id="avatar-file" accept="image/jpeg,image/png" nv-file-select uploader="uploader" ng-hide="true" ng-if="uploader">
                         <md-input-container class="md-title">
                           <label>Email</label>
                           <input required type="email" name="profileEmail" ng-model="profile.email" minlength="10" maxlength="100" ng-pattern="/^.+@.+..+$/">

@@ -240,14 +240,15 @@
       },
 
       // Update profile info
-      update: function (id, email, name, access_token, fn) {
+      update: function (params, access_token, fn) {
         var data = {
-          email: email,
-          name: name
+          email: params.email,
+          name: params.name,
+          avatarUrl: params.avatarUrl
         };
 
         $.ajax({
-            url: url + '/' + id,
+            url: url + '/' + params.id,
             type: 'PUT',
             headers: {'Authorization': 'JWT ' + access_token},
             data: data
@@ -924,7 +925,13 @@
 
         $scope.submit = function (params) {
           $scope.loading = true;
-          profilesApi.update(user.id, params.email, params.name, user.accessToken, function (err, data) {
+          var options = {
+            id: user.id,
+            email: params.email,
+            name: params.name,
+            avatarUrl: params.avatarUrl
+          };
+          profilesApi.update(options, user.accessToken, function (err, data) {
             if (err) { throw err; }
             $scope.loading = false;
             $scope.$digest();
