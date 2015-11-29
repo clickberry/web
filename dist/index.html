@@ -164,13 +164,20 @@
           <div layout="row" layout-align="center">
             <div flex="25" flex-sm="0" flex-md="20"></div>
             <div flex="50" flex-sm="100" flex-md="60">
-              <form name="profileform" ng-submit="submit(profile)">
-                <md-card>
-                  <md-card-content>
-                    <div layout="row">
-                      <div flex="10"></div>
-                      <div flex="80">
-                        <h1 class="md-display-1">Profile details</h1>
+              <md-card>
+                <md-card-content>
+                  <div layout="row">
+                    <div flex="10"></div>
+                    <div flex="80">
+                      <h1 class="md-display-1">Profile details</h1>
+                      <form name="profileform" ng-submit="submit(profile)">
+                        <div flex="100" layout="row" layout-align="center center">
+                          <div ng-if="profile.avatarUrl" ng-style="{'background-image': 'url({{profile.avatarUrl}})'}" class="profile-avatar">   </div><span>
+                            <md-button class="md-raised">
+                              <label for="avatar-file">Change Avatar</label>
+                            </md-button>
+                            <input type="file" id="avatar-file" accept="image/jpeg,image/png" nv-file-select uploader="uploader" ng-hide="true" ng-if="uploader"></span>
+                        </div>
                         <md-input-container class="md-title">
                           <label>Email</label>
                           <input required type="email" name="profileEmail" ng-model="profile.email" minlength="10" maxlength="100" ng-pattern="/^.+@.+..+$/">
@@ -183,12 +190,12 @@
                           <md-button ng-href="#" ui-sref="home">Cancel</md-button>
                           <md-button type="submit" ng-disabled="profileform.$invalid || loading" class="md-raised md-accent"><i ng-show="loading" class="fa fa-circle-o-notch fa-spin faster"> </i><span> Submit</span></md-button>
                         </md-card-actions>
-                      </div>
+                      </form>
                       <div flex="10"></div>
                     </div>
-                  </md-card-content>
-                </md-card>
-              </form>
+                  </div>
+                </md-card-content>
+              </md-card>
             </div>
             <div flex="25" flex-sm="0" flex-md="20"></div>
           </div>
@@ -298,6 +305,7 @@
     <script src="/js/angular-material.min.js"></script>
     <script src="/js/moment.min.js"></script>
     <script src="/js/ng-infinite-scroll.min.js"></script>
+    <script src="/js/angular-file-upload.min.js"></script>
     <script src="/js/clbr.js"></script>
   </body>
 </html>

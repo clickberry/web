@@ -5,7 +5,9 @@
       'ui.router',
       'profiles-api',
       'user',
-      'constants'
+      'constants',
+      'angularFileUpload',
+      'images-api'
     ]);
 
     // Routes
@@ -25,14 +27,25 @@
 
     // Controllers
     module.controller('ProfileCtrl', [
-      '$rootScope', '$scope', '$state', 'profilesApi', 'user', 'events',
-      function ($rootScope, $scope, $state, profilesApi, user, events) {
+      '$rootScope', '$scope', '$state', 'profilesApi', 'user', 'events', 'FileUploader', 'imagesApi',
+      function ($rootScope, $scope, $state, profilesApi, user, events, FileUploader, imagesApi) {
         if (!user.id) {
           return $state.go('home');
         }
 
         $scope.profile = {};
         $scope.loading = false;
+
+        $scope.uploader = new FileUploader({
+          onAfterAddingFile: function (item) {
+            // uploading
+            imagesApi.upload(item._file, user.accessToken, function (err, result) {
+              if (err !== null) { throw new Error("Could not upload avatar"); }
+              $scope.profile.avatarUrl = result.url;
+              $scope.$digest();
+            });
+          }
+        });
 
         $scope.submit = function (params) {
           $scope.loading = true;

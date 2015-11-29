@@ -103,8 +103,26 @@ gulp.task('infinite-scroll', function () {
     .pipe(gulp.dest('dist/js'));
 });
 
+// angular-file-upload.js
+gulp.task('angular-file-upload', function () {
+  return gulp.src('node_modules/angular-file-upload/dist/angular-file-upload.js')
+    .pipe(uglify())
+    .pipe(rename({ extname: '.min.js' }))
+    .pipe(gulp.dest('dist/js'));
+});
+
 // all third party libs
-gulp.task('libs', ['angular', 'angular-material', 'font-awesome', 'jquery', 'angular-ui-router', 'angular-cookies', 'moment', 'infinite-scroll']);
+gulp.task('libs', [
+  'angular', 
+  'angular-material', 
+  'font-awesome', 
+  'jquery', 
+  'angular-ui-router', 
+  'angular-cookies', 
+  'moment', 
+  'infinite-scroll', 
+  'angular-file-upload'
+]);
 
 
 // common
@@ -150,6 +168,7 @@ gulp.task('js', function () {
       'node_modules/auth-api-js/index.js',
       'node_modules/profiles-api-js/index.js',
       'node_modules/projects-api-js/index.js',
+      'node_modules/images-api-js/index.js',
       'src/js/modules/*.js',
       'src/js/*.js',
     ])

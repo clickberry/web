@@ -369,6 +369,68 @@
   };
 
 })(window, window.jQuery);
+(function(window, $) {
+  
+  if (!$) {
+    return console.error('jQuery required.');
+  }
+
+  var clbr = window.clbr = window.clbr || {};
+
+  clbr.imagesApi = function (url) {
+    return {
+      // Uploads image
+      upload: function (file, access_token, fn) {
+        var data = new FormData();
+        data.append('image', file, file.name);
+
+        $.ajax({
+            url: url + '/',
+            type: 'POST',
+            headers: {'Authorization': 'JWT ' + access_token},
+            data: data,
+            cache: false,
+            processData: false,
+            contentType: false
+          })
+          .done(function(result) {
+            fn(null, result);
+          })
+          .fail(function(jqXHR, textStatus, err) {
+            fn(err);
+          });
+      },
+      // Gets image by if
+      get: function (id, fn) {
+        $.ajax({
+            url: url + '/' + id,
+            type: 'GET'
+          })
+          .done(function(result) {
+            fn(null, result);
+          })
+          .fail(function(jqXHR, textStatus, err) {
+            fn(err);
+          });
+      },
+      // Deletes image by id
+      update: function (id, access_token, fn) {
+        $.ajax({
+            url: url + '/' + id,
+            type: 'DELETE',
+            headers: {'Authorization': 'JWT ' + access_token}
+          })
+          .done(function() {
+            fn();
+          })
+          .fail(function(jqXHR, textStatus, err) {
+            fn(err);
+          });
+      }
+    };
+  };
+
+})(window, window.jQuery);
 (function (window, angular) {
     "use strict";
 
@@ -604,6 +666,18 @@
     ]);
     
 })(window, window.angular);
+(function(window, angular, clbr) {
+  "use strict";
+
+  var module = angular.module('images-api', ['settings']);
+
+  module.factory('imagesApi', [
+    'urls', function (urls) {
+      return clbr.imagesApi(urls.imagesApi);
+    }
+  ]);  
+    
+})(window, window.angular, window.clbr);
 (function (window, angular) {
     "use strict";
 
@@ -806,7 +880,9 @@
       'ui.router',
       'profiles-api',
       'user',
-      'constants'
+      'constants',
+      'angularFileUpload',
+      'images-api'
     ]);
 
     // Routes
@@ -826,14 +902,25 @@
 
     // Controllers
     module.controller('ProfileCtrl', [
-      '$rootScope', '$scope', '$state', 'profilesApi', 'user', 'events',
-      function ($rootScope, $scope, $state, profilesApi, user, events) {
+      '$rootScope', '$scope', '$state', 'profilesApi', 'user', 'events', 'FileUploader', 'imagesApi',
+      function ($rootScope, $scope, $state, profilesApi, user, events, FileUploader, imagesApi) {
         if (!user.id) {
           return $state.go('home');
         }
 
         $scope.profile = {};
         $scope.loading = false;
+
+        $scope.uploader = new FileUploader({
+          onAfterAddingFile: function (item) {
+            // uploading
+            imagesApi.upload(item._file, user.accessToken, function (err, result) {
+              if (err !== null) { throw new Error("Could not upload avatar"); }
+              $scope.profile.avatarUrl = result.url;
+              $scope.$digest();
+            });
+          }
+        });
 
         $scope.submit = function (params) {
           $scope.loading = true;
@@ -890,6 +977,7 @@
         authApi: 'http://auth.qa.clbr.ws',
         profilesApi: 'http://profiles.qa.clbr.ws',
         projectsApi: 'http://projects.qa.clbr.ws',
+        imagesApi: 'http://images.qa.clbr.ws',
         player: 'http://editor.qa.clbr.ws/#/iplayer/'
       });
 }) ((window.angular));
