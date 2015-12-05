@@ -625,19 +625,19 @@
             var result = [];
             var idx = $scope.projects.length;
             var plan = [
-              {w: 12, h: 8},
+              {w: 12, h: 6},
               {w: 6, h: 5},
               {w: 6, h: 5},
-              {w: 12, h: 8},
+              {w: 12, h: 6},
               {w: 4, h: 4},
               {w: 4, h: 4},
               {w: 4, h: 4},
-              {w: 12, h: 8},
-              {w: 12, h: 8},
+              {w: 12, h: 6},
+              {w: 12, h: 6},
               {w: 6, h: 5},
               {w: 6, h: 5},
-              {w: 12, h: 8},
-              {w: 12, h: 8},
+              {w: 12, h: 6},
+              {w: 12, h: 6},
               {w: 4, h: 4},
               {w: 4, h: 4},
               {w: 4, h: 4}
@@ -691,11 +691,6 @@
             replace: true,
             templateUrl: 'menu.html',
             link: function($scope) {
-              $scope.menuExpanded = false;
-              $scope.toggleMenu = function($event) {
-                $scope.menuExpanded = !$scope.menuExpanded;
-                $event.stopPropagation();
-              };
               angular.element($window).on('click', function () {
                 $scope.menuExpanded = false;
                 $scope.$digest(); // because we're out of angular digest cycle

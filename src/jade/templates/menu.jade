@@ -1,24 +1,35 @@
 script(type="text/ng-template", id="menu.html")
-    md-toolbar.cb-top-menu.md-hue-2(ng-class="{'md-tall': menuExpanded}")
+    md-toolbar.cb-top-menu.md-hue-2
         .md-toolbar-tools
             a.cb-brand-menu(ng-href="/", ui-sref="home", aria-label="Clickberry Home")
             span(flex)
 
             //- Main menu
-            md-button.md-primary.hide.show-gt-md(ng-href="http://editor.qa.clbr.ws/") Online editor
+            md-button.md-icon-button(ng-href="/", aria-label="Home")
+                i.fa.fa-home
             
             //- Unauthorized
-            md-button.md-primary.hide.show-gt-md(ng-show="!user && !loading", ng-href='#', ui-sref="signin") Sign in
-            md-button.cb-user-menu.hide.show-gt-md(ng-show="!user && !loading", ng-href='#', ui-sref="signup") Sign up for free
+            md-menu(ng-show="!user && !loading", md-position-mode="target-right target")
+                md-button.md-icon-button(aria-label="Authorize", ng-click="$mdOpenMenu($event)")
+                    span(md-menu-origin)
+                        i.fa.fa-user
+                md-menu-content(width="2")
+                    md-menu-item
+                        md-button(ng-href='#', ui-sref="signin")
+                            span(md-menu-align-target) Sign in
+                    md-menu-item
+                        md-button(ng-href='#', ui-sref="signup")
+                            span(md-menu-align-target) Sign up for free
             
             //- Authorized
-            md-button.md-primary.hide.show-gt-md(ng-show="user && !loading", ng-href='#', ui-sref="my-videos") Videos
-            md-menu.hide.show-gt-md(ng-show="user && !loading", md-position-mode="target-right target")
-                md-button.cb-user-menu(aria-label="Account", ng-click="$mdOpenMenu($event)", ng-class="{'md-icon-button': !user.email && !user.name}")
+            md-menu(ng-show="user && !loading", md-position-mode="target-right target")
+                md-button.md-icon-button(aria-label="Account", ng-click="$mdOpenMenu($event)")
                     span(md-menu-origin)
-                        span(ng-if="user.name || user.email", ng-bind="user.name || user.email")
-                        i.fa.fa-cog(ng-if="!user.email && !user.name")
+                        i.fa.fa-user
                 md-menu-content(width="2")
+                    md-menu-item
+                        md-button(ng-href='#', ui-sref="my-videos")
+                            span(md-menu-align-target) Videos
                     md-menu-item
                         md-button(ng-href='#', ui-sref="profile")
                             span(md-menu-align-target) Profile
@@ -31,36 +42,7 @@ script(type="text/ng-template", id="menu.html")
 
             //- Loading indicator
             md-button.md-icon-button(ng-show="loading", aria-label="Profile Loading")
-                    i.fa.fa-circle-o-notch.fa-spin.faster                                    
+                i.fa.fa-circle-o-notch.fa-spin.faster                                    
 
-            //- Expand menu button
-            md-button.md-icon-button.hide-gt-md(aria-label="Menu", ng-click="toggleMenu($event)")
-                i.fa.fa-bars
-
-
-        //-
-        //- Mobile menu
-        //-
-        md-button.md-primary.hide-gt-md(ng-show="menuExpanded", ng-href="http://editor.qa.clbr.ws/") Online editor
-
-        //- Unauthorized
-        md-button.md-primary.hide-gt-md(ng-show="menuExpanded && !user", ng-click="signin()") Sign in
-        md-button.cb-user-menu.hide-gt-md(ng-show="menuExpanded && !user", ng-click="signup()") Sign up for free
-
-        //- Authorized
-        md-button.md-primary.hide-gt-md(ng-show="menuExpanded && user") Videos
-        md-menu.hide-gt-md(ng-show="menuExpanded && user", md-position-mode="target-right target")
-            md-button.cb-user-menu(aria-label="Account Settings", ng-click="$mdOpenMenu($event)")
-                span(md-menu-origin)
-                    span(ng-if="user.name || user.email", ng-bind="user.name || user.email")
-                    span(ng-if="!user.email && !user.name") Account
-            md-menu-content(width="2")
-                md-menu-item
-                    md-button(ng-click="profile()")
-                        span(md-menu-align-target) Profile
-                md-menu-item
-                    md-button(ng-click="settings()")
-                        span(md-menu-align-target) Settings
-                md-menu-item
-                    md-button(ng-click="signoff()")
-                        span(md-menu-align-target) Sign off
+            md-button.cb-user-menu.md-icon-button(ng-href="http://editor.qa.clbr.ws/", aria-label="Online Editor")
+                i.fa.fa-pencil

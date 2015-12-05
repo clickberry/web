@@ -32,15 +32,26 @@
           <div ui-view="video"></div>
         </script>
         <script type="text/ng-template" id="menu.html">
-          <md-toolbar ng-class="{'md-tall': menuExpanded}" class="cb-top-menu md-hue-2">
+          <md-toolbar class="cb-top-menu md-hue-2">
             <div class="md-toolbar-tools"><a ng-href="/" ui-sref="home" aria-label="Clickberry Home" class="cb-brand-menu"></a><span flex></span>
-              <md-button ng-href="http://editor.qa.clbr.ws/" class="md-primary hide show-gt-md">Online editor</md-button>
-              <md-button ng-show="!user &amp;&amp; !loading" ng-href="#" ui-sref="signin" class="md-primary hide show-gt-md">Sign in</md-button>
-              <md-button ng-show="!user &amp;&amp; !loading" ng-href="#" ui-sref="signup" class="cb-user-menu hide show-gt-md">Sign up for free</md-button>
-              <md-button ng-show="user &amp;&amp; !loading" ng-href="#" ui-sref="my-videos" class="md-primary hide show-gt-md">Videos</md-button>
-              <md-menu ng-show="user &amp;&amp; !loading" md-position-mode="target-right target" class="hide show-gt-md">
-                <md-button aria-label="Account" ng-click="$mdOpenMenu($event)" ng-class="{'md-icon-button': !user.email &amp;&amp; !user.name}" class="cb-user-menu"><span md-menu-origin><span ng-if="user.name || user.email" ng-bind="user.name || user.email"></span><i ng-if="!user.email &amp;&amp; !user.name" class="fa fa-cog"></i></span></md-button>
+              <md-button ng-href="/" aria-label="Home" class="md-icon-button"><i class="fa fa-home"></i></md-button>
+              <md-menu ng-show="!user &amp;&amp; !loading" md-position-mode="target-right target">
+                <md-button aria-label="Authorize" ng-click="$mdOpenMenu($event)" class="md-icon-button"><span md-menu-origin><i class="fa fa-user"></i></span></md-button>
                 <md-menu-content width="2">
+                  <md-menu-item>
+                    <md-button ng-href="#" ui-sref="signin"><span md-menu-align-target>Sign in</span></md-button>
+                  </md-menu-item>
+                  <md-menu-item>
+                    <md-button ng-href="#" ui-sref="signup"><span md-menu-align-target>Sign up for free</span></md-button>
+                  </md-menu-item>
+                </md-menu-content>
+              </md-menu>
+              <md-menu ng-show="user &amp;&amp; !loading" md-position-mode="target-right target">
+                <md-button aria-label="Account" ng-click="$mdOpenMenu($event)" class="md-icon-button"><span md-menu-origin><i class="fa fa-user"></i></span></md-button>
+                <md-menu-content width="2">
+                  <md-menu-item>
+                    <md-button ng-href="#" ui-sref="my-videos"><span md-menu-align-target>Videos</span></md-button>
+                  </md-menu-item>
                   <md-menu-item>
                     <md-button ng-href="#" ui-sref="profile"><span md-menu-align-target>Profile</span></md-button>
                   </md-menu-item>
@@ -53,26 +64,8 @@
                 </md-menu-content>
               </md-menu>
               <md-button ng-show="loading" aria-label="Profile Loading" class="md-icon-button"><i class="fa fa-circle-o-notch fa-spin faster">                                   </i></md-button>
-              <md-button aria-label="Menu" ng-click="toggleMenu($event)" class="md-icon-button hide-gt-md"><i class="fa fa-bars"></i></md-button>
+              <md-button ng-href="http://editor.qa.clbr.ws/" aria-label="Online Editor" class="cb-user-menu md-icon-button"><i class="fa fa-pencil"></i></md-button>
             </div>
-            <md-button ng-show="menuExpanded" ng-href="http://editor.qa.clbr.ws/" class="md-primary hide-gt-md">Online editor</md-button>
-            <md-button ng-show="menuExpanded &amp;&amp; !user" ng-click="signin()" class="md-primary hide-gt-md">Sign in</md-button>
-            <md-button ng-show="menuExpanded &amp;&amp; !user" ng-click="signup()" class="cb-user-menu hide-gt-md">Sign up for free</md-button>
-            <md-button ng-show="menuExpanded &amp;&amp; user" class="md-primary hide-gt-md">Videos</md-button>
-            <md-menu ng-show="menuExpanded &amp;&amp; user" md-position-mode="target-right target" class="hide-gt-md">
-              <md-button aria-label="Account Settings" ng-click="$mdOpenMenu($event)" class="cb-user-menu"><span md-menu-origin><span ng-if="user.name || user.email" ng-bind="user.name || user.email"></span><span ng-if="!user.email &amp;&amp; !user.name">Account</span></span></md-button>
-              <md-menu-content width="2">
-                <md-menu-item>
-                  <md-button ng-click="profile()"><span md-menu-align-target>Profile</span></md-button>
-                </md-menu-item>
-                <md-menu-item>
-                  <md-button ng-click="settings()"><span md-menu-align-target>Settings</span></md-button>
-                </md-menu-item>
-                <md-menu-item>
-                  <md-button ng-click="signoff()"><span md-menu-align-target>Sign off</span></md-button>
-                </md-menu-item>
-              </md-menu-content>
-            </md-menu>
           </md-toolbar>
         </script>
         <script type="text/ng-template" id="signup.html">
