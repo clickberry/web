@@ -976,11 +976,11 @@
 
     angular.module('settings', [])
       .constant('urls', {
-        authApi: 'http://auth.qa.clbr.ws',
-        profilesApi: 'http://profiles.qa.clbr.ws',
-        projectsApi: 'http://projects.qa.clbr.ws',
-        imagesApi: 'http://images.qa.clbr.ws',
-        player: 'http://editor.qa.clbr.ws/#/iplayer/'
+        authApi: '%AUTH_API%',
+        profilesApi: '%PROFILES_API%',
+        projectsApi: '%PROJECTS_API%',
+        imagesApi: '%IMAGES_API%',
+        player: '%PLAYER%'
       });
 }) ((window.angular));
 (function (window, angular) {
