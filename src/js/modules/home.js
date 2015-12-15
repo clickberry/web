@@ -24,27 +24,33 @@
 
     // Controllers
     module.controller('HomeCtrl', [
-      '$scope', '$state', 'projectsApi',
-      function ($scope, $state, projectsApi) {
+      '$scope', '$state', 'projectsApi', '$mdDialog',
+      function ($scope, $state, projectsApi, $mdDialog) {
 
         $scope.projects = [];
         $scope.allLoaded = false;
         $scope.loading = false;
 
+        var lastId = null;
         $scope.loadProjects = function () {
           if ($scope.loading || $scope.allLoaded) {
             return;
           }
           $scope.loading = true;
-          var lastId = $scope.projects.length > 0 ? $scope.projects[$scope.projects.length - 1].id : null;
+          
           projectsApi.listPublic(50, lastId, function (err, data) {
-            if (err) { throw err; }
+            $scope.loading = false;
+            if (err) {
+              return console.log(err.message);
+            }
             if (!data.length) {
               $scope.allLoaded = true;
               $scope.loading = false;
               $scope.$digest();
               return;
             }
+
+            lastId = data[data.length - 1].id;
 
             var result = [];
             var idx = $scope.projects.length;
@@ -81,7 +87,6 @@
             });
 
             $scope.projects = $scope.projects.concat(result);
-            $scope.loading = false;
             $scope.$digest();
           });
         };

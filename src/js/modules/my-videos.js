@@ -36,12 +36,13 @@
         $scope.allLoaded = false;
         $scope.loading = false;
 
+        var lastId = null;
+
         $scope.loadProjects = function () {
           if ($scope.loading || $scope.allLoaded) {
             return;
           }
           $scope.loading = true;
-          var lastId = $scope.projects.length > 0 ? $scope.projects[$scope.projects.length - 1].id : null;
           projectsApi.listMy(user.accessToken, function (err, data) {
             if (err) { throw err; }
             if (!data.length) {
@@ -50,6 +51,8 @@
               $scope.$digest();
               return;
             }
+
+            lastId = data[data.length - 1].id;
 
             var result = [];
             var idx = $scope.projects.length;
