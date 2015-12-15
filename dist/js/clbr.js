@@ -466,7 +466,7 @@
 
         $scope.deleteAccount = function() {
           var confirm = $mdDialog.confirm()
-            .ok('Please do it!')
+            .ok('Delete!')
             .cancel('Cancel');          
           confirm = confirm.title('Would you like to delete your account?');
           confirm = confirm.content('All of your data will be deleted permanently.');
@@ -906,8 +906,8 @@
 
     // Controllers
     module.controller('ProfileCtrl', [
-      '$rootScope', '$scope', '$state', 'profilesApi', 'user', 'events', 'FileUploader', 'imagesApi',
-      function ($rootScope, $scope, $state, profilesApi, user, events, FileUploader, imagesApi) {
+      '$rootScope', '$scope', '$state', 'profilesApi', 'user', 'events', 'FileUploader', 'imagesApi', '$mdDialog',
+      function ($rootScope, $scope, $state, profilesApi, user, events, FileUploader, imagesApi, $mdDialog) {
         if (!user.id) {
           return $state.go('home');
         }
@@ -919,7 +919,14 @@
           onAfterAddingFile: function (item) {
             // uploading
             imagesApi.upload(item._file, user.accessToken, function (err, result) {
-              if (err !== null) { throw new Error("Could not upload avatar"); }
+              if (err) { 
+                console.log(err.message);
+                return $mdDialog.show($mdDialog.alert()
+                  .clickOutsideToClose(true)
+                  .title('Upload error')
+                  .content('Could not upload avatar, try smaller image or different format.')
+                  .ok('Got it!'));
+              }
               $scope.profile.avatarUrl = result.url;
               $scope.$digest();
             });
@@ -932,13 +939,20 @@
             id: user.id,
             email: params.email,
             name: params.name,
-            avatarUrl: params.avatarUrl
+            avatarUrl: params.avatarUrl || ''
           };
           profilesApi.update(options, user.accessToken, function (err, data) {
-            if (err) { throw err; }
             $scope.loading = false;
+            if (err) {
+              console.log(err.message);
+              return $mdDialog.show($mdDialog.alert()
+                .clickOutsideToClose(true)
+                .title('Profile update error')
+                .content('Could not update profile, check inputs and try again.')
+                .ok('Got it!'));
+            }
+            
             $scope.$digest();
-
             $rootScope.$broadcast(events.profileUpdate, data);
           });
         };
@@ -1018,8 +1032,8 @@
 
     // Controllers
     module.controller('SigninCtrl', [
-      '$scope', '$state', 'authApi', 'user',
-      function ($scope, $state, authApi, user) {
+      '$scope', '$state', 'authApi', 'user', '$mdDialog',
+      function ($scope, $state, authApi, user, $mdDialog) {
 
         $scope.signin = {};
         $scope.loading = false;
@@ -1027,10 +1041,17 @@
         $scope.submit = function (params) {
           $scope.loading = true;
           authApi.signin(params.email, params.password, function (err, data) {
-            if (err) { throw err; }
-            user.init(data.accessToken, data.refreshToken);
             $scope.loading = false;
-            
+            if (err) {
+              console.log(err.message);
+              return $mdDialog.show($mdDialog.alert()
+                .clickOutsideToClose(true)
+                .title('Sign in error')
+                .content('Check your email/password and try again.')
+                .ok('Got it!'));
+            }
+
+            user.init(data.accessToken, data.refreshToken);
             $state.go('home');
           });
         };
@@ -1082,8 +1103,8 @@
 
     // Controllers
     module.controller('SignupCtrl', [
-      '$scope', '$state', 'authApi',
-      function ($scope, $state, authApi) {
+      '$scope', '$state', 'authApi', '$mdDialog',
+      function ($scope, $state, authApi, $mdDialog) {
 
         $scope.signup = {};
         $scope.loading = false;
@@ -1091,8 +1112,15 @@
         $scope.submit = function (params) {
           $scope.loading = true;
           authApi.signup(params.email, params.password, function (err, data) {
-            if (err) { return alert('Error: ' + err.message); }
             $scope.loading = false;
+            if (err) {
+              console.log(err.message);
+              return $mdDialog.show($mdDialog.alert()
+                .clickOutsideToClose(true)
+                .title('Sign up error')
+                .content('Check inputs and try again.')
+                .ok('Got it!'));
+            }
 
             $state.go('home');
           });

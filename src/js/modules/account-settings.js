@@ -32,7 +32,7 @@
 
         $scope.deleteAccount = function() {
           var confirm = $mdDialog.confirm()
-            .ok('Please do it!')
+            .ok('Delete!')
             .cancel('Cancel');          
           confirm = confirm.title('Would you like to delete your account?');
           confirm = confirm.content('All of your data will be deleted permanently.');

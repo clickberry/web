@@ -27,8 +27,8 @@
 
     // Controllers
     module.controller('ProfileCtrl', [
-      '$rootScope', '$scope', '$state', 'profilesApi', 'user', 'events', 'FileUploader', 'imagesApi',
-      function ($rootScope, $scope, $state, profilesApi, user, events, FileUploader, imagesApi) {
+      '$rootScope', '$scope', '$state', 'profilesApi', 'user', 'events', 'FileUploader', 'imagesApi', '$mdDialog',
+      function ($rootScope, $scope, $state, profilesApi, user, events, FileUploader, imagesApi, $mdDialog) {
         if (!user.id) {
           return $state.go('home');
         }
@@ -40,7 +40,14 @@
           onAfterAddingFile: function (item) {
             // uploading
             imagesApi.upload(item._file, user.accessToken, function (err, result) {
-              if (err !== null) { throw new Error("Could not upload avatar"); }
+              if (err) { 
+                console.log(err.message);
+                return $mdDialog.show($mdDialog.alert()
+                  .clickOutsideToClose(true)
+                  .title('Upload error')
+                  .content('Could not upload avatar, try smaller image or different format.')
+                  .ok('Got it!'));
+              }
               $scope.profile.avatarUrl = result.url;
               $scope.$digest();
             });
@@ -53,13 +60,20 @@
             id: user.id,
             email: params.email,
             name: params.name,
-            avatarUrl: params.avatarUrl
+            avatarUrl: params.avatarUrl || ''
           };
           profilesApi.update(options, user.accessToken, function (err, data) {
-            if (err) { throw err; }
             $scope.loading = false;
+            if (err) {
+              console.log(err.message);
+              return $mdDialog.show($mdDialog.alert()
+                .clickOutsideToClose(true)
+                .title('Profile update error')
+                .content('Could not update profile, check inputs and try again.')
+                .ok('Got it!'));
+            }
+            
             $scope.$digest();
-
             $rootScope.$broadcast(events.profileUpdate, data);
           });
         };

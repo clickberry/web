@@ -23,8 +23,8 @@
 
     // Controllers
     module.controller('SignupCtrl', [
-      '$scope', '$state', 'authApi',
-      function ($scope, $state, authApi) {
+      '$scope', '$state', 'authApi', '$mdDialog',
+      function ($scope, $state, authApi, $mdDialog) {
 
         $scope.signup = {};
         $scope.loading = false;
@@ -32,8 +32,15 @@
         $scope.submit = function (params) {
           $scope.loading = true;
           authApi.signup(params.email, params.password, function (err, data) {
-            if (err) { return alert('Error: ' + err.message); }
             $scope.loading = false;
+            if (err) {
+              console.log(err.message);
+              return $mdDialog.show($mdDialog.alert()
+                .clickOutsideToClose(true)
+                .title('Sign up error')
+                .content('Check inputs and try again.')
+                .ok('Got it!'));
+            }
 
             $state.go('home');
           });
