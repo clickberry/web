@@ -682,10 +682,10 @@
 (function (window, angular) {
     "use strict";
 
-    var module = angular.module('menu', ['user', 'constants']);
+    var module = angular.module('menu', ['user', 'constants', 'settings']);
 
     module.directive('cbMenu', [
-        '$window','$state', 'events', 'user', function ($window, $state, events, user) {
+        '$window','$state', 'events', 'user', 'urls', function ($window, $state, events, user, urls) {
           return {
             restrict: 'EA',
             replace: true,
@@ -721,6 +721,14 @@
 
               $scope.signoff = function () {
                 user.destroy();
+              };
+
+              $scope.goToEditor = function () {
+                var editorUrl = urls.editor;
+                if (user.accessToken && user.refreshToken) {
+                  editorUrl += '?access_token=' + user.accessToken +'&refresh_token=' + user.refreshToken;
+                }
+                $window.location.href = editorUrl;
               };
             }
           };
@@ -980,7 +988,8 @@
         profilesApi: '%PROFILES_API%',
         projectsApi: '%PROJECTS_API%',
         imagesApi: '%IMAGES_API%',
-        player: '%PLAYER%'
+        player: '%PLAYER%',
+        editor: '%EDITOR%'
       });
 }) ((window.angular));
 (function (window, angular) {

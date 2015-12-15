@@ -25,11 +25,17 @@ if [ -z "$PLAYER" ]; then
     exit 1
 fi
 
+if [ -z "$EDITOR" ]; then
+    echo "EDITOR environment variable required"
+    exit 1
+fi
+
 # Patching config
 sed -i "s|%AUTH_API%|${AUTH_API}|g" /usr/share/nginx/html/js/clbr.js
 sed -i "s|%PROFILES_API%|${PROFILES_API}|g" /usr/share/nginx/html/js/clbr.js
 sed -i "s|%PROJECTS_API%|${PROJECTS_API}|g" /usr/share/nginx/html/js/clbr.js
 sed -i "s|%IMAGES_API%|${IMAGES_API}|g" /usr/share/nginx/html/js/clbr.js
 sed -i "s|%PLAYER%|${PLAYER}|g" /usr/share/nginx/html/js/clbr.js
+sed -i "s|%EDITOR%|${EDITOR}|g" /usr/share/nginx/html/js/clbr.js
 
 service nginx start

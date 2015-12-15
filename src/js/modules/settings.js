@@ -7,6 +7,7 @@
         profilesApi: '%PROFILES_API%',
         projectsApi: '%PROJECTS_API%',
         imagesApi: '%IMAGES_API%',
-        player: '%PLAYER%'
+        player: '%PLAYER%',
+        editor: '%EDITOR%'
       });
 }) ((window.angular));
