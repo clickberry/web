@@ -132,6 +132,7 @@
               refreshTokens(user.refreshToken, function (tokens) {
                 user.refreshToken = tokens.refreshToken;
                 user.accessToken = tokens.accessToken;
+                persistTokens();
               });
             }, 60000);
           }
