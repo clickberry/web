@@ -12,6 +12,7 @@ The application is a set of static source files jade/stylus/js and compiled read
 # Technologies
 * Jade for html generation
 * Stylus for css generation
+* Gulp for building source files
 * Nginx server
 
 # Environment Variables
