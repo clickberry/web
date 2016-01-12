@@ -4,7 +4,7 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var clean = require('gulp-clean');
 var sourcemaps = require('gulp-sourcemaps');
-var minifyCss = require('gulp-minify-css');
+var minifyCss = require('gulp-cssnano');
 var jade = require('gulp-jade');
 var stylus = require('gulp-stylus');
 

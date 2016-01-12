@@ -12,17 +12,28 @@ script(type="text/ng-template", id="home.html")
                         span {{project.description}}
                         i(ng-if="project.description")  · 
                         span {{project.created | apiDateFromNow}}
-                    //- div.buttons(layout="row", layout-align="space-between end")
-                    //-     span
-                    //-         md-button.md-icon-button.md-accent(aria-label="Like")
-                    //-             i.fa.fa-heart-o
-                    //-             span  115
-                    //-         md-button.md-icon-button(aria-label="Comment")
-                    //-             i.fa.fa-comment-o
-                    //-             span  8
-                    //-     span
-                    //-         md-button.md-icon-button.etc(aria-label="More")
-                    //-             i.fa.fa-ellipsis-h
+                    div.buttons(layout="row", layout-align="space-between end")
+                        span
+                            md-button.md-icon-button.md-accent(aria-label="Like")
+                                i.fa.fa-heart
+                                span  115
+                            md-button.md-icon-button(aria-label="Comment")
+                                i.fa.fa-comment
+                                span  8
+                        span
+                            md-fab-speed-dial.md-scale(md-direction="up")
+                                md-fab-trigger
+                                    md-button.md-icon-button.soc-share(aria-label="More")
+                                        i.fa.fa-retweet
+                                md-fab-actions
+                                    md-button(aria-label="Twitter", class="md-fab md-raised md-mini")
+                                        md-icon.fa.fa-twitter-square(aria-label="Twitter")
+                                    md-button(aria-label="Facebook", class="md-fab md-raised md-mini")
+                                        md-icon.fa.fa-facebook-square(aria-label="Facebook")
+                                    md-button(aria-label="Pinterest", class="md-fab md-raised md-mini")
+                                        md-icon.fa.fa-pinterest-square(aria-label="Pinterest")
+                                    md-button(aria-label="Vk", class="md-fab md-raised md-mini")
+                                        md-icon.fa.fa-vk(aria-label="Vk")
     div(layout="row", flex="100", ng-show="loading", align-children="center")
         md-button(aria-label="Video List Loading", flex, ng-disabled="true")
             span Loading 
