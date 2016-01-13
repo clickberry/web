@@ -8,6 +8,7 @@
         projectsApi: '%PROJECTS_API%',
         imagesApi: '%IMAGES_API%',
         player: '%PLAYER%',
-        editor: '%EDITOR%'
+        editor: '%EDITOR%',
+        share: '%SHARE_URL%'
       });
 }) ((window.angular));

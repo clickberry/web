@@ -4,7 +4,9 @@
     var module = angular.module('home', [
       'ui.router',
       'projects-api',
-      'infinite-scroll'
+      'infinite-scroll',
+      'socialshare',
+      'settings'
     ]);
 
     // Routes
@@ -24,8 +26,8 @@
 
     // Controllers
     module.controller('HomeCtrl', [
-      '$scope', '$state', 'projectsApi', '$mdDialog',
-      function ($scope, $state, projectsApi, $mdDialog) {
+      '$scope', '$state', 'projectsApi', '$mdDialog', 'urls',
+      function ($scope, $state, projectsApi, $mdDialog, urls) {
 
         $scope.projects = [];
         $scope.allLoaded = false;
@@ -81,6 +83,8 @@
               if (!i.imageUri || !i.videos || !i.videos.length) {
                 return;
               }
+
+              i.shareUrl = urls.share + i.id;
 
               idx++;
               result.push(i);
