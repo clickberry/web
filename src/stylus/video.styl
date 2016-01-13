@@ -6,8 +6,9 @@ tile-sub-info-color = #8a8f9c
 button-text-color = #696F7D
 button-icon-color = #999ea8
 
-footer-height = 96px
-header-height = 39px    
+footer-height = 58px
+header-height = 39px
+buttons-width = 56px
 
 .video-grid
     width: 860px
@@ -72,7 +73,7 @@ header-height = 39px
                     width: 100%
 
                 h3
-                    margin: 11px 11px 0
+                    margin: 11px buttons-width 0 11px
                     font-size: 13px
                     line-height: 19px
                     height: 19px
@@ -88,16 +89,18 @@ header-height = 39px
                         
                         &:hover
                             color: tile-header-color
-
+                            
                 .sub-info
-                    //margin: 0 11px
                     margin: 0 11px 11px
                     color: tile-sub-info-color
                     font-size: 12px
 
                 .buttons
-                    padding: 4px 0 4px 8px
-                    height: 36px
+                    width: buttons-width
+                    height: 43px
+                    position: absolute;
+                    top: 0
+                    right: 0
                     
                     .md-button.md-icon-button
                         min-width: 28px
@@ -115,7 +118,7 @@ header-height = 39px
                             opacity: 0.3
                         
                         &.soc-share
-                            margin-top: 6px
+                            // margin-top: 6px
 
                         &:hover
                             opacity: 0.9
@@ -130,6 +133,9 @@ header-height = 39px
                             .fa
                                 color: brand-green
                     
+                    md-fab-speed-dial
+                        z-index: inherit
+
                     md-icon
                         line-height: 24px
                         font-size: 20px

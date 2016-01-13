@@ -6,21 +6,19 @@ script(type="text/ng-template", id="home.html")
                     span.image(ng-style="{'background-image': 'url({{project.imageUri}})'}")
                         img(ng-src="{{project.imageUri}}")
                 md-grid-tile-footer
-                    h3 
-                        a(href='#', ui-sref='home.video({id: project.id})', title="{{project.name}}") {{project.name}}
-                    .sub-info
-                        span {{project.description}}
-                        i(ng-if="project.description")  · 
-                        span {{project.created | apiDateFromNow}}
-                    div.buttons(layout="row", layout-align="space-between end")
-                        span
-                            md-button.md-icon-button.md-accent(aria-label="Like")
-                                i.fa.fa-heart
-                                span  115
-                            md-button.md-icon-button(aria-label="Comment")
-                                i.fa.fa-comment
-                                span  8
-                        span
+                        h3 
+                            a(href='#', ui-sref='home.video({id: project.id})', title="{{project.name}}") {{project.name}}
+                        .sub-info
+                            span {{project.description}}
+                            i(ng-if="project.description")  · 
+                            span {{project.created | apiDateFromNow}}
+                        div.buttons(layout="row", layout-align="end end")
+                            //- md-button.md-icon-button.md-accent(aria-label="Like")
+                            //-     i.fa.fa-heart
+                            //-     span  115
+                            //- md-button.md-icon-button(aria-label="Comment")
+                            //-     i.fa.fa-comment
+                            //-     span  8
                             md-fab-speed-dial.md-scale(md-direction="up")
                                 md-fab-trigger
                                     md-button.md-icon-button.soc-share(aria-label="More")
