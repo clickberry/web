@@ -27,7 +27,7 @@
     "angular-aria": "^1.4.7",
     "angular-cookies": "^1.4.7",
     "angular-file-upload": "^2.2.0",
-    "angular-material": "^0.11.4",
+    "angular-material": "^1.0.1",
     "angular-ui-router": "^0.2.15",
     "auth-api-js": "git+https://github.com/clickberry/auth-api-js.git",
     "font-awesome": "^4.4.0",

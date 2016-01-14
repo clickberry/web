@@ -36,11 +36,11 @@ gulp.task('angular-material-js', function () {
 });
 
 gulp.task('angular-material-css', function () {
-  return gulp.src('node_modules/angular-material/angular-material.css')
-    .pipe(sourcemaps.init())
-    .pipe(minifyCss())
-    .pipe(rename({ extname: '.min.css' }))
-    .pipe(sourcemaps.write('../maps'))
+  return gulp.src('node_modules/angular-material/angular-material.min.css')
+    //.pipe(sourcemaps.init())
+    //.pipe(minifyCss())
+    //.pipe(rename({ extname: '.min.css' }))
+    //.pipe(sourcemaps.write('../maps'))
     .pipe(gulp.dest('dist/css'));
 });
 
@@ -48,11 +48,11 @@ gulp.task('angular-material', ['angular-material-js', 'angular-material-css']);
 
 // font awesome
 gulp.task('font-awesome-css', function () {
-  return gulp.src('node_modules/font-awesome/css/font-awesome.css')
-    .pipe(sourcemaps.init())
-    .pipe(minifyCss())
-    .pipe(rename({ extname: '.min.css' }))
-    .pipe(sourcemaps.write('../maps'))
+  return gulp.src('node_modules/font-awesome/css/font-awesome.min.css')
+    //.pipe(sourcemaps.init())
+    //.pipe(minifyCss())
+    //.pipe(rename({ extname: '.min.css' }))
+    //.pipe(sourcemaps.write('../maps'))
     .pipe(gulp.dest('dist/css'));
 });
 
@@ -153,12 +153,12 @@ gulp.task('jade', function () {
 // stylus
 gulp.task('stylus', function () {
   gulp.src('src/stylus/index.styl')
-    .pipe(sourcemaps.init())
+    //.pipe(sourcemaps.init())
     .pipe(stylus({
       compress: true
     }))
     .pipe(rename('clbr.min.css'))
-    .pipe(sourcemaps.write('../maps'))
+    //.pipe(sourcemaps.write('../maps'))
     .pipe(gulp.dest('dist/css'));
 });
 
@@ -173,10 +173,10 @@ gulp.task('js', function () {
       'src/js/*.js',
     ])
     .pipe(concat('clbr.js'))
-    .pipe(sourcemaps.init())
+    //.pipe(sourcemaps.init())
     //.pipe(uglify())
     //.pipe(rename({ extname: '.min.js' }))
-    .pipe(sourcemaps.write('../maps'))
+    //.pipe(sourcemaps.write('../maps'))
     .pipe(gulp.dest('dist/js'));
 });
 
