@@ -15,13 +15,13 @@ script(type="text/ng-template", id="profile.html")
                                         label(for="avatar-file") 
                                             span(ng-if="!profile.avatarUrl") Upload Avatar
                                             span(ng-if="profile.avatarUrl") Change Avatar
-                            md-input-container
+                            md-input-container.md-block
                             form(name="profileform", ng-submit="submit(profile)")
                                 input(type="file", id="avatar-file", accept="image/jpeg,image/png", nv-file-select, uploader="uploader", ng-hide="true", ng-if="uploader")
-                                md-input-container.md-title
+                                md-input-container.md-block.md-title
                                     label Email
                                     input(required, type="email", name="profileEmail", ng-model="profile.email", minlength="10", maxlength="100", ng-pattern="/^.+@.+\..+$/")
-                                md-input-container.md-title
+                                md-input-container.md-block.md-title
                                     label Name
                                     input(required, type="text", name="profileName", ng-model="profile.name")
                                 md-card-actions(layout="row", layout-align="end center")
