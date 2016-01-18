@@ -20,6 +20,7 @@
             <md-grid-list md-cols="12" md-row-height="1:1" md-gutter="20px">
               <md-grid-tile ng-repeat="project in projects" md-rowspan-gt-md="{{project.rows}}" md-rowspan="8" md-colspan-gt-md="{{project.cols}}" md-colspan="12"><a href="#" ui-sref="home.video({id: project.id})"><span ng-style="{'background-image': 'url({{project.imageUri}})'}" class="image"><img ng-src="{{project.imageUri}}"></span></a>
                 <md-grid-tile-footer>
+                  <div class="author-profile"><a ng-if="profilesMap[project.userId]" href="#" ng-class="{'image-only': profilesMap[project.userId].avatarUrl}" style="background-image: url({{profilesMap[project.userId].avatarUrl}});" title="{{profilesMap[project.userId].name}}" class="author-avatar">{{profilesMap[project.userId].name | abbreviation}}</a><span ng-if="!profilesMap[project.userId]" title="Author is not available" class="author-avatar">N/A</span></div>
                   <h3> <a href="#" ui-sref="home.video({id: project.id})" title="{{project.name}}">{{project.name}}</a></h3>
                   <div class="sub-info"><span>{{project.description}}</span><i ng-if="project.description"> · </i><span>{{project.created | apiDateFromNow}}</span></div>
                   <div layout="row" layout-align="end end" class="buttons">

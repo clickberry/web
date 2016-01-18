@@ -20,5 +20,23 @@
         };
       }
     ]);
+
+    module.filter('abbreviation', [
+      function() {
+        return function(text) {
+          if (!text) {
+            return 'N/A';
+          }
+
+          var parts = text.split(' ');
+          var abbr = parts[0][0];
+          if (parts.length > 1) {
+            abbr += parts[parts.length - 1][0];
+          }
+
+          return abbr.toUpperCase();
+        };
+      }
+    ]);
     
 })(window, window.angular, window.moment);

@@ -6,6 +6,9 @@ script(type="text/ng-template", id="home.html")
                     span.image(ng-style="{'background-image': 'url({{project.imageUri}})'}")
                         img(ng-src="{{project.imageUri}}")
                 md-grid-tile-footer
+                        div.author-profile
+                            a.author-avatar(ng-if="profilesMap[project.userId]", href='#', ng-class="{'image-only': profilesMap[project.userId].avatarUrl}", style="background-image: url({{profilesMap[project.userId].avatarUrl}});", title="{{profilesMap[project.userId].name}}") {{profilesMap[project.userId].name | abbreviation}}
+                            span.author-avatar(ng-if="!profilesMap[project.userId]", title="Author is not available") N/A
                         h3 
                             a(href='#', ui-sref='home.video({id: project.id})', title="{{project.name}}") {{project.name}}
                         .sub-info

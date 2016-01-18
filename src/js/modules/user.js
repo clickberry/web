@@ -110,7 +110,7 @@
               }
 
               // get profile info
-              profilesApi.public(user.id, accessToken, function (err, data) {
+              profilesApi.get(user.id, accessToken, function (err, data) {
                 if (err) {
                   return emitLoginEvent({id: user.id, email: user.email});
                 }

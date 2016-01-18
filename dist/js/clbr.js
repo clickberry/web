@@ -225,11 +225,24 @@
       },
 
       // Get public profile info
-      public: function (id, access_token, fn) {
+      public: function (id, fn) {
         $.ajax({
             url: url + '/public/' + id,
-            type: 'GET',
-            headers: {'Authorization': 'JWT ' + access_token}
+            type: 'GET'
+          })
+          .done(function(result) {
+            fn(null, result);
+          })
+          .fail(function(jqXHR, textStatus, err) {
+            fn(err);
+          });
+      },
+
+      // Get public profile info
+      list: function (ids, fn) {
+        $.ajax({
+            url: url + '/public/list/' + ids.join(','),
+            type: 'GET'
           })
           .done(function(result) {
             fn(null, result);
@@ -572,6 +585,24 @@
         };
       }
     ]);
+
+    module.filter('abbreviation', [
+      function() {
+        return function(text) {
+          if (!text) {
+            return 'N/A';
+          }
+
+          var parts = text.split(' ');
+          var abbr = parts[0][0];
+          if (parts.length > 1) {
+            abbr += parts[parts.length - 1][0];
+          }
+
+          return abbr.toUpperCase();
+        };
+      }
+    ]);
     
 })(window, window.angular, window.moment);
 (function(window, angular) {
@@ -580,6 +611,7 @@
     var module = angular.module('home', [
       'ui.router',
       'projects-api',
+      'profiles-api',
       'infinite-scroll',
       'socialshare',
       'settings'
@@ -602,20 +634,43 @@
 
     // Controllers
     module.controller('HomeCtrl', [
-      '$scope', '$state', 'projectsApi', '$mdDialog', 'urls',
-      function ($scope, $state, projectsApi, $mdDialog, urls) {
+      '$rootScope', '$scope', '$state', 'projectsApi', '$mdDialog', 'urls', 'profilesApi',
+      function ($rootScope, $scope, $state, projectsApi, $mdDialog, urls, profilesApi) {
 
         $scope.projects = [];
         $scope.allLoaded = false;
         $scope.loading = false;
 
         var lastId = null;
+        $rootScope.profilesMap = $rootScope.profilesMap || {};
+
+        function loadMissingProfiles(map) {
+          var ids = [];
+          for (var key in map) {
+            if (map[key] !== null) {
+              continue;
+            }
+            ids.push(key);
+          }
+
+          if (!ids.length) {
+            return;
+          }
+          profilesApi.list(ids, function (err, data) {
+            if (err) {
+              return console.log(err.message);
+            }
+            angular.forEach(data, function (i) {
+              map[i.id] = i;
+            });
+          });
+        }
+
         $scope.loadProjects = function () {
           if ($scope.loading || $scope.allLoaded) {
             return;
           }
           $scope.loading = true;
-          
           projectsApi.listPublic(50, lastId, function (err, data) {
             $scope.loading = false;
             if (err) {
@@ -661,6 +716,7 @@
               }
 
               i.shareUrl = urls.share + i.id;
+              $rootScope.profilesMap[i.userId] = $rootScope.profilesMap[i.userId] || null;
 
               idx++;
               result.push(i);
@@ -668,6 +724,9 @@
 
             $scope.projects = $scope.projects.concat(result);
             $scope.$digest();
+
+            // loading profiles
+            loadMissingProfiles($rootScope.profilesMap);
           });
         };
         
@@ -1321,7 +1380,7 @@
               }
 
               // get profile info
-              profilesApi.public(user.id, accessToken, function (err, data) {
+              profilesApi.get(user.id, accessToken, function (err, data) {
                 if (err) {
                   return emitLoginEvent({id: user.id, email: user.email});
                 }

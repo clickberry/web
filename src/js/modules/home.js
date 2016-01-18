@@ -4,6 +4,7 @@
     var module = angular.module('home', [
       'ui.router',
       'projects-api',
+      'profiles-api',
       'infinite-scroll',
       'socialshare',
       'settings'
@@ -26,20 +27,43 @@
 
     // Controllers
     module.controller('HomeCtrl', [
-      '$scope', '$state', 'projectsApi', '$mdDialog', 'urls',
-      function ($scope, $state, projectsApi, $mdDialog, urls) {
+      '$rootScope', '$scope', '$state', 'projectsApi', '$mdDialog', 'urls', 'profilesApi',
+      function ($rootScope, $scope, $state, projectsApi, $mdDialog, urls, profilesApi) {
 
         $scope.projects = [];
         $scope.allLoaded = false;
         $scope.loading = false;
 
         var lastId = null;
+        $rootScope.profilesMap = $rootScope.profilesMap || {};
+
+        function loadMissingProfiles(map) {
+          var ids = [];
+          for (var key in map) {
+            if (map[key] !== null) {
+              continue;
+            }
+            ids.push(key);
+          }
+
+          if (!ids.length) {
+            return;
+          }
+          profilesApi.list(ids, function (err, data) {
+            if (err) {
+              return console.log(err.message);
+            }
+            angular.forEach(data, function (i) {
+              map[i.id] = i;
+            });
+          });
+        }
+
         $scope.loadProjects = function () {
           if ($scope.loading || $scope.allLoaded) {
             return;
           }
           $scope.loading = true;
-          
           projectsApi.listPublic(50, lastId, function (err, data) {
             $scope.loading = false;
             if (err) {
@@ -85,6 +109,7 @@
               }
 
               i.shareUrl = urls.share + i.id;
+              $rootScope.profilesMap[i.userId] = $rootScope.profilesMap[i.userId] || null;
 
               idx++;
               result.push(i);
@@ -92,6 +117,9 @@
 
             $scope.projects = $scope.projects.concat(result);
             $scope.$digest();
+
+            // loading profiles
+            loadMissingProfiles($rootScope.profilesMap);
           });
         };
         

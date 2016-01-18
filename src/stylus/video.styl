@@ -72,8 +72,34 @@ buttons-width = 56px
                 figcaption
                     width: 100%
 
+                .author-profile
+                    position: absolute
+                    left: 11px
+                    top: 11px
+                    width: 36px
+                    height: 36px
+                    .author-avatar
+                        display: block
+                        width: 36px
+                        height: 36px
+                        border-radius: 3px
+                        background-color: #CED2DA
+                        background-repeat: no-repeat
+                        background-position: 50% 50%
+                        background-size: cover
+                        font-size: 14px
+                        font-weight: bold
+                        line-height: 36px
+                        text-align: center
+                        text-decoration: none
+                        color: #fff
+                        &:hover
+                            background-color: #B3B9C5
+                        &.image-only
+                            text-indent: -1000em
+
                 h3
-                    margin: 11px buttons-width 0 11px
+                    margin: 11px buttons-width 0 58px
                     font-size: 13px
                     line-height: 19px
                     height: 19px
@@ -91,7 +117,7 @@ buttons-width = 56px
                             color: tile-header-color
                             
                 .sub-info
-                    margin: 0 11px 11px
+                    margin: 0 11px 11px 58px
                     color: tile-sub-info-color
                     font-size: 12px
 
