@@ -93,8 +93,9 @@ buttons-width = 56px
                         text-align: center
                         text-decoration: none
                         color: #fff
+                        opacity: 0.9
                         &:hover
-                            background-color: #B3B9C5
+                            opacity: 1
                         &.image-only
                             text-indent: -1000em
 
@@ -161,6 +162,11 @@ buttons-width = 56px
                     
                     md-fab-speed-dial
                         z-index: inherit
+
+                        &.md-scale
+                            .md-fab-action-item
+                                -webkit-transform: scale(.0)
+                                transform: scale(.0)
 
                     md-icon
                         line-height: 24px
