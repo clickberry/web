@@ -327,6 +327,20 @@
           });
       },
 
+      // List all projects for current user
+      listByUser: function (user_id, fn) {
+        $.ajax({
+            url: url + '/user/' + user_id,
+            type: 'GET'
+          })
+          .done(function(result) {
+            fn(null, result);
+          })
+          .fail(function(jqXHR, textStatus, err) {
+            fn(err);
+          });
+      },
+
       // List all public projects
       listPublic: function (top, last_id, fn) {
         if (!fn) {
@@ -642,7 +656,7 @@
         $scope.loading = false;
 
         var lastId = null;
-        $rootScope.profilesMap = $rootScope.profilesMap || {};
+        $rootScope.profilesCache = $rootScope.profilesCache || {};
 
         function loadMissingProfiles(map) {
           var ids = [];
@@ -716,7 +730,7 @@
               }
 
               i.shareUrl = urls.share + i.id;
-              $rootScope.profilesMap[i.userId] = $rootScope.profilesMap[i.userId] || null;
+              $rootScope.profilesCache[i.userId] = $rootScope.profilesCache[i.userId] || null;
 
               idx++;
               result.push(i);
@@ -726,7 +740,7 @@
             $scope.$digest();
 
             // loading profiles
-            loadMissingProfiles($rootScope.profilesMap);
+            loadMissingProfiles($rootScope.profilesCache);
           });
         };
         
@@ -907,8 +921,6 @@
         $scope.allLoaded = false;
         $scope.loading = false;
 
-        var lastId = null;
-
         $scope.loadProjects = function () {
           if ($scope.loading || $scope.allLoaded) {
             return;
@@ -916,24 +928,15 @@
           $scope.loading = true;
           projectsApi.listMy(user.accessToken, function (err, data) {
             if (err) { throw err; }
-            if (!data.length) {
-              $scope.allLoaded = true;
-              $scope.loading = false;
-              $scope.$digest();
-              return;
-            }
-
-            lastId = data[data.length - 1].id;
+            $scope.allLoaded = true;
 
             var result = [];
-            var idx = $scope.projects.length;
             angular.forEach(data, function (i) {
               // filter inconsisten projects
               if (!i.imageUri || !i.videos || !i.videos.length) {
                 return;
               }
 
-              idx++;
               result.push(i);
             });
 
@@ -1271,6 +1274,156 @@
 (function (window, angular) {
     "use strict";
 
+    var module = angular.module('user-page.video', [
+      'ui.router',
+      'settings',
+      'projects-api'
+    ]);
+
+    // Routes
+    module.config([
+      '$stateProvider', function ($stateProvider) {
+        $stateProvider
+          .state('user-page.video', {
+            url: '/:project_id',
+            views: {
+              'video': {
+                controller: 'UserVideoCtrl'
+              }
+            },
+            data: {
+              pageTitle: 'User Video on Clickberry'
+            }
+          });
+        }
+    ]);
+
+    // Controllers
+    module.controller('UserVideoCtrl', [
+      '$rootScope', '$scope', '$state', '$stateParams', '$mdDialog', 'urls', 'projectsApi',
+      function ($rootScope, $scope, $state, $stateParams, $mdDialog, urls, projectsApi) {
+        var id = $stateParams.project_id;
+        if (!id) {
+          return $state.go('home');
+        }
+
+        $scope.url = urls.player + id;
+
+        $mdDialog.show({
+          clickOutsideToClose: true,
+          scope: $scope,
+          preserveScope: true,
+          template: '<md-dialog class="video-popup" aria-label="Video on Clickberry">' +
+                    '  <md-dialog-content>' +
+                    '     <div class="video-container">' + 
+                    '       <div class="video-loading"><md-button aria-label="Video Loading" ng-disabled="true">Loading <i class="fa fa-circle-o-notch fa-spin faster"></i></md-button></div> ' +
+                    '       <iframe frameborder="0" width="100%" height="100%"' + 'src="' + $scope.url + '" allowfullscreen />' + 
+                    '       <div class="video-close">' + 
+                    '         <md-button class="md-icon-button" aria-label="Close Video" ng-click="close()"><i class="fa fa-times-circle"></i>' + 
+                    '       </div>' + 
+                    '     </div>' +
+                    '  </md-dialog-content>' +
+                    '</md-dialog>'
+        })
+        .finally(function() {
+          $state.go('^');
+        });
+
+        $scope.close = function () {
+          $mdDialog.hide();
+        };
+
+      }
+    ]);
+})(window, window.angular);
+(function(window, angular) {
+    "use strict";
+
+    var module = angular.module('user-page', [
+      'ui.router',
+      'projects-api',
+      'profiles-api',
+      'infinite-scroll',
+      'user',
+      'user-page.video'
+    ]);
+
+    // Routes
+    module.config([
+      '$stateProvider', function ($stateProvider) {
+        $stateProvider
+          .state('user-page', {
+            url: '/user/:id',
+            templateUrl: 'user-page.html',
+            controller: 'UserPageCtrl',
+            data: {
+              pageTitle: 'User Details on Clickberry'
+            }
+          });
+        }
+    ]);
+
+    // Controllers
+    module.controller('UserPageCtrl', [
+      '$rootScope', '$scope', '$state', '$stateParams', 'projectsApi', 'profilesApi',
+      function ($rootScope, $scope, $state, $stateParams, projectsApi, profilesApi) {
+        var id = $stateParams.id;
+        if (!id) {
+          return $state.go('home');
+        }
+
+        $scope.projects = [];
+        $scope.allLoaded = false;
+        $scope.loading = false;
+
+        $scope.profile = null;
+
+        // loading user projects
+        (function loadProjects(user_id) {
+          if ($scope.loading || $scope.allLoaded) {
+            return;
+          }
+          $scope.loading = true;
+          projectsApi.listByUser(user_id, function (err, data) {
+            if (err) { throw err; }
+            $scope.allLoaded = true;
+
+            var result = [];
+            angular.forEach(data, function (i) {
+              // filter inconsisten projects
+              if (!i.imageUri || !i.videos || !i.videos.length) {
+                return;
+              }
+
+              result.push(i);
+            });
+
+            $scope.projects = $scope.projects.concat(result);
+            $scope.loading = false;
+            $scope.$digest();
+          });
+        })(id);
+
+        // loading user profile
+        (function loadProfile(user_id) {
+          if ($rootScope.profilesCache[user_id]) {
+            $scope.profile = $rootScope.profilesCache[user_id];
+            return;
+          }
+
+          profilesApi.public(user_id, function (err, data) {
+            if (err) { throw err; }
+            $scope.profile = data;
+            $rootScope.profilesCache[user_id] = data;
+          });
+        })(id);
+      }
+    ]);
+    
+})(window, window.angular);
+(function (window, angular) {
+    "use strict";
+
     var module = angular.module('user', ['auth-api', 'profiles-api', 'constants', 'ngCookies']);
 
     module.factory('user', [
@@ -1532,7 +1685,8 @@
       'user',
       'exceptions',
       'video',
-      'my-videos'
+      'my-videos',
+      'user-page'
     ]);
 
     // Config
@@ -1567,6 +1721,8 @@
     app.controller('ClickberryCtrl', [
       '$rootScope',
       function ($rootScope) {
+
+        $rootScope.profilesCache = {};
 
         $rootScope.pageTitle = 'Clickberry Video Portal';
         $rootScope.$on('$stateChangeSuccess', function (event, toState/*, toParams, from, fromParams*/) {

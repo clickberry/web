@@ -14,7 +14,8 @@
       'user',
       'exceptions',
       'video',
-      'my-videos'
+      'my-videos',
+      'user-page'
     ]);
 
     // Config
@@ -49,6 +50,8 @@
     app.controller('ClickberryCtrl', [
       '$rootScope',
       function ($rootScope) {
+
+        $rootScope.profilesCache = {};
 
         $rootScope.pageTitle = 'Clickberry Video Portal';
         $rootScope.$on('$stateChangeSuccess', function (event, toState/*, toParams, from, fromParams*/) {

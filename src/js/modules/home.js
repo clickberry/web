@@ -35,7 +35,7 @@
         $scope.loading = false;
 
         var lastId = null;
-        $rootScope.profilesMap = $rootScope.profilesMap || {};
+        $rootScope.profilesCache = $rootScope.profilesCache || {};
 
         function loadMissingProfiles(map) {
           var ids = [];
@@ -109,7 +109,7 @@
               }
 
               i.shareUrl = urls.share + i.id;
-              $rootScope.profilesMap[i.userId] = $rootScope.profilesMap[i.userId] || null;
+              $rootScope.profilesCache[i.userId] = $rootScope.profilesCache[i.userId] || null;
 
               idx++;
               result.push(i);
@@ -119,7 +119,7 @@
             $scope.$digest();
 
             // loading profiles
-            loadMissingProfiles($rootScope.profilesMap);
+            loadMissingProfiles($rootScope.profilesCache);
           });
         };
         

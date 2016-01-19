@@ -19,9 +19,9 @@
           <div layout-padding ng-cloak ng-if="projects.length" infinite-scroll="loadProjects()" class="video-grid">
             <md-grid-list md-cols="12" md-row-height="1:1" md-gutter="20px">
               <md-grid-tile ng-repeat="project in projects" md-rowspan-gt-md="{{project.rows}}" md-rowspan="8" md-colspan-gt-md="{{project.cols}}" md-colspan="12"><a href="#" ui-sref="home.video({id: project.id})"><span ng-style="{'background-image': 'url({{project.imageUri}})'}" class="image"><img ng-src="{{project.imageUri}}"></span></a>
-                <md-grid-tile-footer>
-                  <div class="author-profile"><a ng-if="profilesMap[project.userId]" href="#" ng-class="{'image-only': profilesMap[project.userId].avatarUrl}" style="background-image: url({{profilesMap[project.userId].avatarUrl}});" title="{{profilesMap[project.userId].name}}" class="author-avatar">{{profilesMap[project.userId].name | abbreviation}}</a><span ng-if="!profilesMap[project.userId]" title="Author is not available" class="author-avatar">N/A</span></div>
-                  <h3> <a href="#" ui-sref="home.video({id: project.id})" title="{{project.name}}">{{project.name}}</a></h3>
+                <md-grid-tile-footer ng-class="{'with-author': profilesCache[project.userId]}">
+                  <div ng-if="profilesCache[project.userId]" class="author-profile"><a href="#" ui-sref="user-page({id: project.userId})" ng-class="{'image-only': profilesCache[project.userId].avatarUrl}" style="background-image: url({{profilesCache[project.userId].avatarUrl}});" title="{{profilesCache[project.userId].name}}" class="author-avatar">{{profilesCache[project.userId].name | abbreviation}}</a></div>
+                  <h3><a href="#" ui-sref="home.video({id: project.id})" title="{{project.name}}">{{project.name}}</a></h3>
                   <div class="sub-info"><span>{{project.description}}</span><i ng-if="project.description"> · </i><span>{{project.created | apiDateFromNow}}</span></div>
                   <div layout="row" layout-align="end end" class="buttons">
                     <md-fab-speed-dial md-direction="up" class="md-scale">
@@ -241,12 +241,34 @@
         <script type="text/ng-template" id="video.html">
         </script>
         <script type="text/ng-template" id="my-videos.html">
-          <div layout-padding ng-cloak ng-if="projects.length" class="video-grid video-list">
-            <md-grid-list md-cols-gt-md="1" md-cols-sm="1" md-cols-md="1" md-row-height="4:3" md-row-height-gt-md="4:3" md-gutter="30px" md-gutter-gt-md="16px">
-              <md-grid-tile ng-repeat="project in projects" md-rowspan-gt-md="1" md-rowspan="1" md-colspan-gt-md="1" md-colspan="1"><a href="#" ui-sref=".video({id: project.id})"><span ng-style="{'background-image': 'url({{project.imageUri}})'}" class="image"><img ng-src="{{project.imageUri}}"></span></a>
+          <h1 class="md-display-3 text-center">My Videos</h1>
+          <div layout-padding ng-cloak ng-if="projects.length" class="video-grid">
+            <md-grid-list md-cols="12" md-row-height="1:1" md-gutter="20px">
+              <md-grid-tile ng-repeat="project in projects" md-rowspan-gt-md="6" md-rowspan="8" md-colspan-gt-md="12" md-colspan="12"><a href="#" ui-sref=".video({id: project.id})"><span ng-style="{'background-image': 'url({{project.imageUri}})'}" class="image"><img ng-src="{{project.imageUri}}"></span></a>
                 <md-grid-tile-footer>
-                  <h3> <a href="#" ui-sref=".video({id: project.id})" title="{{project.name}}">{{project.name}}</a></h3>
+                  <h3><a href="#" ui-sref=".video({id: project.id})" title="{{project.name}}">{{project.name}}</a></h3>
                   <div class="sub-info"><span>{{project.description}}</span><i ng-if="project.description"> · </i><span>{{project.created | apiDateFromNow}}</span></div>
+                  <div layout="row" layout-align="end end" class="buttons">
+                    <md-fab-speed-dial md-direction="up" class="md-scale">
+                      <md-fab-trigger>
+                        <md-button aria-label="More" class="md-icon-button soc-share"><i class="fa fa-retweet"></i></md-button>
+                      </md-fab-trigger>
+                      <md-fab-actions>
+                        <md-button href="#" aria-label="Twitter" share share-url="{{project.shareUrl}}" share-title="{{project.name}}" share-description="{{project.description}}" share-image="{{project.imageUri}}" share-type="twitter" class="md-fab md-raised md-mini">
+                          <md-icon aria-label="Twitter" class="fa fa-twitter-square"></md-icon>
+                        </md-button>
+                        <md-button href="#" aria-label="Facebook" share share-url="{{project.shareUrl}}" share-title="{{project.name}}" share-description="{{project.description}}" share-image="{{project.imageUri}}" share-type="facebook" class="md-fab md-raised md-mini">
+                          <md-icon aria-label="Facebook" class="fa fa-facebook-square"></md-icon>
+                        </md-button>
+                        <md-button href="#" aria-label="Google" share share-url="{{project.shareUrl}}" share-title="{{project.name}}" share-description="{{project.description}}" share-image="{{project.imageUri}}" share-type="google" class="md-fab md-raised md-mini">
+                          <md-icon aria-label="Pinterest" class="fa fa-google-plus-square"></md-icon>
+                        </md-button>
+                        <md-button href="#" aria-label="Vk" share share-url="{{project.shareUrl}}" share-title="{{project.name}}" share-description="{{project.description}}" share-image="{{project.imageUri}}" share-type="vk" class="md-fab md-raised md-mini">
+                          <md-icon aria-label="Vk" class="fa fa-vk"></md-icon>
+                        </md-button>
+                      </md-fab-actions>
+                    </md-fab-speed-dial>
+                  </div>
                 </md-grid-tile-footer>
               </md-grid-tile>
             </md-grid-list>
@@ -270,6 +292,47 @@
               </md-card>
             </div>
             <div flex="25" flex-sm="0" flex-md="20">               </div>
+          </div>
+          <div ui-view="video"></div>
+        </script>
+        <script type="text/ng-template" id="user-page.html">
+          <div flex="100" layout="row" layout-align="center center" layout-padding>
+            <div ng-if="profile.avatarUrl" style="background-image: url({{profile.avatarUrl}});" class="profile-avatar">   </div><span>
+              <h1 class="md-display-1">{{profile.name}}</h1></span>
+          </div>
+          <div layout-padding ng-cloak ng-if="projects.length" class="video-grid">
+            <md-grid-list md-cols="12" md-row-height="1:1" md-gutter="20px">
+              <md-grid-tile ng-repeat="project in projects" md-rowspan-gt-md="6" md-rowspan="8" md-colspan-gt-md="12" md-colspan="12"><a href="#" ui-sref=".video({project_id: project.id})"><span ng-style="{'background-image': 'url({{project.imageUri}})'}" class="image"><img ng-src="{{project.imageUri}}"></span></a>
+                <md-grid-tile-footer>
+                  <h3><a href="#" ui-sref=".video({project_id: project.id})" title="{{project.name}}">{{project.name}}</a></h3>
+                  <div class="sub-info"><span>{{project.description}}</span><i ng-if="project.description"> · </i><span>{{project.created | apiDateFromNow}}</span></div>
+                  <div layout="row" layout-align="end end" class="buttons">
+                    <md-fab-speed-dial md-direction="up" class="md-scale">
+                      <md-fab-trigger>
+                        <md-button aria-label="More" class="md-icon-button soc-share"><i class="fa fa-retweet"></i></md-button>
+                      </md-fab-trigger>
+                      <md-fab-actions>
+                        <md-button href="#" aria-label="Twitter" share share-url="{{project.shareUrl}}" share-title="{{project.name}}" share-description="{{project.description}}" share-image="{{project.imageUri}}" share-type="twitter" class="md-fab md-raised md-mini">
+                          <md-icon aria-label="Twitter" class="fa fa-twitter-square"></md-icon>
+                        </md-button>
+                        <md-button href="#" aria-label="Facebook" share share-url="{{project.shareUrl}}" share-title="{{project.name}}" share-description="{{project.description}}" share-image="{{project.imageUri}}" share-type="facebook" class="md-fab md-raised md-mini">
+                          <md-icon aria-label="Facebook" class="fa fa-facebook-square"></md-icon>
+                        </md-button>
+                        <md-button href="#" aria-label="Google" share share-url="{{project.shareUrl}}" share-title="{{project.name}}" share-description="{{project.description}}" share-image="{{project.imageUri}}" share-type="google" class="md-fab md-raised md-mini">
+                          <md-icon aria-label="Pinterest" class="fa fa-google-plus-square"></md-icon>
+                        </md-button>
+                        <md-button href="#" aria-label="Vk" share share-url="{{project.shareUrl}}" share-title="{{project.name}}" share-description="{{project.description}}" share-image="{{project.imageUri}}" share-type="vk" class="md-fab md-raised md-mini">
+                          <md-icon aria-label="Vk" class="fa fa-vk"></md-icon>
+                        </md-button>
+                      </md-fab-actions>
+                    </md-fab-speed-dial>
+                  </div>
+                </md-grid-tile-footer>
+              </md-grid-tile>
+            </md-grid-list>
+          </div>
+          <div layout="row" flex="100" ng-show="loading" align-children="center">
+            <md-button aria-label="Video List Loading" flex ng-disabled="true"><span>Loading </span><i class="fa fa-circle-o-notch fa-spin faster">           </i></md-button>
           </div>
           <div ui-view="video"></div>
         </script>

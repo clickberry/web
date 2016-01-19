@@ -98,9 +98,8 @@ buttons-width = 56px
                             opacity: 1
                         &.image-only
                             text-indent: -1000em
-
                 h3
-                    margin: 11px buttons-width 0 58px
+                    margin: 11px buttons-width 0 11px
                     font-size: 13px
                     line-height: 19px
                     height: 19px
@@ -116,11 +115,15 @@ buttons-width = 56px
                         
                         &:hover
                             color: tile-header-color
-                            
+
                 .sub-info
-                    margin: 0 11px 11px 58px
+                    margin: 0 11px 11px 11px
                     color: tile-sub-info-color
                     font-size: 12px
+                    
+                &.with-author
+                    h3, .sub-info
+                        margin-left: 58px
 
                 .buttons
                     width: buttons-width

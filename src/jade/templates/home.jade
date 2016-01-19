@@ -5,23 +5,16 @@ script(type="text/ng-template", id="home.html")
                 a(href='#', ui-sref='home.video({id: project.id})')
                     span.image(ng-style="{'background-image': 'url({{project.imageUri}})'}")
                         img(ng-src="{{project.imageUri}}")
-                md-grid-tile-footer
-                        div.author-profile
-                            a.author-avatar(ng-if="profilesMap[project.userId]", href='#', ng-class="{'image-only': profilesMap[project.userId].avatarUrl}", style="background-image: url({{profilesMap[project.userId].avatarUrl}});", title="{{profilesMap[project.userId].name}}") {{profilesMap[project.userId].name | abbreviation}}
-                            span.author-avatar(ng-if="!profilesMap[project.userId]", title="Author is not available") N/A
-                        h3 
+                md-grid-tile-footer(ng-class="{'with-author': profilesCache[project.userId]}")
+                        div.author-profile(ng-if="profilesCache[project.userId]")
+                            a.author-avatar(href="#", ui-sref="user-page({id: project.userId})", ng-class="{'image-only': profilesCache[project.userId].avatarUrl}", style="background-image: url({{profilesCache[project.userId].avatarUrl}});", title="{{profilesCache[project.userId].name}}") {{profilesCache[project.userId].name | abbreviation}}
+                        h3
                             a(href='#', ui-sref='home.video({id: project.id})', title="{{project.name}}") {{project.name}}
                         .sub-info
                             span {{project.description}}
                             i(ng-if="project.description")  · 
                             span {{project.created | apiDateFromNow}}
                         div.buttons(layout="row", layout-align="end end")
-                            //- md-button.md-icon-button.md-accent(aria-label="Like")
-                            //-     i.fa.fa-heart
-                            //-     span  115
-                            //- md-button.md-icon-button(aria-label="Comment")
-                            //-     i.fa.fa-comment
-                            //-     span  8
                             md-fab-speed-dial.md-scale(md-direction="up")
                                 md-fab-trigger
                                     md-button.md-icon-button.soc-share(aria-label="More")

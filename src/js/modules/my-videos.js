@@ -36,8 +36,6 @@
         $scope.allLoaded = false;
         $scope.loading = false;
 
-        var lastId = null;
-
         $scope.loadProjects = function () {
           if ($scope.loading || $scope.allLoaded) {
             return;
@@ -45,24 +43,15 @@
           $scope.loading = true;
           projectsApi.listMy(user.accessToken, function (err, data) {
             if (err) { throw err; }
-            if (!data.length) {
-              $scope.allLoaded = true;
-              $scope.loading = false;
-              $scope.$digest();
-              return;
-            }
-
-            lastId = data[data.length - 1].id;
+            $scope.allLoaded = true;
 
             var result = [];
-            var idx = $scope.projects.length;
             angular.forEach(data, function (i) {
               // filter inconsisten projects
               if (!i.imageUri || !i.videos || !i.videos.length) {
                 return;
               }
 
-              idx++;
               result.push(i);
             });
 
