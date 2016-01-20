@@ -6,7 +6,8 @@
       'projects-api',
       'infinite-scroll',
       'user',
-      'my-videos.video'
+      'my-videos.video',
+      'settings'
     ]);
 
     // Routes
@@ -26,8 +27,8 @@
 
     // Controllers
     module.controller('MyVideosCtrl', [
-      '$scope', '$state', 'projectsApi', 'user',
-      function ($scope, $state, projectsApi, user) {
+      '$scope', '$state', 'projectsApi', 'user', 'urls',
+      function ($scope, $state, projectsApi, user, urls) {
         if (!user.id) {
           return $state.go('home');
         }
@@ -52,6 +53,7 @@
                 return;
               }
 
+              i.shareUrl = urls.share + i.id;
               result.push(i);
             });
 

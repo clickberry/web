@@ -7,7 +7,8 @@
       'profiles-api',
       'infinite-scroll',
       'user',
-      'user-page.video'
+      'user-page.video',
+      'settings'
     ]);
 
     // Routes
@@ -27,8 +28,8 @@
 
     // Controllers
     module.controller('UserPageCtrl', [
-      '$rootScope', '$scope', '$state', '$stateParams', 'projectsApi', 'profilesApi',
-      function ($rootScope, $scope, $state, $stateParams, projectsApi, profilesApi) {
+      '$rootScope', '$scope', '$state', '$stateParams', 'projectsApi', 'profilesApi', 'urls',
+      function ($rootScope, $scope, $state, $stateParams, projectsApi, profilesApi, urls) {
         var id = $stateParams.id;
         if (!id) {
           return $state.go('home');
@@ -57,6 +58,7 @@
                 return;
               }
 
+              i.shareUrl = urls.share + i.id;
               result.push(i);
             });
 
