@@ -392,7 +392,22 @@
           .fail(function(jqXHR, textStatus, err) {
             fn(err);
           });
-      }
+      },
+
+      // Update profile info
+      delete: function (id, access_token, fn) {
+        $.ajax({
+            url: url + '/' + id,
+            type: 'DELETE',
+            headers: {'Authorization': 'JWT ' + access_token}
+          })
+          .done(function() {
+            fn(null);
+          })
+          .fail(function(jqXHR, textStatus, err) {
+            fn(err);
+          });
+      }      
     };
   };
 
@@ -981,8 +996,8 @@
 
     // Controllers
     module.controller('MyVideosCtrl', [
-      '$scope', '$state', 'projectsApi', 'user', 'urls',
-      function ($scope, $state, projectsApi, user, urls) {
+      '$scope', '$state', 'projectsApi', 'user', 'urls', '$mdDialog',
+      function ($scope, $state, projectsApi, user, urls, $mdDialog) {
         if (!user.id) {
           return $state.go('home');
         }
@@ -1014,6 +1029,32 @@
             $scope.projects = $scope.projects.concat(result);
             $scope.loading = false;
             $scope.$digest();
+          });
+        };
+
+        $scope.deleteProject = function(project) {
+          var confirm = $mdDialog.confirm()
+            .ok('Delete!')
+            .cancel('Cancel');          
+          confirm = confirm.title('Would you like to delete your project?');
+          confirm = confirm.content('The project "' + project.name +  '" will be deleted permanently.');
+
+          $mdDialog.show(confirm).then(function() {
+            projectsApi.delete(project.id, user.accessToken, function (err) {
+              if (err) { 
+                console.log(err.message);
+                return $mdDialog.show($mdDialog.alert()
+                  .clickOutsideToClose(true)
+                  .title('Deletion error')
+                  .content('Could not delete project! Try again.')
+                  .ok('Ok'));
+                }
+              $scope.projects = [];
+              $scope.allLoaded = false;
+              $scope.loadProjects();
+            });
+          }, function() {
+            // nothing to do
           });
         };
         

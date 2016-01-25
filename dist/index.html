@@ -249,6 +249,7 @@
                   <h3><a href="#" ui-sref=".video({id: project.id})" title="{{project.name}}">{{project.name}}</a></h3>
                   <div class="sub-info"><span>{{project.description}}</span><i ng-if="project.description"> · </i><span>{{project.created | apiDateFromNow}}</span></div>
                   <div layout="row" layout-align="end end" class="buttons">
+                    <md-button ng-click="deleteProject(project)" aria-label="Delete" class="md-icon-button"><i class="fa fa-trash">    </i></md-button>
                     <md-button href="#" ui-sref="^.edit-video({id: project.id})" aria-label="Edit" class="md-icon-button"><i class="fa fa-cog">                        </i></md-button>
                     <md-fab-speed-dial md-direction="up" class="md-scale">
                       <md-fab-trigger>
