@@ -14,6 +14,8 @@ script(type="text/ng-template", id="my-videos.html")
                             i(ng-if="project.description")  · 
                             span {{project.created | apiDateFromNow}}
                         div.buttons(layout="row", layout-align="end end")
+                            md-button.md-icon-button(href="#", ui-sref="^.edit-video({id: project.id})", aria-label="Edit")
+                                i.fa.fa-cog                         
                             md-fab-speed-dial.md-scale(md-direction="up")
                                 md-fab-trigger
                                     md-button.md-icon-button.soc-share(aria-label="More")

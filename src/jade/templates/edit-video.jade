@@ -1,0 +1,29 @@
+script(type="text/ng-template", id="edit-video.html")
+    div(layout="row", layout-align="center")
+        div(flex="25", flex-sm="0", flex-md="20")
+        div(flex="50", flex-sm="100", flex-md="60")
+            md-card
+                md-card-content
+                    div(layout="row")
+                        div(flex="10")
+                        div(flex="80")
+                            h1.md-display-1 Edit Video
+                            md-input-container.md-block
+                            form(name="projectform", ng-submit="submit(project)")
+                                md-input-container.md-block.md-title
+                                    label Name
+                                    input(required, type="text", name="projectName", ng-model="project.name")
+                                md-input-container.md-block.md-title
+                                    label Description
+                                    input(type="text", name="projectDescription", ng-model="project.description")
+                                md-switch(ng-model="project.isPrivate" aria-label="Private")
+                                    span Is Private: {{ project.isPrivate }}
+                                md-switch(ng-model="project.isHidden" aria-label="Private")
+                                    span Is Hidden: {{ project.isHidden }}
+                                md-card-actions(layout="row", layout-align="end center")
+                                    md-button(ng-href='#', ui-sref='my-videos') Cancel
+                                    md-button.md-raised.md-accent(type="submit", ng-disabled="projectform.$invalid || loading")
+                                        i.fa.fa-circle-o-notch.fa-spin.faster(ng-show="loading") 
+                                        span  Submit
+                            div(flex="10")
+        div(flex="25", flex-sm="0", flex-md="20")

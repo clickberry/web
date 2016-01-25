@@ -7,6 +7,7 @@
       'infinite-scroll',
       'user',
       'my-videos.video',
+      'edit-video',
       'settings'
     ]);
 

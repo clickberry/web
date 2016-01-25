@@ -249,6 +249,7 @@
                   <h3><a href="#" ui-sref=".video({id: project.id})" title="{{project.name}}">{{project.name}}</a></h3>
                   <div class="sub-info"><span>{{project.description}}</span><i ng-if="project.description"> · </i><span>{{project.created | apiDateFromNow}}</span></div>
                   <div layout="row" layout-align="end end" class="buttons">
+                    <md-button href="#" ui-sref="^.edit-video({id: project.id})" aria-label="Edit" class="md-icon-button"><i class="fa fa-cog">                        </i></md-button>
                     <md-fab-speed-dial md-direction="up" class="md-scale">
                       <md-fab-trigger>
                         <md-button aria-label="More" class="md-icon-button soc-share"><i class="fa fa-retweet"></i></md-button>
@@ -335,6 +336,42 @@
             <md-button aria-label="Video List Loading" flex ng-disabled="true"><span>Loading </span><i class="fa fa-circle-o-notch fa-spin faster">           </i></md-button>
           </div>
           <div ui-view="video"></div>
+        </script>
+        <script type="text/ng-template" id="edit-video.html">
+          <div layout="row" layout-align="center">
+            <div flex="25" flex-sm="0" flex-md="20"></div>
+            <div flex="50" flex-sm="100" flex-md="60">
+              <md-card>
+                <md-card-content>
+                  <div layout="row">
+                    <div flex="10"></div>
+                    <div flex="80">
+                      <h1 class="md-display-1">Edit Video</h1>
+                      <md-input-container class="md-block"></md-input-container>
+                      <form name="projectform" ng-submit="submit(project)">
+                        <md-input-container class="md-block md-title">
+                          <label>Name</label>
+                          <input required type="text" name="projectName" ng-model="project.name">
+                        </md-input-container>
+                        <md-input-container class="md-block md-title">
+                          <label>Description</label>
+                          <input type="text" name="projectDescription" ng-model="project.description">
+                        </md-input-container>
+                        <md-switch ng-model="project.isPrivate" aria-label="Private"><span>Is Private: {{ project.isPrivate }}</span></md-switch>
+                        <md-switch ng-model="project.isHidden" aria-label="Private"><span>Is Hidden: {{ project.isHidden }}</span></md-switch>
+                        <md-card-actions layout="row" layout-align="end center">
+                          <md-button ng-href="#" ui-sref="my-videos">Cancel</md-button>
+                          <md-button type="submit" ng-disabled="projectform.$invalid || loading" class="md-raised md-accent"><i ng-show="loading" class="fa fa-circle-o-notch fa-spin faster"> </i><span> Submit</span></md-button>
+                        </md-card-actions>
+                      </form>
+                      <div flex="10"></div>
+                    </div>
+                  </div>
+                </md-card-content>
+              </md-card>
+            </div>
+            <div flex="25" flex-sm="0" flex-md="20"></div>
+          </div>
         </script>
       </div>
       <footer class="page-footer">
