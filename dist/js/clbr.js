@@ -942,7 +942,7 @@
 
         // passing tokens to allow editor play private projects
         if (user.accessToken && user.refreshToken) {
-          $scope.url += '?access_token=' + user.accessToken + '&refresh_token=' + user.refreshToken;
+          $scope.url = $scope.url.replace('#', '?access_token=' + user.accessToken + '&refresh_token=' + user.refreshToken + '#');
         }
 
         $mdDialog.show({
