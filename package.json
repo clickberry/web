@@ -1,6 +1,6 @@
 {
   "name": "clickberry-web-services",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Web UI for clickberry web services",
   "main": "Gruntfile.js",
   "scripts": {
