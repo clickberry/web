@@ -117,9 +117,12 @@ buttons-width = 56px
                             color: tile-header-color
 
                 .sub-info
-                    margin: 0 11px 11px 11px
+                    margin: 0 buttons-width 11px 11px
                     color: tile-sub-info-color
                     font-size: 12px
+                    white-space: nowrap
+                    overflow: hidden
+                    text-overflow: ellipsis
                     
                 &.with-author
                     h3, .sub-info
