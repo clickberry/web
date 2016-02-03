@@ -907,7 +907,8 @@
     var module = angular.module('my-videos.video', [
       'ui.router',
       'settings',
-      'projects-api'
+      'projects-api',
+      'user'
     ]);
 
     // Routes
@@ -930,14 +931,19 @@
 
     // Controllers
     module.controller('MyVideoCtrl', [
-      '$rootScope', '$scope', '$state', '$stateParams', '$mdDialog', 'urls', 'projectsApi',
-      function ($rootScope, $scope, $state, $stateParams, $mdDialog, urls, projectsApi) {
+      '$rootScope', '$scope', '$state', '$stateParams', '$mdDialog', 'urls', 'projectsApi', 'user', '$sce',
+      function ($rootScope, $scope, $state, $stateParams, $mdDialog, urls, projectsApi, user, $sce) {
         var id = $stateParams.id;
         if (!id) {
           return $state.go('home');
         }
 
         $scope.url = urls.player + id;
+
+        // passing tokens to allow editor play private projects
+        if (user.accessToken && user.refreshToken) {
+          $scope.url += '?access_token=' + user.accessToken + '&refresh_token=' + user.refreshToken;
+        }
 
         $mdDialog.show({
           clickOutsideToClose: true,
