@@ -15,7 +15,8 @@
       'exceptions',
       'video',
       'my-videos',
-      'user-page'
+      'user-page',
+      'terms'
     ]);
 
     // Config
