@@ -477,6 +477,27 @@
 (function (window, angular) {
     "use strict";
 
+    var module = angular.module('about', [
+      'ui.router'
+    ]);
+
+    // Routes
+    module.config([
+      '$stateProvider', function ($stateProvider) {
+        $stateProvider
+          .state('about', {
+            url: '/about',
+            templateUrl: 'about.html',
+            data: {
+              pageTitle: 'About Clickberry'
+            }
+          });
+        }
+    ]);
+})(window, window.angular);
+(function (window, angular) {
+    "use strict";
+
     var module = angular.module('account-settings', [
       'ui.router',
       'user'
@@ -1828,7 +1849,8 @@
       'video',
       'my-videos',
       'user-page',
-      'terms'
+      'terms',
+      'about'
     ]);
 
     // Config
