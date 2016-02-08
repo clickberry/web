@@ -17,7 +17,8 @@
       'my-videos',
       'user-page',
       'terms',
-      'about'
+      'about',
+      'contacts'
     ]);
 
     // Config

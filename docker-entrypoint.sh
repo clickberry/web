@@ -20,6 +20,11 @@ if [ -z "$IMAGES_API" ]; then
     exit 1
 fi
 
+if [ -z "$FEEDBACK_API" ]; then
+    echo "FEEDBACK_API environment variable required"
+    exit 1
+fi
+
 if [ -z "$PLAYER" ]; then
     echo "PLAYER environment variable required"
     exit 1
@@ -40,6 +45,7 @@ sed -i "s|%AUTH_API%|${AUTH_API}|g" /usr/share/nginx/html/js/clbr.js
 sed -i "s|%PROFILES_API%|${PROFILES_API}|g" /usr/share/nginx/html/js/clbr.js
 sed -i "s|%PROJECTS_API%|${PROJECTS_API}|g" /usr/share/nginx/html/js/clbr.js
 sed -i "s|%IMAGES_API%|${IMAGES_API}|g" /usr/share/nginx/html/js/clbr.js
+sed -i "s|%FEEDBACK_API%|${FEEDBACK_API}|g" /usr/share/nginx/html/js/clbr.js
 sed -i "s|%PLAYER%|${PLAYER}|g" /usr/share/nginx/html/js/clbr.js
 sed -i "s|%EDITOR%|${EDITOR}|g" /usr/share/nginx/html/js/clbr.js
 sed -i "s|%SHARE_URL%|${SHARE_URL}|g" /usr/share/nginx/html/js/clbr.js

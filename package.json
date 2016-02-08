@@ -1,6 +1,6 @@
 {
   "name": "clickberry-web-services",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Web UI for clickberry web services",
   "main": "Gruntfile.js",
   "scripts": {
@@ -45,7 +45,8 @@
     "moment": "^2.10.6",
     "ng-infinite-scroll": "^1.2.0",
     "profiles-api-js": "git+https://github.com/clickberry/profiles-api-js.git",
-    "projects-api-js": "git+https://github.com/clickberry/projects-api-js.git"
+    "projects-api-js": "git+https://github.com/clickberry/projects-api-js.git",
+    "feedback-api-js": "git+https://github.com/clickberry/feedback-api-js.git"
   },
   "dependencies": {}
 }

@@ -24,6 +24,7 @@ AUTH_API | http://auth.yourdomain.com | HTTP url for deployed Auth API.
 PROFILES_API | http://profiles.yourdomain.com | HTTP url for deployed Profiles API.
 PROJECTS_API | http://projects.yourdomain.com | HTTP url for deployed Projects API.
 IMAGES_API | http://images.yourdomain.com | HTTP url for deployed Images API.
+FEEDBACK_API | http://feedback.yourdomain.com | HTTP url for deployed Feedback API.
 PLAYER | http://editor.yourdomain.com/#/iplayer/ | HTTP url for Clickberry Online Editor Player.
 EDITOR | http://editor.yourdomain.com/ | HTTP url for Clickberry Online Editor.
 

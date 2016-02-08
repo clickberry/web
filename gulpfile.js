@@ -169,6 +169,7 @@ gulp.task('js', function () {
       'node_modules/profiles-api-js/index.js',
       'node_modules/projects-api-js/index.js',
       'node_modules/images-api-js/index.js',
+      'node_modules/feedback-api-js/index.js',
       'src/js/modules/*.js',
       'src/js/*.js',
     ])

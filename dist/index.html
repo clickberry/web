@@ -557,6 +557,44 @@
           </div>
           <div ui-view="video"></div>
         </script>
+        <script type="text/ng-template" id="contacts.html">
+          <div layout="row" layout-align="center">
+            <div flex="25" flex-sm="0" flex-md="20"></div>
+            <div flex="50" flex-sm="100" flex-md="60">
+              <form name="feedbackform" ng-submit="submit(feedback)">
+                <md-card>
+                  <md-card-content>
+                    <div layout="row">
+                      <div flex="10"></div>
+                      <div flex="80">
+                        <h1 class="md-display-1">Clickberry Feedback</h1>
+                        <md-input-container class="md-block"></md-input-container>
+                        <md-input-container class="md-block md-title">
+                          <label>Email</label>
+                          <input required type="email" name="feedbackEmail" ng-model="feedback.email" minlength="6" maxlength="100" ng-pattern="/^.+@.+..+$/">
+                        </md-input-container>
+                        <md-input-container class="md-block md-title">
+                          <label>Name</label>
+                          <input type="text" name="feedbackName" ng-model="feedback.name">
+                        </md-input-container>
+                        <md-input-container class="md-block md-title">
+                          <label>Comment</label>
+                          <textarea required name="feedbackComment" ng-model="feedback.comment" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                        </md-input-container>
+                        <md-card-actions layout="row" layout-align="end center">
+                          <md-button ng-href="#" ui-sref="home">Cancel</md-button>
+                          <md-button type="submit" ng-disabled="feedbackform.$invalid || loading" class="md-raised md-accent"><i ng-show="loading" class="fa fa-circle-o-notch fa-spin faster"> </i><span> Submit</span></md-button>
+                        </md-card-actions>
+                      </div>
+                      <div flex="10"></div>
+                    </div>
+                  </md-card-content>
+                </md-card>
+              </form>
+            </div>
+            <div flex="25" flex-sm="0" flex-md="20"></div>
+          </div>
+        </script>
       </div>
       <footer class="page-footer">
         <section>
@@ -571,6 +609,7 @@
               <ul class="bottom-menu">
                 <li> <a href="#" ui-sref="about">About Clickberry</a></li>
                 <li> <a href="#" ui-sref="terms">Terms of Use</a></li>
+                <li> <a href="#" ui-sref="contacts">Contacts</a></li>
               </ul>
             </div>
             <div flex-gt-md="15" flex="100" layout-padding>

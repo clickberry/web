@@ -457,11 +457,39 @@
           });
       },
       // Deletes image by id
-      update: function (id, access_token, fn) {
+      delete: function (id, access_token, fn) {
         $.ajax({
             url: url + '/' + id,
             type: 'DELETE',
             headers: {'Authorization': 'JWT ' + access_token}
+          })
+          .done(function() {
+            fn();
+          })
+          .fail(function(jqXHR, textStatus, err) {
+            fn(err);
+          });
+      }
+    };
+  };
+
+})(window, window.jQuery);
+(function(window, $) {
+  
+  if (!$) {
+    return console.error('jQuery required.');
+  }
+
+  var clbr = window.clbr = window.clbr || {};
+
+  clbr.feedbackApi = function (url) {
+    return {
+      // Sends feedback
+      post: function (email, name, comment, fn) {
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: {email: email, name: name, comment: comment}
           })
           .done(function() {
             fn();
@@ -567,6 +595,62 @@
         'profileUpdate': 'profileUpdate'
       });
     
+})(window, window.angular);
+(function (window, angular) {
+    "use strict";
+
+    var module = angular.module('contacts', [
+      'ui.router',
+      'feedback-api'
+    ]);
+
+    // Routes
+    module.config([
+      '$stateProvider', function ($stateProvider) {
+        $stateProvider
+          .state('contacts', {
+            url: '/contacts',
+            templateUrl: 'contacts.html',
+            controller: 'ContactsCtrl',
+            data: {
+              pageTitle: 'Clickberry Contacts'
+            }
+          });
+        }
+    ]);
+
+    // Controllers
+    module.controller('ContactsCtrl', [
+      '$scope', '$state', 'feedbackApi', '$mdDialog',
+      function ($scope, $state, feedbackApi, $mdDialog) {
+
+        $scope.feedback = {};
+        $scope.loading = false;
+
+        $scope.submit = function (params) {
+          $scope.loading = true;
+          feedbackApi.post(params.email, params.name, params.comment, function (err) {
+            $scope.loading = false;
+            if (err) {
+              console.log(err.message);
+              return $mdDialog.show($mdDialog.alert()
+                .clickOutsideToClose(true)
+                .title('Server error')
+                .content('An error occured while trying to send your feedback. Try again later.')
+                .ok('Got it!'));
+            }
+
+            $mdDialog.show($mdDialog.alert()
+              .clickOutsideToClose(true)
+              .title('Thank you for your feedback')
+              .content('Your feedback has been sent to administrator. Thank you.')
+              .ok('Got it!'));
+
+            $state.go('home');
+          });
+        };
+      }
+    ]);
 })(window, window.angular);
 (function(window, angular) {
     "use strict";
@@ -681,6 +765,18 @@
     ]);
     
 })(window, window.angular);
+(function(window, angular, clbr) {
+  "use strict";
+
+  var module = angular.module('feedback-api', ['settings']);
+
+  module.factory('feedbackApi', [
+    'urls', function (urls) {
+      return clbr.feedbackApi(urls.feedbackApi);
+    }
+  ]);  
+    
+})(window, window.angular, window.clbr);
 (function(window, angular, moment) {
     "use strict";
     
@@ -1215,6 +1311,7 @@
         profilesApi: '%PROFILES_API%',
         projectsApi: '%PROJECTS_API%',
         imagesApi: '%IMAGES_API%',
+        feedbackApi: '%FEEDBACK_API%',
         player: '%PLAYER%',
         editor: '%EDITOR%',
         share: '%SHARE_URL%'
@@ -1850,7 +1947,8 @@
       'my-videos',
       'user-page',
       'terms',
-      'about'
+      'about',
+      'contacts'
     ]);
 
     // Config
