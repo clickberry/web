@@ -575,11 +575,11 @@
                         </md-input-container>
                         <md-input-container class="md-block md-title">
                           <label>Name</label>
-                          <input type="text" name="feedbackName" ng-model="feedback.name">
+                          <input type="text" name="feedbackName" ng-model="feedback.name" maxlength="50">
                         </md-input-container>
                         <md-input-container class="md-block md-title">
                           <label>Comment</label>
-                          <textarea required name="feedbackComment" ng-model="feedback.comment" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                          <textarea required name="feedbackComment" ng-model="feedback.comment" md-maxlength="1000" rows="10" md-select-on-focus></textarea>
                         </md-input-container>
                         <md-card-actions layout="row" layout-align="end center">
                           <md-button ng-href="#" ui-sref="home">Cancel</md-button>
