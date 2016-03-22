@@ -29,16 +29,16 @@
                         <md-button aria-label="More" class="md-icon-button soc-share"><i class="fa fa-share-alt"></i></md-button>
                       </md-fab-trigger>
                       <md-fab-actions>
-                        <md-button href="#" aria-label="Twitter" share share-url="{{project.shareUrl}}" share-title="{{project.name}}" share-description="{{project.description}}" share-image="{{project.imageUri}}" share-type="twitter" class="md-fab md-raised md-mini">
+                        <md-button href="#" aria-label="Twitter" share share-url="{{project.shareUrl}}" share-title="{{profilesCache[project.userId].name}} posted {{project.name}}" share-description="{{project.description}}" share-image="{{project.imageUri}}" share-type="twitter" class="md-fab md-raised md-mini">
                           <md-icon aria-label="Twitter" class="fa fa-twitter-square"></md-icon>
                         </md-button>
-                        <md-button href="#" aria-label="Facebook" share share-url="{{project.shareUrl}}" share-title="{{project.name}}" share-description="{{project.description}}" share-image="{{project.imageUri}}" share-type="facebook" class="md-fab md-raised md-mini">
+                        <md-button href="#" aria-label="Facebook" share share-url="{{project.shareUrl}}" share-title="{{profilesCache[project.userId].name}} posted {{project.name}}" share-description="{{project.description}}" share-image="{{project.imageUri}}" share-type="facebook" class="md-fab md-raised md-mini">
                           <md-icon aria-label="Facebook" class="fa fa-facebook-square"></md-icon>
                         </md-button>
-                        <md-button href="#" aria-label="Google" share share-url="{{project.shareUrl}}" share-title="{{project.name}}" share-description="{{project.description}}" share-image="{{project.imageUri}}" share-type="google" class="md-fab md-raised md-mini">
+                        <md-button href="#" aria-label="Google" share share-url="{{project.shareUrl}}" share-title="{{profilesCache[project.userId].name}} posted {{project.name}}" share-description="{{project.description}}" share-image="{{project.imageUri}}" share-type="google" class="md-fab md-raised md-mini">
                           <md-icon aria-label="Pinterest" class="fa fa-google-plus-square"></md-icon>
                         </md-button>
-                        <md-button href="#" aria-label="Vk" share share-url="{{project.shareUrl}}" share-title="{{project.name}}" share-description="{{project.description}}" share-image="{{project.imageUri}}" share-type="vk" class="md-fab md-raised md-mini">
+                        <md-button href="#" aria-label="Vk" share share-url="{{project.shareUrl}}" share-title="{{profilesCache[project.userId].name}} posted {{project.name}}" share-description="{{project.description}}" share-image="{{project.imageUri}}" share-type="vk" class="md-fab md-raised md-mini">
                           <md-icon aria-label="Vk" class="fa fa-vk"></md-icon>
                         </md-button>
                       </md-fab-actions>
@@ -314,16 +314,16 @@
                         <md-button aria-label="More" class="md-icon-button soc-share"><i class="fa fa-share-alt"></i></md-button>
                       </md-fab-trigger>
                       <md-fab-actions>
-                        <md-button href="#" aria-label="Twitter" share share-url="{{project.shareUrl}}" share-title="{{project.name}}" share-description="{{project.description}}" share-image="{{project.imageUri}}" share-type="twitter" class="md-fab md-raised md-mini">
+                        <md-button href="#" aria-label="Twitter" share share-url="{{project.shareUrl}}" share-title="{{profile.name}} posted {{project.name}}" share-description="{{project.description}}" share-image="{{project.imageUri}}" share-type="twitter" class="md-fab md-raised md-mini">
                           <md-icon aria-label="Twitter" class="fa fa-twitter-square"></md-icon>
                         </md-button>
-                        <md-button href="#" aria-label="Facebook" share share-url="{{project.shareUrl}}" share-title="{{project.name}}" share-description="{{project.description}}" share-image="{{project.imageUri}}" share-type="facebook" class="md-fab md-raised md-mini">
+                        <md-button href="#" aria-label="Facebook" share share-url="{{project.shareUrl}}" share-title="{{profile.name}} posted {{project.name}}" share-description="{{project.description}}" share-image="{{project.imageUri}}" share-type="facebook" class="md-fab md-raised md-mini">
                           <md-icon aria-label="Facebook" class="fa fa-facebook-square"></md-icon>
                         </md-button>
-                        <md-button href="#" aria-label="Google" share share-url="{{project.shareUrl}}" share-title="{{project.name}}" share-description="{{project.description}}" share-image="{{project.imageUri}}" share-type="google" class="md-fab md-raised md-mini">
+                        <md-button href="#" aria-label="Google" share share-url="{{project.shareUrl}}" share-title="{{profile.name}} posted {{project.name}}" share-description="{{project.description}}" share-image="{{project.imageUri}}" share-type="google" class="md-fab md-raised md-mini">
                           <md-icon aria-label="Pinterest" class="fa fa-google-plus-square"></md-icon>
                         </md-button>
-                        <md-button href="#" aria-label="Vk" share share-url="{{project.shareUrl}}" share-title="{{project.name}}" share-description="{{project.description}}" share-image="{{project.imageUri}}" share-type="vk" class="md-fab md-raised md-mini">
+                        <md-button href="#" aria-label="Vk" share share-url="{{project.shareUrl}}" share-title="{{profile.name}} posted {{project.name}}" share-description="{{project.description}}" share-image="{{project.imageUri}}" share-type="vk" class="md-fab md-raised md-mini">
                           <md-icon aria-label="Vk" class="fa fa-vk"></md-icon>
                         </md-button>
                       </md-fab-actions>
