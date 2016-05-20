@@ -5,7 +5,7 @@
 
     module.factory('user', [
       '$rootScope', '$interval', '$location', '$window', '$cookies', 'authApi', 'profilesApi', 'events',
-        function ($rootScope, $interval, $location, $window, $cookies, authApi, profilesApi, events) {          
+        function ($rootScope, $interval, $location, $window, $cookies, authApi, profilesApi, events) {
           var cookieKey = 'tokens';
           var intervalId;
           var user = {};
@@ -71,13 +71,34 @@
             var params = $location.search();
             if (params.access_token && params.refresh_token){
               var tokens = {
-                accessToken: params.access_token, 
+                accessToken: params.access_token,
                 refreshToken: params.refresh_token
               };
-              $location.search('access_token', null);
-              $location.search('refresh_token', null);
+
+              clearUrlParams();
               return tokens;
             }
+          }
+
+          function createTokens(fn){
+            var params = $location.search();
+            var exchangeToken = params.exchange_token;
+            clearUrlParams();
+
+            if(exchangeToken){
+              authApi.createTokens(exchangeToken, function (err, data) {
+                if (err) { throw err; }
+                fn(data);
+              });
+            }else{
+              fn(null);
+            }
+          }
+
+          function clearUrlParams(){
+              $location.search('access_token', null);
+              $location.search('refresh_token', null);
+              $location.search('exchange_token', null);
           }
 
           // set social callback
@@ -121,7 +142,7 @@
                 }
                 emitLoginEvent({id: user.id, email: user.email, name: user.profile.name});
               });
-              
+
             });
 
             // save tokens
@@ -153,6 +174,18 @@
             });
           }
 
+          function getExchange(fn){
+            if (user.refreshToken) {
+              authApi.exchange(user.refreshToken, function(err, result){
+                if (err) { throw err; }
+
+                fn(result.exchangeToken);
+              });
+            }else{
+                fn(null);
+            }
+          }
+
           // module init
           (function moduleInit() {
             setRedirectUrl();
@@ -160,21 +193,32 @@
             // get tokens from redirect url
             var tokens = getTokensFromSocialRedirect();
             if (tokens) {
+              clearUrlParams();
               return init(tokens.accessToken, tokens.refreshToken);
             }
-            
+
             // get tokens from cookies
             tokens = restoreTokens();
             if (tokens) {
-              refreshTokens(tokens.refreshToken, function (newTokens) {
+              clearUrlParams();
+              return refreshTokens(tokens.refreshToken, function (newTokens) {
                 init(newTokens.accessToken, newTokens.refreshToken);
               });
             }
+
+            // create tokens from exchange_token
+            createTokens(function(newTokens){
+              clearUrlParams();
+              if(newTokens) {
+                init(newTokens.accessToken, newTokens.refreshToken);
+              }
+            });
           })();
 
           user.init = init;
           user.destroy = destroy;
           user.deletePermanently = deletePermanently;
+          user.getExchange = getExchange;
 
           return user;
         }

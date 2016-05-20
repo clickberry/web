@@ -194,6 +194,36 @@
           .fail(function(jqXHR, textStatus, err) {
             fn(err);
           });
+      },
+
+      // Get exchange token
+      exchange: function (refreshToken, fn) {
+        $.ajax({
+          url: url + '/exchange',
+          type: 'POST',
+          headers: {'Authorization': 'JWT ' + refreshToken}
+        })
+            .done(function(result) {
+              fn(null, result);
+            })
+            .fail(function(jqXHR, textStatus, err) {
+              fn(err);
+            });
+      },
+
+      // Get new refresh & access tokens
+      createTokens: function (exchangeToken, fn) {
+        $.ajax({
+          url: url + '/exchange',
+          type: 'GET',
+          headers: {'Authorization': 'JWT ' + exchangeToken}
+        })
+            .done(function(result) {
+              fn(null, result);
+            })
+            .fail(function(jqXHR, textStatus, err) {
+              fn(err);
+            });
       }
     };
   };
@@ -967,7 +997,7 @@
     var module = angular.module('menu', ['user', 'constants', 'settings']);
 
     module.directive('cbMenu', [
-        '$window','$state', 'events', 'user', 'urls', function ($window, $state, events, user, urls) {
+        '$window','$state', 'events', 'user', 'urls', 'authApi', function ($window, $state, events, user, urls, authApi) {
           return {
             restrict: 'EA',
             replace: true,
@@ -997,7 +1027,7 @@
                 if ($scope.user) {
                   $scope.user.name = data.name;
                 }
-                
+
                 $scope.$digest();
               });
 
@@ -1007,10 +1037,13 @@
 
               $scope.goToEditor = function () {
                 var editorUrl = urls.editor;
-                if (user.accessToken && user.refreshToken) {
-                  editorUrl += '?access_token=' + user.accessToken +'&refresh_token=' + user.refreshToken;
-                }
-                $window.location.href = editorUrl;
+                user.getExchange(function(exchangeToken){
+                    if(exchangeToken){
+                        editorUrl += '?exchange_token=' + exchangeToken + '&access_token=' + user.accessToken +'&refresh_token=' + user.refreshToken;
+                    }
+
+                    $window.location.href = editorUrl;
+                });
               };
             }
           };
@@ -1699,7 +1732,7 @@
 
     module.factory('user', [
       '$rootScope', '$interval', '$location', '$window', '$cookies', 'authApi', 'profilesApi', 'events',
-        function ($rootScope, $interval, $location, $window, $cookies, authApi, profilesApi, events) {          
+        function ($rootScope, $interval, $location, $window, $cookies, authApi, profilesApi, events) {
           var cookieKey = 'tokens';
           var intervalId;
           var user = {};
@@ -1765,13 +1798,34 @@
             var params = $location.search();
             if (params.access_token && params.refresh_token){
               var tokens = {
-                accessToken: params.access_token, 
+                accessToken: params.access_token,
                 refreshToken: params.refresh_token
               };
-              $location.search('access_token', null);
-              $location.search('refresh_token', null);
+
+              clearUrlParams();
               return tokens;
             }
+          }
+
+          function createTokens(fn){
+            var params = $location.search();
+            var exchangeToken = params.exchange_token;
+            clearUrlParams();
+
+            if(exchangeToken){
+              authApi.createTokens(exchangeToken, function (err, data) {
+                if (err) { throw err; }
+                fn(data);
+              });
+            }else{
+              fn(null);
+            }
+          }
+
+          function clearUrlParams(){
+              $location.search('access_token', null);
+              $location.search('refresh_token', null);
+              $location.search('exchange_token', null);
           }
 
           // set social callback
@@ -1815,7 +1869,7 @@
                 }
                 emitLoginEvent({id: user.id, email: user.email, name: user.profile.name});
               });
-              
+
             });
 
             // save tokens
@@ -1847,6 +1901,18 @@
             });
           }
 
+          function getExchange(fn){
+            if (user.refreshToken) {
+              authApi.exchange(user.refreshToken, function(err, result){
+                if (err) { throw err; }
+
+                fn(result.exchangeToken);
+              });
+            }else{
+                fn(null);
+            }
+          }
+
           // module init
           (function moduleInit() {
             setRedirectUrl();
@@ -1854,21 +1920,32 @@
             // get tokens from redirect url
             var tokens = getTokensFromSocialRedirect();
             if (tokens) {
+              clearUrlParams();
               return init(tokens.accessToken, tokens.refreshToken);
             }
-            
+
             // get tokens from cookies
             tokens = restoreTokens();
             if (tokens) {
-              refreshTokens(tokens.refreshToken, function (newTokens) {
+              clearUrlParams();
+              return refreshTokens(tokens.refreshToken, function (newTokens) {
                 init(newTokens.accessToken, newTokens.refreshToken);
               });
             }
+
+            // create tokens from exchange_token
+            createTokens(function(newTokens){
+              clearUrlParams();
+              if(newTokens) {
+                init(newTokens.accessToken, newTokens.refreshToken);
+              }
+            });
           })();
 
           user.init = init;
           user.destroy = destroy;
           user.deletePermanently = deletePermanently;
+          user.getExchange = getExchange;
 
           return user;
         }
